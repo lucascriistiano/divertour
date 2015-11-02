@@ -7,13 +7,13 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <h:outputStylesheet library="css" name="style.css"  />
-        <title>Início - DiverTour</title>
+        <title>Sobre - DiverTour</title>
     </h:head>
     <h:body>
         <b:navBar brand="DiverTour" brandHref="index.xhtml" inverse="false" static="true">
  			<b:navbarLinks>
-     			<b:navLink value="Início" href="index.xhtml" active="true"></b:navLink>
-     			<b:navLink value="Sobre" href="sobre.xhtml"></b:navLink>
+     			<b:navLink value="Início" href="index.xhtml"></b:navLink>
+     			<b:navLink value="Sobre" href="sobre.xhtml" active="true"></b:navLink>
      			<b:navLink value="Guia" href="guia.xhtml"></b:navLink>
      			<b:navLink value="Cadastro" href="cadastro.xhtml"></b:navLink>
  			</b:navbarLinks>
@@ -24,21 +24,7 @@
 		</b:navBar>
 		
         <b:container styleClass="background">
-            <b:row>
-            	<b:column span="3">
-            		<b:row><h2>Busca</h2></b:row>
-            	</b:column>
-            	
-            	<b:column span="5">
-            		<b:row><h2>Em Alta</h2></b:row>
-            		<b:row><h2>Novidades</h2></b:row>
-            	</b:column>
-            	
-            	<b:column span="4">
-            		<b:row><h2>Roteiros</h2></b:row>
-            		<b:row><h2>Dicas</h2></b:row>
-            	</b:column>
-            </b:row>
+        
         </b:container>
         
         <b:navBar fixed="bottom" inverse="false" static="true">
