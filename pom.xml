@@ -17,6 +17,8 @@
 		<primefaces.version>5.3</primefaces.version>
 		<bootsfaces.version>0.6.6</bootsfaces.version>
 		<spring.data.mongodb.version>1.8.0.RELEASE</spring.data.mongodb.version>
+		<rewrite.servlet.version>2.0.12.Final</rewrite.servlet.version>
+		<rewrite.config.prettyfaces.version>2.0.12.Final</rewrite.config.prettyfaces.version>
 	</properties>
 
 	<!-- DEPENDENCIES -->
@@ -69,6 +71,18 @@
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>${spring.data.mongodb.version}</version>
 		</dependency>
+
+		<!-- PRETTYFACES -->
+		<dependency>
+			<groupId>org.ocpsoft.rewrite</groupId>
+			<artifactId>rewrite-servlet</artifactId>
+			<version>${rewrite.servlet.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ocpsoft.rewrite</groupId>
+			<artifactId>rewrite-config-prettyfaces</artifactId>
+			<version>${rewrite.config.prettyfaces.version}</version>
+		</dependency>
 	</dependencies>
 
 	<!-- BUILD CONFIGURATION -->
@@ -83,30 +97,30 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
-        		<groupId>com.github.warmuuh</groupId>
-         		<artifactId>libsass-maven-plugin</artifactId>
-         		<version>0.1.6-libsass_3.2.4</version>
-         		<executions>
-            		<execution>
-               			<phase>generate-resources</phase>
-               			<goals>
-                  			<goal>compile</goal>
-               			</goals>
-            		</execution>
-         		</executions>
-         		<configuration>
-            		<imgPath>${basedir}/src/main/webapp/resources/img/</imgPath>
-            		<inputPath>${basedir}/src/main/webapp/resources/sass/</inputPath>
-            		<outputPath>${basedir}/src/main/webapp/resources/css/</outputPath>
-            		<includePath>${basedir}/src/main/webapp/resources/sass/plugins/</includePath>
-            		<outputStyle>compressed</outputStyle>
-         		</configuration>
-      		</plugin>
-			
-			
-			
+				<groupId>com.github.warmuuh</groupId>
+				<artifactId>libsass-maven-plugin</artifactId>
+				<version>0.1.6-libsass_3.2.4</version>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<imgPath>${basedir}/src/main/webapp/resources/img/</imgPath>
+					<inputPath>${basedir}/src/main/webapp/resources/sass/</inputPath>
+					<outputPath>${basedir}/src/main/webapp/resources/css/</outputPath>
+					<includePath>${basedir}/src/main/webapp/resources/sass/plugins/</includePath>
+					<outputStyle>compressed</outputStyle>
+				</configuration>
+			</plugin>
+
+
+
 		</plugins>
 	</build>
 
