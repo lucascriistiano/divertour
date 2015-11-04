@@ -83,6 +83,30 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+        		<groupId>com.github.warmuuh</groupId>
+         		<artifactId>libsass-maven-plugin</artifactId>
+         		<version>0.1.6-libsass_3.2.4</version>
+         		<executions>
+            		<execution>
+               			<phase>generate-resources</phase>
+               			<goals>
+                  			<goal>compile</goal>
+               			</goals>
+            		</execution>
+         		</executions>
+         		<configuration>
+            		<imgPath>${basedir}/src/main/webapp/resources/img/</imgPath>
+            		<inputPath>${basedir}/src/main/webapp/resources/sass/</inputPath>
+            		<outputPath>${basedir}/src/main/webapp/resources/css/</outputPath>
+            		<includePath>${basedir}/src/main/webapp/resources/sass/plugins/</includePath>
+            		<outputStyle>compressed</outputStyle>
+         		</configuration>
+      		</plugin>
+			
+			
+			
 		</plugins>
 	</build>
 
