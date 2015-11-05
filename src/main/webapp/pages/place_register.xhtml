@@ -1,0 +1,53 @@
+<ui:composition template="/pages/include/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<ui:define name="title">
+		Login - Divertour
+	</ui:define>
+	
+	<ui:define name="content">
+		<b:container styleClass="background">
+        	<h:form>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputText value="Nome:"/>
+					<b:inputText value="#{placeRegisterMBean.place.name}" placeholder="Nome do lugar"></b:inputText>
+        			
+        			<h:outputText value="Descrição: "/>
+       				<b:inputText value="#{placeRegisterMBean.place.description}" placeholder="Descrição do local"></b:inputText>
+       				
+       				<h:outputText value="Latitude: "/>
+       				<b:inputText value="#{placeRegisterMBean.place.lat}" placeholder="Latitude do local"></b:inputText>
+       				
+       				<h:outputText value="Longitude: "/>
+       				<b:inputText value="#{placeRegisterMBean.place.lon}" placeholder="Longitude do local"></b:inputText>
+       				
+       				<h:outputText value="Tipo: "/>
+					<b:selectOneMenu value="#{placeRegisterMBean.place.type}">
+						<f:selectItems value="#{placeRegisterMBean.typesOfPlace}" var="type" itemValue="#{type}" itemLabel="#{type}" />
+					</b:selectOneMenu>
+					
+					<!-- <h:outputText value="Categoria: "/> -->
+					<!-- <ui:repeat value="#{placeRegisterMBean.categoriesOfPlace}" var="category" varStatus="status"> -->
+						<!-- <b:selectBooleanCheckbox value="#{placeRegisterMBean.place.categories[status.index]}" caption="#{category}"/> -->		
+					<!-- </ui:repeat> -->
+       				
+       				<h:outputText value="Website: "/>
+       				<b:inputText value="#{placeRegisterMBean.place.website}" placeholder="Website do local"></b:inputText>
+       				
+       				<h:outputText value="Contato(s): "/>
+       				<b:inputText value="#{placeRegisterMBean.place.contacts}" placeholder="Contatos do local"></b:inputText>
+       				
+       				<h:outputText value="Imagens: "/>
+       				<b:inputText value="#{placeRegisterMBean.place.images}" placeholder="Imagens do local"></b:inputText>
+       				
+       				<b:commandButton value="Registrar" action="#{placeRegisterMBean.register}" look="primary"/>
+       			</h:panelGrid>
+			</h:form>
+        </b:container>
+	</ui:define>
+
+</ui:composition>

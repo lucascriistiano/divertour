@@ -9,10 +9,9 @@ public class Place {
 	private float lat;
 	private float lon;
 	private float rating;
-	private String category;
+	private String type;
+	private List<String> categories;
 	private List<String> images;
-
-	// Contact info
 	private List<String> contacts;
 	private String website;
 
@@ -56,12 +55,20 @@ public class Place {
 		this.rating = rating;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public List<String> getCategories() {
+		return categories;
+	}
+
+	public void setCategory(List<String> categories) {
+		this.categories = categories;
 	}
 
 	public List<String> getImages() {
