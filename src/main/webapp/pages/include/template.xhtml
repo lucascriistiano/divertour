@@ -7,8 +7,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <h:outputStylesheet library="css" name="style.css"  />
-        <link href='https://fonts.googleapis.com/css?family=Roboto:500,400,300,700' rel='stylesheet' type='text/css' />
+		<h:outputStylesheet library="common" name="fonts/roboto/roboto.css"/>        
+        <h:outputStylesheet library="common" name="css/style.css"  />
+        <!-- 	<link href='https://fonts.googleapis.com/css?family=Roboto:500,400,300,700' rel='stylesheet' type='text/css' /> -->
         <title><ui:insert name="title">Divertour</ui:insert> </title>
     </h:head>
     <h:body>
@@ -16,8 +17,8 @@
 	<header id="topo">
 		<b:container>
 			<h:panelGroup layout="block" id="logo">
-				<h:graphicImage styleClass="hidden-xs visible-sm visible-md visible-lg" library="img" name="logo-lg.png" />
-				<h:graphicImage styleClass="visible-xs hidden-sm hidden-md hidden-lg" library="img" name="logo-md.png" />
+				<h:graphicImage styleClass="hidden-xs visible-sm visible-md visible-lg" library="common" name="img/logo-lg.png" />
+				<h:graphicImage styleClass="visible-xs hidden-sm hidden-md hidden-lg" library="common" name="img/logo-md.png" />
 			</h:panelGroup>
 			
 			<h:panelGroup layout="block" id="nav-primary" styleClass="visible-md visible-lg">

@@ -117,10 +117,10 @@
 					</execution>
 				</executions>
 				<configuration>
-					<imgPath>${basedir}/src/main/webapp/resources/img/</imgPath>
-					<inputPath>${basedir}/src/main/webapp/resources/sass/</inputPath>
-					<outputPath>${basedir}/src/main/webapp/resources/css/</outputPath>
-					<includePath>${basedir}/src/main/webapp/resources/sass/plugins/</includePath>
+					<imgPath>${basedir}/src/main/webapp/resources/common/img/</imgPath>
+					<inputPath>${basedir}/src/main/webapp/resources/common/sass/</inputPath>
+					<outputPath>${basedir}/src/main/webapp/resources/common/css/</outputPath>
+					<includePath>${basedir}/src/main/webapp/resources/common/sass/plugins/</includePath>
 					<outputStyle>compressed</outputStyle>
 				</configuration>
 			</plugin>

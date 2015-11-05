@@ -1,17 +1,8 @@
-$background-color: #e1e1e1;
 $primary-color: #D34A4A;
-$gray-color: #f1f1f1;
-
-$text-primary-color: #000000;
-$text-secundary-color: #D34A4A;
-
-
-$black: #000000;
-
-body{
-  font-family: 'Roboto', sans-serif;
-  background: $background-color;
-}
+$primary-font-family: 'roboto';
+$primary-text-color: #000000;
+$secundary-text-color:#D34A4A;
+$background-color: #e1e1e1;
 
 @mixin header{
 
@@ -38,15 +29,15 @@ body{
   div#nav-primary {
     position: relative;
     display: inline-block;
-    color: $text-primary-color;
+    color: $primary-text-color;
     //padding-left: 120px;
 
 
     div.link{
-      font-family: 'Roboto';
+      font-family: $primary-font-family;
       font-size: 1.6em;
       font-weight: 500;
-      color: $text-primary-color;
+      color: $primary-text-color;
       display: inline-block;
       padding: 0 1.4em 0 1.4em;
       margin: 23px 0px 23px 0px;
@@ -54,32 +45,37 @@ body{
     }
 
     a{
-      color: $text-primary-color!important;
+      color: $primary-text-color!important;
     }
   }
 
   div#hamburguer-menu {
     height: 100%;
-    margin: 15px 0px 15px 0px;
-    padding: 0 1.4em 0 1.4em;
     display: inline-block;
-    color: lighten($text-primary-color,25%);
+    color: lighten($primary-text-color,25%);
     float: right;
   }
 
+}
+
+body{	
+  font-family: $primary-font-family, sans-serif!important;
+  background: $background-color;
 }
 
 /*==========  Non-Mobile First Method  ==========*/
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) {
-  header{
-    @include header;
-    height: 80px;
-  }
-  div#nav-primary {
-    //width: 70%!important;
-  }
+  	header{
+    	@include header;
+    	height: 80px;
+    
+    	div#hamburguer-menu{
+        	margin: 15px 0px 15px 0px;
+    		padding: 0 1.4em 0 1.4em;
+    	} 
+  	}
 }
 
 /* Large Devices, Wide Screens */
@@ -98,10 +94,19 @@ body{
   header{
     @include header;
     height: 75px;
+    div#hamburguer-menu{
+  		margin-top: 8px;
+  	}
+  
+  div#logo{
+  	margin-top: -5px;
+  }    
+    
   }
-  div#nav-primary {
-    //width: 60%!important;
-  }
+  
+
+
+  
 }
 
 /* Small Devices, Tablets */
@@ -114,13 +119,14 @@ body{
       position: absolute;
       left: 50%;
       margin-left: -109px;
+
+	div#hamburguer-menu{
+		margin-top: 4px;
+	}
+      
     }
 
-    div#hamburguer-menu {
-      bottom: 0;
-      position: absolute;
-      right: 0;
-    }
+
   }
 }
 
