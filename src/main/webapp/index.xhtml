@@ -1,48 +1,32 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <h:outputStylesheet library="css" name="style.css"  />
-        <title>Início - DiverTour</title>
-    </h:head>
-    <h:body>
-        <b:navBar brand="DiverTour" brandHref="" inverse="false" static="true">
- 			<b:navbarLinks>
-     			<b:navLink value="Início" href="/" active="true"></b:navLink>
-     			<b:navLink value="Sobre" href="/sobre"></b:navLink>
-     			<b:navLink value="Guia" href="/guia"></b:navLink>
-     			<b:navLink value="Cadastro" href="/cadastro"></b:navLink>
- 			</b:navbarLinks>
- 			
- 			<b:navbarLinks pull="right">
-     			<b:navLink value="Login" href="/login"></b:navLink>
- 			</b:navbarLinks>
-		</b:navBar>
-		
-        <b:container styleClass="background">
-            <b:row>
-            	<b:column col-sm="3">
-            		<b:row><h2>Busca</h2></b:row>
-            	</b:column>
+<ui:composition template="/pages/include/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<ui:define name="title">
+		Início - Divertour
+	</ui:define>
+	
+	<ui:define name="content">
+		<b:container styleClass="background">
+			<b:row>
+				<b:column col-sm="3">
+					<b:row><h2>Busca</h2></b:row>
+				</b:column>
             	
-            	<b:column col-sm="5">
-            		<b:row><h2>Em Alta</h2></b:row>
-            		<b:row><h2>Novidades</h2></b:row>
-            	</b:column>
+				<b:column col-sm="5">
+					<b:row><h2>Em Alta</h2></b:row>
+					<b:row><h2>Novidades</h2></b:row>
+				</b:column>
             	
-            	<b:column col-sm="4">
-            		<b:row><h2>Roteiros</h2></b:row>
-            		<b:row><h2>Dicas</h2></b:row>
-            	</b:column>
+				<b:column col-sm="4">
+					<b:row><h2>Roteiros</h2></b:row>
+					<b:row><h2>Dicas</h2></b:row>
+				</b:column>
             </b:row>
         </b:container>
-        
-        <b:navBar fixed="bottom" inverse="false" static="true">
- 			
-		</b:navBar>
-    </h:body>
-</html>
+	</ui:define>
+
+</ui:composition>

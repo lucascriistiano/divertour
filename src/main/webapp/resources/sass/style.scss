@@ -1,6 +1,146 @@
-body {
+$background-color: #e1e1e1;
+$primary-color: #D34A4A;
+$gray-color: #f1f1f1;
 
-  background: #F7F7F7; 
+$text-primary-color: #000000;
+$text-secundary-color: #D34A4A;
 
+
+$black: #000000;
+
+body{
+  font-family: 'Roboto', sans-serif;
+  background: $background-color;
+}
+
+@mixin header{
+
+  position: relative;
+  width: 100%;
+  background: $gray-color;
+  border-bottom: 1px solid darken($gray-color,10%);
+
+  div.container{
+    position: relative;
+    height: 100%;
+  }
+
+  div#logo {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    width: auto;
+    height: 100%;
+    float:left;
+    margin-right: 50px;
+  }
+
+  div#nav-primary {
+    position: relative;
+    display: inline-block;
+    color: $text-primary-color;
+    //padding-left: 120px;
+
+
+    div.link{
+      font-family: 'Roboto';
+      font-size: 1.6em;
+      font-weight: 500;
+      color: $text-primary-color;
+      display: inline-block;
+      padding: 0 1.4em 0 1.4em;
+      margin: 23px 0px 23px 0px;
+      //padding: 30px 20px 27px;
+    }
+
+    a{
+      color: $text-primary-color!important;
+    }
+  }
+
+  div#hamburguer-menu {
+    height: 100%;
+    margin: 15px 0px 15px 0px;
+    padding: 0 1.4em 0 1.4em;
+    display: inline-block;
+    color: lighten($text-primary-color,25%);
+    float: right;
+  }
+
+}
+
+/*==========  Non-Mobile First Method  ==========*/
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+  header{
+    @include header;
+    height: 80px;
+  }
+  div#nav-primary {
+    //width: 70%!important;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+  header{
+    @include header;
+    height: 80px;
+  }
+  div#nav-primary {
+    //width: 65%!important;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+  header{
+    @include header;
+    height: 75px;
+  }
+  div#nav-primary {
+    //width: 60%!important;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+  header{
+    @include header;
+    height: 65px;
+    div#logo{
+      bottom: 0px;
+      position: absolute;
+      left: 50%;
+      margin-left: -109px;
+    }
+
+    div#hamburguer-menu {
+      bottom: 0;
+      position: absolute;
+      right: 0;
+    }
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+  header{
+    @include header;
+    height: 60px;
+    margin: 0 auto;
+    div#logo{
+      //left: 50%;
+    }
+  }
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+  header{
+    @include header;
+    height: 60px;
+  }
 }
 

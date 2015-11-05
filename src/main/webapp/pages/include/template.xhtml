@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="style.css"  />
+        <link href='https://fonts.googleapis.com/css?family=Roboto:500,400,300,700' rel='stylesheet' type='text/css' />
+        <title><ui:insert name="title">Divertour</ui:insert> </title>
+    </h:head>
+    <h:body>
+
+	<header id="topo">
+		
+		<b:container>
+			<h:panelGroup layout="block" id="logo">
+				<h:graphicImage styleClass="hidden-xs visible-sm visible-md visible-lg" library="img" name="logo-lg.png" />
+				<h:graphicImage styleClass="visible-xs hidden-sm hidden-md hidden-lg" library="img" name="logo-md.png" />
+			</h:panelGroup>
+			
+			<h:panelGroup layout="block" id="nav-primary" styleClass="visible-md visible-lg">
+				<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/" >Início</h:outputLink> </h:panelGroup>
+				<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/guia" >Guia</h:outputLink> </h:panelGroup>
+				<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/rotas" >Rotas</h:outputLink> </h:panelGroup>
+				<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/cadastro" >Cadastro</h:outputLink> </h:panelGroup>
+				<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/sobre" >Sobre</h:outputLink> </h:panelGroup>
+				<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/login" >Login</h:outputLink> </h:panelGroup>
+			</h:panelGroup>
+			
+			<h:panelGroup layout="block" styleClass="visible-xs visible-sm">
+				<h:panelGroup layout="block" id="hamburguer-menu" >
+					<b:iconAwesome name="bars" size="4x" ></b:iconAwesome>
+				</h:panelGroup>
+			</h:panelGroup>
+		</b:container>
+	</header>
+    
+    <ui:insert name="content"> Default Content </ui:insert>
+
+    </h:body>
+</html>

@@ -7,7 +7,7 @@
 	<display-name>divertour</display-name>
 
 	<welcome-file-list>
-		<welcome-file>index.jsf</welcome-file>
+		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<!-- Configuração do Controlador Faces Servlet -->

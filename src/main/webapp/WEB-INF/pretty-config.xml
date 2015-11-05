@@ -22,6 +22,11 @@
 		<pattern value="/guia" />
 		<view-id value="pages/guia.xhtml" />
 	</url-mapping>
+
+	<url-mapping id="rotas">
+		<pattern value="/rotas" />
+		<view-id value="pages/rotas.xhtml" />
+	</url-mapping>
 	
 	<url-mapping id="sobre">
 		<pattern value="/sobre" />
