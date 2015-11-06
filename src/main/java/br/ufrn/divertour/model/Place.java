@@ -2,10 +2,18 @@ package br.ufrn.divertour.model;
 
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+
 public class Place {
 
+	@Id
+	private String id;
+	
 	private String name;
 	private String description;
+	
+	private String city;
+	private String address;
 	private float lat;
 	private float lon;
 	private float rating;
@@ -29,6 +37,22 @@ public class Place {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public String getCity() {
+		return city;
+	}
+	
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public float getLat() {

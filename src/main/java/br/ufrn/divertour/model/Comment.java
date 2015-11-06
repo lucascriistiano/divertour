@@ -2,7 +2,12 @@ package br.ufrn.divertour.model;
 
 import java.util.Calendar;
 
+import org.springframework.data.annotation.Id;
+
 public class Comment {
+	
+	@Id
+	private String id;
 
 	private String title;
 	private String text;

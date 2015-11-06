@@ -1,17 +1,50 @@
 package br.ufrn.divertour.service;
 
-import br.ufrn.divertour.model.User;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
+
+import br.ufrn.divertour.config.MongoConfig;
+import br.ufrn.divertour.model.User;
+import br.ufrn.divertour.repository.UserRepository;
+
+@Component
 public class UserService {
 	
-	public void register(User user) {
-		// TODO Implement validation
+	@Autowired
+	private UserRepository userRepository;
+	private static UserService userService;
+	
+	private UserService() {
+		@SuppressWarnings("resource")
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MongoConfig.class);
+        this.userRepository = context.getBean(UserRepository.class);
+	}
+	
+	public static UserService getInstance() {
+		if(userService == null) {
+			userService = new UserService();
+		}
 		
-		System.out.println(user.getName());
-		System.out.println(user.getLogin());
-		System.out.println(user.getEmail());
-		System.out.println(user.getPassword());
-		System.out.println(user.getCity());
+		return userService;
+	}
+	
+	private boolean validate(User user) {
+		// TODO Implement validation	
+		return true;
+	}
+	
+	public void register(User user) {
+		if(validate(user)) {
+			userRepository.save(user);
+			System.out.println("Persisted user");
+		}
+	}
+	
+	public List<User> findAll() {
+		return userRepository.findAll();
 	}
 
 }

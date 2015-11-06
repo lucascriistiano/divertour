@@ -1,7 +1,12 @@
 package br.ufrn.divertour.model;
 
+import org.springframework.data.annotation.Id;
+
 public class Route {
 
+	@Id
+	private String id;
+	
 	private String name;
 	private String state;
 	private float lat;

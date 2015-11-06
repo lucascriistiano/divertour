@@ -2,8 +2,13 @@ package br.ufrn.divertour.model;
 
 import java.util.Calendar;
 
+import org.springframework.data.annotation.Id;
+
 public class City {
 
+	@Id
+	private String id;
+	
 	private String name;
 	private String category;
 	private Calendar creationDate;

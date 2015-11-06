@@ -3,49 +3,76 @@
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 	
 	<ui:define name="title">
-		Login - Divertour
+		Novo Lugar - Divertour
 	</ui:define>
 	
 	<ui:define name="content">
+		<h1>Novo Lugar</h1>
+		
 		<b:container styleClass="background">
-        	<h:form>
-				<h:panelGrid columns="2" cellpadding="5">
-					<h:outputText value="Nome:"/>
-					<b:inputText value="#{placeRegisterMBean.place.name}" placeholder="Nome do lugar"></b:inputText>
-        			
-        			<h:outputText value="Descrição: "/>
-       				<b:inputText value="#{placeRegisterMBean.place.description}" placeholder="Descrição do local"></b:inputText>
-       				
-       				<h:outputText value="Latitude: "/>
-       				<b:inputText value="#{placeRegisterMBean.place.lat}" placeholder="Latitude do local"></b:inputText>
-       				
-       				<h:outputText value="Longitude: "/>
-       				<b:inputText value="#{placeRegisterMBean.place.lon}" placeholder="Longitude do local"></b:inputText>
-       				
-       				<h:outputText value="Tipo: "/>
-					<b:selectOneMenu value="#{placeRegisterMBean.place.type}">
-						<f:selectItems value="#{placeRegisterMBean.typesOfPlace}" var="type" itemValue="#{type}" itemLabel="#{type}" />
-					</b:selectOneMenu>
-					
-					<!-- <h:outputText value="Categoria: "/> -->
-					<!-- <ui:repeat value="#{placeRegisterMBean.categoriesOfPlace}" var="category" varStatus="status"> -->
-						<!-- <b:selectBooleanCheckbox value="#{placeRegisterMBean.place.categories[status.index]}" caption="#{category}"/> -->		
-					<!-- </ui:repeat> -->
-       				
-       				<h:outputText value="Website: "/>
-       				<b:inputText value="#{placeRegisterMBean.place.website}" placeholder="Website do local"></b:inputText>
-       				
-       				<h:outputText value="Contato(s): "/>
-       				<b:inputText value="#{placeRegisterMBean.place.contacts}" placeholder="Contatos do local"></b:inputText>
-       				
-       				<h:outputText value="Imagens: "/>
-       				<b:inputText value="#{placeRegisterMBean.place.images}" placeholder="Imagens do local"></b:inputText>
-       				
-       				<b:commandButton value="Registrar" action="#{placeRegisterMBean.register}" look="primary"/>
-       			</h:panelGrid>
+        	<h:form prependId="false">
+				<b:row>
+					<b:column col-md="6">
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputText for="name" value="Nome:" />
+							<b:inputText id="name" value="#{placeRegisterMBean.place.name}" placeholder="Nome do lugar" />
+		        			
+		        			<h:outputText for="description" value="Descrição: " />
+		       				<b:inputText id="description" value="#{placeRegisterMBean.place.description}" placeholder="Descrição do local" />
+		       				
+		       				<h:outputText for="type" value="Tipo: "/>
+							<b:selectOneMenu id="type" value="#{placeRegisterMBean.place.type}">
+								<f:selectItems value="#{placeRegisterMBean.typesOfPlace}" var="type" itemValue="#{type}" itemLabel="#{type}" />
+							</b:selectOneMenu>
+		       				
+		       				<h:outputText for="website" value="Website: " />
+		       				<b:inputText id="website" value="#{placeRegisterMBean.place.website}" placeholder="Website do local" />
+		       				
+		       				<h:outputText for="contacts" value="Contato(s): " />
+		       				<b:inputText id="contacts" value="#{placeRegisterMBean.place.contacts}" placeholder="Contatos do local" />
+		       				
+		       				<h:outputText for="images" value="Imagens: " />
+		       				<b:inputText id="images" value="#{placeRegisterMBean.place.images}" placeholder="Imagens do local" />
+		       			</h:panelGrid>
+	       			</b:column>
+	       			
+	       			<b:column col-md="6">
+	       				<h:outputText value="Cidade: "/>
+						<b:selectOneMenu value="#{placeRegisterMBean.place.city}">
+							<f:selectItems value="#{userRegisterMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city}" />
+						</b:selectOneMenu>
+	       				       				
+	       				<h:panelGrid columns="3" cellpadding="5">		       				
+		       				<h:outputText value="Endereço: "/>
+		       				<b:inputText id="address" placeholder="Endereço do local" />
+		       				
+		       				<p:commandButton value="Buscar" icon="ui-icon-search" onclick="geocode()" type="button" />
+		       			</h:panelGrid>
+		       			
+		       			<script type="text/javascript">
+							function geocode() {
+							    PF('geoMap').geocode(document.getElementById('address').value);
+							}
+							
+							function reverseGeocode() {
+							    var lat = document.getElementById('lat').value,
+							        lng = document.getElementById('lng').value;
+							
+							    PF('revGeoMap').reverseGeocode(lat, lng);
+							}
+						</script>
+		       			
+						<p:gmap id="geoGmap" widgetVar="geoMap" center="#{placeRegisterMBean.centerGeoMap}" zoom="2" type="ROADMAP" model="#{placeRegisterMBean.geoModel}" style="width:100%; height:400px">
+							<p:ajax event="geocode" listener="#{placeRegisterMBean.onGeocode}" update="@this" />
+						</p:gmap>
+	       			</b:column>
+       			</b:row>
+       			
+       			<p:commandButton value="Registrar" action="#{placeRegisterMBean.register}" type="button" />
 			</h:form>
         </b:container>
 	</ui:define>
