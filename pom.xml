@@ -22,6 +22,15 @@
 		<cdi.api.version>1.2</cdi.api.version>
 	</properties>
 
+	 <repositories>
+        <repository>  
+            <id>prime-repo</id>  
+            <name>PrimeFaces Maven Repository</name>  
+            <url>http://repository.primefaces.org</url>  
+        </repository>
+    </repositories>
+
+
 	<!-- DEPENDENCIES -->
 	<dependencies>
 		<!-- JAVAX SERVLET -->
@@ -63,6 +72,12 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<dependency>
+		    <groupId>org.primefaces.themes</groupId>
+		    <artifactId>bootstrap</artifactId>
+		    <version>1.0.10</version>
+		</dependency> 
+
 		<!-- BOOTSFACES -->
 		<dependency>
 			<groupId>net.bootsfaces</groupId>
@@ -89,6 +104,9 @@
 			<artifactId>rewrite-config-prettyfaces</artifactId>
 			<version>${rewrite.config.prettyfaces.version}</version>
 		</dependency>
+		
+		
+		
 	</dependencies>
 
 	<!-- BUILD CONFIGURATION -->
@@ -129,5 +147,7 @@
 
 		</plugins>
 	</build>
+
+
 
 </project>
