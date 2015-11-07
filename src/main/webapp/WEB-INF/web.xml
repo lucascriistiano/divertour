@@ -20,6 +20,11 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+	
+	<error-page>
+    	<error-code>404</error-code>
+    	<location>/pages/errorpages/404.xhtml</location>
+	</error-page>
 
 	<context-param>
 		<param-name>BootsFaces_USETHEME</param-name>
