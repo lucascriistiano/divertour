@@ -15,13 +15,21 @@ public class Place {
 	private String city;
 	private String address;
 	private float lat;
-	private float lon;
+	private float lng;
 	private float rating;
 	private String type;
 	private List<String> categories;
 	private List<String> images;
 	private List<String> contacts;
 	private String website;
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -63,12 +71,12 @@ public class Place {
 		this.lat = lat;
 	}
 
-	public float getLon() {
-		return lon;
+	public float getLng() {
+		return lng;
 	}
 
-	public void setLon(float lon) {
-		this.lon = lon;
+	public void setLng(float lng) {
+		this.lng = lng;
 	}
 
 	public float getRating() {
@@ -89,6 +97,10 @@ public class Place {
 
 	public List<String> getCategories() {
 		return categories;
+	}
+	
+	public void setCategories(List<String> categories) {
+		this.categories = categories;
 	}
 
 	public void setCategory(List<String> categories) {

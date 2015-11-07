@@ -38,4 +38,14 @@
 		<view-id value="/pages/place_register.xhtml" />
 	</url-mapping>
 	
+	<url-mapping id="listar_usuarios">
+		<pattern value="/admin/usuarios" />
+		<view-id value="/pages/list_users.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="listar_lugares">
+		<pattern value="/admin/lugares" />
+		<view-id value="/pages/list_places.xhtml" />
+	</url-mapping>
+	
 </pretty-config>

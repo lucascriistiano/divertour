@@ -10,19 +10,19 @@
 	</ui:define>
 	
 	<ui:define name="content">
-		<h1>Cadastro</h1>
-	
 		<b:container styleClass="background">
+			<h1>Cadastro</h1>
+	
 			<h:form>
 				<h:panelGrid columns="2" cellpadding="5">
-					<h:outputText value="Nome completo:"/>
+					<h:outputText value="Nome: "/>
 					<b:inputText value="#{userRegisterMBean.user.name}" placeholder="João da Silva"></b:inputText>
 					
-					<h:outputText value="Nome de usuário:"/>
-					<b:inputText value="#{userRegisterMBean.user.login}" placeholder="joaodasilva"></b:inputText>
-        			
         			<h:outputText value="Email: "/>
        				<b:inputText value="#{userRegisterMBean.user.email}" placeholder="joaosilva@divertour.com.br"></b:inputText>
+       				
+       				<h:outputText value="Usuário:"/>
+					<b:inputText value="#{userRegisterMBean.user.login}" placeholder="joaodasilva"></b:inputText>
        				
        				<h:outputText value="Senha: "/>
        				<b:inputSecret value="#{userRegisterMBean.user.password}" placeholder="Sua senha"></b:inputSecret>

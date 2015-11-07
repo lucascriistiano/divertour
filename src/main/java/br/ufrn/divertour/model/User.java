@@ -8,6 +8,8 @@ public class User {
 
 	@Id
 	private String id;
+
+	private boolean admin;
 	
 	private String name;
 	private String email;
@@ -16,13 +18,21 @@ public class User {
 	private String city;
 	private List<String> interests;
 	private List<String> notifications;
-
+	
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 	public String getName() {

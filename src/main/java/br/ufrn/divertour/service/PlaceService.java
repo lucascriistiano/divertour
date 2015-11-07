@@ -44,6 +44,10 @@ public class PlaceService {
 		}
 	}
 	
+	public List<Place> listAll() {
+		return placeRepository.findAll();
+	}
+	
 	public static List<String> getTypesOfPlace() {
 		return Arrays.asList("Hotel", "Restaurante", "Bar", "Ponto Turístico", "Loja");
 	}
@@ -51,5 +55,7 @@ public class PlaceService {
 	public static List<String> getCategoriesOfPlace() {
 		return Arrays.asList("Religioso", "Aventura", "Ecológico");
 	}
+
+	
 
 }

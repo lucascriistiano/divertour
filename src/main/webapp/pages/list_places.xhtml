@@ -1,0 +1,45 @@
+<ui:composition template="/pages/include/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="title">
+		Lista de Lugares - Divertour
+	</ui:define>
+	
+	<ui:define name="content">
+		<b:container styleClass="background">
+			<h1>Lista de Lugares</h1>
+			
+			<h:form>
+				<p:dataTable var="place" value="#{listPlacesMBean.places}" sortMode="multiple" scrollable="true" scrollHeight="150">
+			        <p:column headerText="Nome" sortBy="#{place.name}">
+			            <h:outputText value="#{place.name}" />
+			        </p:column>
+			        
+			        <p:column headerText="Cidade" sortBy="#{place.city}">
+			            <h:outputText value="#{place.city}" />
+			        </p:column>
+			        
+			        <p:column headerText="Endereço" sortBy="#{place.address}">
+			            <h:outputText value="#{place.address}" />
+			        </p:column>
+			        
+			        <p:column style="width:60px;text-align: center">
+						<p:commandButton action="#{listPlacesMBean.editPlace(place.id)}" icon="ui-icon-pencil" />
+	            	</p:column>	
+	            	
+	            	<p:column style="width:60px;text-align: center">
+	             		<p:commandButton action="#{listPlacesMBean.removePlace(place.id)}" icon="ui-icon-trash" />
+	            	</p:column>
+			    </p:dataTable>
+		    </h:form>
+		    
+		    
+        </b:container>
+	</ui:define>
+
+</ui:composition>

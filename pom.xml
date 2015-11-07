@@ -71,7 +71,6 @@
 			<version>${primefaces.version}</version>
 			<scope>compile</scope>
 		</dependency>
-
 		<dependency>
 		    <groupId>org.primefaces.themes</groupId>
 		    <artifactId>bootstrap</artifactId>
