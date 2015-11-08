@@ -14,38 +14,29 @@
 	
 	<ui:define name="content">
 		
-			<style>
-				.jumbotron {
-					background:#FDFDFD;
-					
-				}
-			</style>
-	
-		<b:jumbotron>
-			<b:container style="">
-	    		<h1>Bem vindo !</h1>
-	    		<p>Esse é um teste de jumbotron com container, e você, o que acha disso?</p>
-	    		<p><a class="btn btn-primary btn-lg">Learn more</a></p>	
-			</b:container>
-		</b:jumbotron>
-	
-		<b:container styleClass="background">
-			<b:row>
-				<b:column col-sm="3">
-					<b:row><h2>Busca</h2></b:row>
-				</b:column>
-            	
-				<b:column col-sm="5">
-					<b:row><h2>Em Alta</h2></b:row>
-					<b:row><h2>Novidades</h2></b:row>
-				</b:column>
-            	
-				<b:column col-sm="4">
-					<b:row><h2>Roteiros</h2></b:row>
-					<b:row><h2>Dicas</h2></b:row>
-				</b:column>
-            </b:row>
-        </b:container>
+		<b:row>
+			
+			<b:column style="text-align:center;" col-lg="2" col-md="12"  >
+				<h1> <b:iconAwesome name="search" /> Busca	</h1>
+			</b:column>
+			
+			<b:column id="emAlta" style="height:400px;" col-lg="8" col-md="12">
+				<h1 style="margin 0 auto; text-align:center;"> <b:iconAwesome name="line-chart" /> Em Alta	</h1>
+			</b:column>		
+			
+			<b:column col-lg="2" col-md="12">
+				<h1 style="text-align:center;"> <b:iconAwesome name="bookmark" /> Rotas	</h1>
+			</b:column>	
+
+		</b:row>
+		
+		<b:row>
+			<b:column span="12" style="height:200px;">
+				<h1 style="text-align:center;"> <b:iconAwesome name="comments" /> Avaliações </h1>
+			</b:column>
+		</b:row>
+
+						
 	</ui:define>
 
 </ui:composition>

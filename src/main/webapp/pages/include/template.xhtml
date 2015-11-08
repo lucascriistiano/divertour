@@ -16,11 +16,10 @@
     </h:head>
     <h:body>
 
-	<header id="topo">
-		<b:container>
+	<b:container fluid="true">
+		<b:row id="topo">
 			<h:panelGroup layout="block" id="logo">
-				<h:graphicImage styleClass="hidden-xs visible-sm visible-md visible-lg" library="common" name="img/logo-lg.png" />
-				<h:graphicImage styleClass="visible-xs hidden-sm hidden-md hidden-lg" library="common" name="img/logo-md.png" />
+				<h:graphicImage library="common" name="img/nlogo-lg.png" />
 			</h:panelGroup>
 			
 			<h:panelGroup layout="block" id="nav-primary" styleClass="visible-md visible-lg">
@@ -28,19 +27,29 @@
 				<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/guia" >Guia</h:outputLink> </h:panelGroup>
 				<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/rotas" >Rotas</h:outputLink> </h:panelGroup>
 				<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/cadastro" >Cadastro</h:outputLink> </h:panelGroup>
-				<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/sobre" >Sobre</h:outputLink> </h:panelGroup>
-				<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/login" >Login</h:outputLink> </h:panelGroup>
-			</h:panelGroup>
-			
-			<h:panelGroup layout="block" styleClass="visible-xs visible-sm">
-				<h:panelGroup layout="block" id="hamburguer-menu" >
-					<b:iconAwesome name="bars" size="4x" ></b:iconAwesome>
+				<h:panelGroup layout="block" styleClass="link" style="float:right;"> 
+				<h:outputLink value="/divertour/login" ><b:iconAwesome name="user" /></h:outputLink> </h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="link" style="float:right;">
+					<h:outputLink value="/"> Natal-RN </h:outputLink>
 				</h:panelGroup>
-			</h:panelGroup>
-		</b:container>
-	</header>
-    
-    <ui:insert name="content"> Default Content </ui:insert>
+		
+				</h:panelGroup>	
+				
+				<h:panelGroup layout="block" id="hamburguer-menu" styleClass="visible-xs visible-sm">
+					<b:iconAwesome name="bars" size="4x" ></b:iconAwesome>
+				</h:panelGroup>			
+		
+		</b:row>
+	</b:container>
+	
+
+	<b:container fluid="true">
+		<h:panelGroup id="conteudo" layout="block">
+    		<ui:insert name="content"> Default Content </ui:insert>		
+		</h:panelGroup>
+			
+	</b:container>
 
     </h:body>
 </html>
