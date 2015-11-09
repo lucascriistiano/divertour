@@ -1,5 +1,6 @@
 package br.ufrn.divertour.gui;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -11,7 +12,9 @@ import br.ufrn.divertour.util.CityUtil;
 
 @ManagedBean(name = "userRegisterMBean")
 @ViewScoped
-public class UserRegisterMBean {
+public class UserRegisterMBean implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private User user;
 	private UserService userService = UserService.getInstance();

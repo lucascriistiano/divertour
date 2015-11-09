@@ -20,6 +20,10 @@
 			            <h:outputText value="#{user.name}" />
 			        </p:column>
 			        
+			        <p:column headerText="Usuário" sortBy="#{user.username}">
+			            <h:outputText value="#{user.username}" />
+			        </p:column>
+			        
 			        <p:column headerText="Email" sortBy="#{user.email}">
 			            <h:outputText value="#{user.email}" />
 			        </p:column>
@@ -37,8 +41,6 @@
 	            	</p:column>
 			    </p:dataTable>
 		    </h:form>
-		    
-		    
         </b:container>
 	</ui:define>
 

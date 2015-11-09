@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.PointSelectEvent;
@@ -29,8 +31,11 @@ import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.service.PlaceService;
 
 @ManagedBean(name = "placeRegisterMBean")
-public class PlaceRegisterMBean {
+@ViewScoped
+public class PlaceRegisterMBean implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Place place;
 	private PlaceService placeService = PlaceService.getInstance();
 	
