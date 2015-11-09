@@ -5,47 +5,47 @@
 
 	<url-mapping id="index">
 		<pattern value="/" />
-		<view-id value="/index.xhtml" />
+		<view-id value="/pages/common/index.xhtml" />
 	</url-mapping>
 	
 	<url-mapping id="login">
 		<pattern value="/login" />
-		<view-id value="/pages/login.xhtml" />
+		<view-id value="/pages/common/login.xhtml" />
 	</url-mapping>
 	
 	<url-mapping id="cadastro_usuario">
 		<pattern value="/cadastro" />
-		<view-id value="/pages/user_register.xhtml" />
+		<view-id value="/pages/common/register.xhtml" />
 	</url-mapping>
 	
 	<url-mapping id="guia">
 		<pattern value="/guia" />
-		<view-id value="/pages/guide.xhtml" />
+		<view-id value="/pages/common/guide.xhtml" />
 	</url-mapping>
 
 	<url-mapping id="rotas">
 		<pattern value="/rotas" />
-		<view-id value="/pages/routes.xhtml" />
+		<view-id value="/pages/common/routes.xhtml" />
 	</url-mapping>
 	
 	<url-mapping id="sobre">
 		<pattern value="/sobre" />
-		<view-id value="/pages/about.xhtml" />
+		<view-id value="/pages/common/about.xhtml" />
 	</url-mapping>
 	
 	<url-mapping id="cadastro_lugar">
 		<pattern value="/lugares/cadastro" />
-		<view-id value="/pages/place_register.xhtml" />
+		<view-id value="/pages/restricted/places/register.xhtml" />
 	</url-mapping>
 	
 	<url-mapping id="listar_usuarios">
 		<pattern value="/admin/usuarios" />
-		<view-id value="/pages/list_users.xhtml" />
+		<view-id value="/pages/admin/users/list.xhtml" />
 	</url-mapping>
 	
 	<url-mapping id="listar_lugares">
 		<pattern value="/admin/lugares" />
-		<view-id value="/pages/list_places.xhtml" />
+		<view-id value="/pages/admin/places/list.xhtml" />
 	</url-mapping>
 	
 </pretty-config>

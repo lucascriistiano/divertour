@@ -7,7 +7,7 @@
 	<display-name>divertour</display-name>
 
 	<welcome-file-list>
-		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>/pages/common/index.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<!-- Configuração do Controlador Faces Servlet -->
@@ -23,7 +23,7 @@
 	
 	<error-page>
     	<error-code>404</error-code>
-    	<location>/pages/errorpages/404.xhtml</location>
+    	<location>/pages/error/404.xhtml</location>
 	</error-page>
 
 	<context-param>
