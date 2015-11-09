@@ -29,8 +29,7 @@ public class ListUsersMBean implements Serializable {
 	}
 	
 	public String removeUser(String id) {
-		
-		System.out.println("Remove user with id = " + id);
+		this.userService.remove(id);
 		return "";
 	}
 	

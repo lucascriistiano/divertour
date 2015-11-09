@@ -43,6 +43,10 @@ public class UserService {
 		}
 	}
 	
+	public void remove(String id) {
+		userRepository.delete(id);
+	}
+	
 	public List<User> listAll() {
 		return userRepository.findAll();
 	}

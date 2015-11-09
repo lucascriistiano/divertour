@@ -8,10 +8,8 @@ public class Place {
 
 	@Id
 	private String id;
-	
 	private String name;
 	private String description;
-	
 	private String city;
 	private String address;
 	private float lat;

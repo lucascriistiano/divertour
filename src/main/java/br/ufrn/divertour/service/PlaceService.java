@@ -43,6 +43,10 @@ public class PlaceService {
 			System.out.println("Persisted place");
 		}
 	}
+
+	public void remove(String id) {
+		placeRepository.delete(id);
+	}
 	
 	public List<Place> listAll() {
 		return placeRepository.findAll();
@@ -55,7 +59,5 @@ public class PlaceService {
 	public static List<String> getCategoriesOfPlace() {
 		return Arrays.asList("Religioso", "Aventura", "Ecológico");
 	}
-
-	
 
 }

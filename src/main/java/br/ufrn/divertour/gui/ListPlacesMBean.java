@@ -29,7 +29,7 @@ public class ListPlacesMBean implements Serializable {
 	}
 	
 	public String removePlace(String id) {
-		System.out.println("Remove place with id = " + id);
+		this.placeService.remove(id);
 		return "";
 	}
 	

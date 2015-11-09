@@ -8,9 +8,7 @@ public class User {
 
 	@Id
 	private String id;
-
 	private boolean admin;
-	
 	private String name;
 	private String email;
 	private String login;

@@ -1,6 +1,6 @@
 package br.ufrn.divertour.model;
 
-import java.util.Calendar;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 
@@ -8,11 +8,18 @@ public class Comment {
 	
 	@Id
 	private String id;
-
 	private String title;
 	private String text;
-	private Calendar date;
+	private Date date;
 	private float rating;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
@@ -30,11 +37,11 @@ public class Comment {
 		this.text = text;
 	}
 
-	public Calendar getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

@@ -1,18 +1,23 @@
 package br.ufrn.divertour.model;
 
-import java.util.Calendar;
-
 import org.springframework.data.annotation.Id;
 
 public class City {
 
 	@Id
 	private String id;
-	
 	private String name;
-	private String category;
-	private Calendar creationDate;
-	private int period; // days to complete route
+	private String state;
+	private float lat;
+	private float lng;
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -22,28 +27,28 @@ public class City {
 		this.name = name;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getState() {
+		return state;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setState(String state) {
+		this.state = state;
 	}
 
-	public Calendar getCreationDate() {
-		return creationDate;
+	public float getLat() {
+		return lat;
 	}
 
-	public void setCreationDate(Calendar creationDate) {
-		this.creationDate = creationDate;
+	public void setLat(float lat) {
+		this.lat = lat;
 	}
 
-	public int getPeriod() {
-		return period;
+	public float getLng() {
+		return lng;
 	}
 
-	public void setPeriod(int period) {
-		this.period = period;
+	public void setLng(float lng) {
+		this.lng = lng;
 	}
 
 }

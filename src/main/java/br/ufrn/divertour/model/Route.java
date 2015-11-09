@@ -1,16 +1,25 @@
 package br.ufrn.divertour.model;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 
 public class Route {
 
 	@Id
 	private String id;
-	
 	private String name;
-	private String state;
-	private float lat;
-	private float lon;
+	private String category;
+	private Date creationDate;
+	private Integer period;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -20,28 +29,28 @@ public class Route {
 		this.name = name;
 	}
 
-	public String getState() {
-		return state;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
-	public float getLat() {
-		return lat;
+	public Date getCreationDate() {
+		return creationDate;
 	}
 
-	public void setLat(float lat) {
-		this.lat = lat;
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
-	public float getLon() {
-		return lon;
+	public Integer getPeriod() {
+		return period;
 	}
 
-	public void setLon(float lon) {
-		this.lon = lon;
+	public void setPeriod(Integer period) {
+		this.period = period;
 	}
 
 }

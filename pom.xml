@@ -104,7 +104,12 @@
 			<version>${rewrite.config.prettyfaces.version}</version>
 		</dependency>
 		
-		
+		<!-- JSON -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20150729</version>
+		</dependency>
 		
 	</dependencies>
 
@@ -141,12 +146,7 @@
 					<outputStyle>compressed</outputStyle>
 				</configuration>
 			</plugin>
-
-
-
 		</plugins>
 	</build>
-
-
 
 </project>
