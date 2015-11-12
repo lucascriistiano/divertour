@@ -73,19 +73,19 @@ public class TestMongo {
 //		PlaceService.getInstance().register(place2);
 //		System.out.println("Generated place ID: " + place2.getId());
 		
-//		Route route = new Route();
-//		route.setName("Natal Natural");
-//		route.setCategory("Ecológico");
-//		route.setCreationDate(new Date());
-//		route.setPeriod(1);
-//		route.setRating(4);
-//		route.setComments(Arrays.asList(new Comment("Rota muito ecológica", "Muito verde por todo lado", new Date(), 5, user2.getId())));
+//		Guide guide = new Guide();
+//		guide.setName("Natal Natural");
+//		guide.setCategory("Ecológico");
+//		guide.setCreationDate(new Date());
+//		guide.setPeriod(1);
+//		guide.setRating(4);
+//		guide.setComments(Arrays.asList(new Comment("Roteiro muito ecológica", "Muito verde por todo lado", new Date(), 5, user2.getId())));
 //
-//		//remove comments of object to not insert them on route
+//		//remove comments of object to not insert them on guide
 //		place.setComments(null);
-//		route.setPlaces(Arrays.asList(place));
-//		RouteService.getInstance().register(route);
-//		System.out.println("Generated route ID: " + route.getId());
+//		guide.setPlaces(Arrays.asList(place));
+//		GuideService.getInstance().register(guide);
+//		System.out.println("Generated guide ID: " + guide.getId());
 		
 //		List<City> cities = CityService.getInstance().listAll();
 //		for (City city : cities) {

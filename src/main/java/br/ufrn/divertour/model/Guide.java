@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
-public class Route {
+public class Guide {
 
 	@Id
 	private String id;
@@ -17,9 +17,9 @@ public class Route {
 	private List<Comment> comments;
 	private List<Place> places;
 
-	public Route() {}
+	public Guide() {}
 	
-	public Route(String name, String category, Date creationDate, int period, int rating, List<Comment> comments, List<Place> places) {
+	public Guide(String name, String category, Date creationDate, int period, int rating, List<Comment> comments, List<Place> places) {
 		super();
 		this.name = name;
 		this.category = category;
