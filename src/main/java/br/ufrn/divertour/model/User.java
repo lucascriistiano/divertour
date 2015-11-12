@@ -13,7 +13,7 @@ public class User {
 	private String email;
 	private String username;
 	private String password;
-	private String city;
+	private City city;
 	private List<String> interests;
 	private List<String> notifications;
 	
@@ -53,7 +53,7 @@ public class User {
 		return username;
 	}
 
-	public void setLogin(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
@@ -65,11 +65,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String getCity() {
+	public City getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
+	public void setCity(City city) {
 		this.city = city;
 	}
 

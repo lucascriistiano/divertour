@@ -10,16 +10,17 @@ public class Place {
 	private String id;
 	private String name;
 	private String description;
-	private String city;
+	private City city;
 	private String address;
 	private float lat;
 	private float lng;
-	private float rating;
 	private String type;
 	private List<String> categories;
 	private List<String> images;
 	private List<String> contacts;
 	private String website;
+	private int rating;
+	private List<Comment> comments;
 	
 	public String getId() {
 		return id;
@@ -45,11 +46,11 @@ public class Place {
 		this.description = description;
 	}
 	
-	public String getCity() {
+	public City getCity() {
 		return city;
 	}
 	
-	public void setCity(String city) {
+	public void setCity(City city) {
 		this.city = city;
 	}
 
@@ -75,14 +76,6 @@ public class Place {
 
 	public void setLng(float lng) {
 		this.lng = lng;
-	}
-
-	public float getRating() {
-		return rating;
-	}
-
-	public void setRating(float rating) {
-		this.rating = rating;
 	}
 
 	public String getType() {
@@ -127,6 +120,22 @@ public class Place {
 
 	public void setWebsite(String website) {
 		this.website = website;
+	}
+	
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 }

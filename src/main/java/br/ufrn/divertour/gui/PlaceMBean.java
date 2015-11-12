@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.PointSelectEvent;
@@ -27,17 +29,21 @@ import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
+import br.ufrn.divertour.model.City;
 import br.ufrn.divertour.model.Place;
+import br.ufrn.divertour.service.CityService;
 import br.ufrn.divertour.service.PlaceService;
+import br.ufrn.divertour.service.exception.ValidationException;
 
-@ManagedBean(name = "placeRegisterMBean")
+@ManagedBean(name = "placeMBean")
 @ViewScoped
-public class PlaceRegisterMBean implements Serializable {
+public class PlaceMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Place place;
 	private PlaceService placeService = PlaceService.getInstance();
+	private CityService cityService = CityService.getInstance();
 	
 	private MapModel geoModel;
     private Marker placeMarker;
@@ -48,11 +54,16 @@ public class PlaceRegisterMBean implements Serializable {
     private String centerGeoMap = "41.850033, -87.6500523";
 //    private String centerGeoMap;
 
-    private List<UploadedFile> uploadedFiles;
+    private String insertedContact;
     private UploadedFile selectedFile;
+
+    private List<String> insertedContacts;
+    private List<String> uploadedImagesPath;
+    private List<UploadedFile> uploadedFiles;
     
 	private List<String> typesOfPlace;
 	private List<String> categoriesOfPlace;
+
 	
 	@PostConstruct
     public void init() {
@@ -61,9 +72,11 @@ public class PlaceRegisterMBean implements Serializable {
         
     }
 	
-	public PlaceRegisterMBean() {
+	public PlaceMBean() {
 		this.place = new Place();
 		
+		this.insertedContacts = new ArrayList<>();
+		this.uploadedImagesPath = new ArrayList<>();
 		this.uploadedFiles = new ArrayList<>();
 		
 		this.typesOfPlace = PlaceService.getTypesOfPlace();
@@ -155,21 +168,49 @@ public class PlaceRegisterMBean implements Serializable {
         }
     }
 	
+    public void addContact() {
+    	if(insertedContact != null && !insertedContact.equals("")) {
+    		this.insertedContacts.add(insertedContact);
+    	} else {
+    		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Você deve inserir um contato para adicioná-lo"));
+//    		return "";
+    	}
+    }
+    
     public void addImage() {
     	if(selectedFile != null) {
     		this.uploadedFiles.add(selectedFile);
     	}
     }
     
-	public String register() {
+    public String register() {
+		try {
+			this.place.setContacts(insertedContacts);
+			this.place.setImages(uploadedImagesPath);
+			
+			this.placeService.register(this.place);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
+			return "/pages/restricted/homepage";
+		} catch (ValidationException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		
-		//TODO Implement try/catch business exception
-		this.placeService.register(this.place);
-		
-		//TODO Change return
 		return "";
 	}
 
+	public String edit(String id) {
+		System.out.println("Edit place with id = " + id);
+		return "";
+	}
+	
+	public String remove(String id) {
+		this.placeService.remove(id);
+		return "";
+	}
+	
 	public Place getPlace() {
 		return place;
 	}
@@ -210,6 +251,10 @@ public class PlaceRegisterMBean implements Serializable {
 		this.currentLng = currentLng;
 	}
 
+	public List<Place> getPlaces() {
+		return placeService.listAll();
+	}
+
 	public List<String> getTypesOfPlace() {
 		return typesOfPlace;
 	}
@@ -220,6 +265,22 @@ public class PlaceRegisterMBean implements Serializable {
 	
 	public List<UploadedFile> getUploadedFiles() {
 		return uploadedFiles;
+	}
+	
+	public List<City> getCities() {
+		return cityService.listAll();
+	}
+	
+	public String getInsertedContact() {
+		return insertedContact;
+	}
+	
+	public void setInsertedContact(String insertedContact) {
+		this.insertedContact = insertedContact;
+	}
+
+	public List<String> getInsertedContacts() {
+		return insertedContacts;
 	}
 	
 }

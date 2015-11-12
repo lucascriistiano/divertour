@@ -1,0 +1,49 @@
+<ui:composition template="/pages/include/template_admin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="title">Lista de Cidades</ui:define>
+	
+	<ui:define name="content">
+		<b:container styleClass="background">
+			<h1>Lista de Cidades</h1>
+			
+			<b:row>
+				<h:outputLink value="/divertour/admin/cidades/cadastro">Nova Cidade</h:outputLink>
+			</b:row>
+			
+			<h:form>
+				<p:dataTable var="city" value="#{cityMBean.cities}" sortMode="multiple" scrollable="true" scrollHeight="150">
+			        <p:column headerText="Nome" sortBy="#{city.name}">
+			            <h:outputText value="#{city.name}" />
+			        </p:column>
+			        
+			        <p:column headerText="Estado" sortBy="#{city.state}">
+			            <h:outputText value="#{city.state}" />
+			        </p:column>
+			        
+			        <p:column headerText="Lat" sortBy="#{city.lat}">
+			            <h:outputText value="#{city.lat}" />
+			        </p:column>
+			        
+			        <p:column headerText="Lng" sortBy="#{city.lng}">
+			            <h:outputText value="#{city.lng}" />
+			        </p:column>
+			        
+			        <p:column style="width:60px;text-align: center">
+						<p:commandButton action="#{cityMBean.edit(city.id)}" icon="ui-icon-pencil" />
+	            	</p:column>	
+	            	
+	            	<p:column style="width:60px;text-align: center">
+	             		<p:commandButton action="#{cityMBean.remove(city.id)}" icon="ui-icon-trash" />
+	            	</p:column>
+			    </p:dataTable>
+		    </h:form>
+        </b:container>
+	</ui:define>
+
+</ui:composition>

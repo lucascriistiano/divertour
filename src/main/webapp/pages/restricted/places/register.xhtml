@@ -1,82 +1,61 @@
 <ui:composition template="/pages/include/template.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-	
-	<ui:define name="title">
-		Novo Lugar - Divertour
-	</ui:define>
-	
-	<ui:define name="extra_script">
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>
-		<h:outputScript library="common" name="js/place_register_script.js" />
-	</ui:define>
-	
-	<ui:define name="content">
-		<b:container styleClass="background">
-			<h1>Novo Lugar</h1>
-			
-        	<h:form prependId="false">
-				<b:row>
-					<b:column col-md="5">
-						<h:panelGrid columns="2" cellpadding="10">
-							<h:outputText for="name" value="Nome:" />
-							<b:inputText id="name" value="#{placeRegisterMBean.place.name}" placeholder="Nome do lugar" />
-		        			
-		        			<h:outputText for="description" value="Descrição: " />
-		       				<p:inputTextarea id="description" rows="7" value="#{placeRegisterMBean.place.description}" placeholder="Descrição do local" style="width:100%;" />
-		       				
-		       				<h:outputText for="type" value="Tipo: "/>
-							<b:selectOneMenu id="type" value="#{placeRegisterMBean.place.type}">
-								<f:selectItems value="#{placeRegisterMBean.typesOfPlace}" var="type" itemValue="#{type}" itemLabel="#{type}" />
-							</b:selectOneMenu>
-		       				
-		       				<h:outputText for="website" value="Website: " />
-		       				<b:inputText id="website" value="#{placeRegisterMBean.place.website}" placeholder="Website do local" />
-		       				
-		       				<h:outputText for="contacts" value="Contato(s): " />
-		       				<b:inputText id="contacts" value="#{placeRegisterMBean.place.contacts}" placeholder="Contatos do local" />
-		       				
-		       				<h:outputText for="images" value="Imagens: " />
-		       				<p:fileUpload value="#{placeRegisterMBean.selectedFile}" mode="simple" skinSimple="true"/>
-							<p:commandButton value="Submit" ajax="false" actionListener="#{placeRegisterMBean.addImage}" disabled="true" />
-		       			</h:panelGrid>
-		       			
-		       			<p:galleria value="#{placeRegisterMBean.uploadedFiles}" var="image" panelHeight="200" showCaption="true" >
-							<p:graphicImage name="demo/images/nature/#{image}" alt="Image Description for #{image}" title="#{image}"/>
-						</p:galleria>
-		       			
-	       			</b:column>
-	       			
-	       			<b:column col-md="7">
-	       				<h:outputText value="Cidade: "/>
-						<b:selectOneMenu value="#{placeRegisterMBean.place.city}">
-							<f:selectItems value="#{userRegisterMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city}" />
-						</b:selectOneMenu>
-	       				       				
-	       				<h:panelGrid columns="3" cellpadding="5">		       				
-		       				<h:outputText for="address" value="Endereço: "/>
-		       				<b:inputText id="address" value="#{placeRegisterMBean.place.address}" placeholder="Endereço do local" />
-		       				
-		       				<p:commandButton value="Buscar" icon="ui-icon-search" onclick="geocode()" />
-		       			</h:panelGrid>
-		       			
-		       			<h:inputHidden id="currentLat" value="#{placeRegisterMBean.currentLat}" />
-		       			<h:inputHidden id="currentLng" value="#{placeRegisterMBean.currentLng}" />
-						
-						<p:gmap id="geoGmap" widgetVar="geoMap" center="#{placeRegisterMBean.centerGeoMap}" type="ROADMAP" model="#{placeRegisterMBean.geoModel}" style="width:100%; height:400px">
-							<p:ajax event="geocode" listener="#{placeRegisterMBean.onGeocode}" update="@this" />
-							<p:ajax event="pointSelect" listener="#{placeRegisterMBean.onPointSelect}" update="@this" />
-						</p:gmap>
-	       			</b:column>
-       			</b:row>
-       			
-       			<p:commandButton value="Registrar" action="#{placeRegisterMBean.register}" />
-			</h:form>
-        </b:container>
-	</ui:define>
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
 
+    <ui:define name="title">Novo Lugar</ui:define>
+    
+    <ui:define name="extra_script">
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgeHiIZP3daD3XwqOFpjaFPTkU1cAWask&amp;libraries=places&amp;callback=initAutocomplete" async="async" defer="defer"></script>
+        <h:outputScript library="common" name="js/mapscript.js" />
+    </ui:define>
+
+    <ui:define name="content-area">
+        <h:panelGroup id="wrapper" layout="block">
+            <h:panelGroup id="map-canvas" layout="block"></h:panelGroup>
+            <h:panelGroup id="push" layout="block"></h:panelGroup>
+            
+            <h:form prependId="false">
+            	<b:inputText id="pac-input" styleClass="controls" type="text" placeholder="Endereço ou nome do local" />
+				<h:panelGroup id="over-map-left" class="over-map" layout="block">
+					<h:outputText for="name" value="Nome:" />
+					<b:inputText id="name" value="#{placeMBean.place.name}" placeholder="Nome do lugar" />
+                    
+					<h:outputText for="description" value="Descrição: " />
+					<p:inputTextarea id="description" rows="7" value="#{placeMBean.place.description}" placeholder="Descrição do local" style="width:100%;" />
+                    
+					<h:outputText for="type" value="Tipo: "/>
+					<b:selectOneMenu id="type" value="#{placeMBean.place.type}">
+						<f:selectItems value="#{placeMBean.typesOfPlace}" var="type" itemValue="#{type}" itemLabel="#{type}" />
+					</b:selectOneMenu>
+                    
+					<h:outputText for="website" value="Website: " />
+					<b:inputText id="website" value="#{placeMBean.place.website}" placeholder="Website do local" />
+                    
+					<h:outputText for="contacts" value="Contato(s): " />
+					<b:inputText id="contacts" value="#{placeMBean.insertedContact}" placeholder="Contatos do local" />
+					<p:commandButton value="Adicionar" action="#{placeMBean.addContact}" />
+                        
+					<h:inputHidden id="currentLat" value="#{placeMBean.currentLat}" />
+					<h:inputHidden id="currentLng" value="#{placeMBean.currentLng}" />
+	            </h:panelGroup>
+            
+            
+	            <h:panelGroup id="over-map-right" class="over-map" layout="block">
+	                <h:outputText for="images" value="Imagens: " />
+	                <p:fileUpload value="#{placeMBean.selectedFile}" mode="simple" skinSimple="true"/>
+	                <p:commandButton value="Submit" ajax="false" actionListener="#{placeMBean.addImage}" disabled="true" />
+	            
+	                <p:galleria value="#{placeMBean.uploadedFiles}" var="image" panelHeight="200" panelWidth="200" showCaption="true" >
+	                	<p:graphicImage name="demo/images/nature/#{image}" alt="Image Description for #{image}" title="#{image}"/>
+					</p:galleria>
+					
+					<p:commandButton value="Registrar" action="#{placeMBean.register}" />
+	            </h:panelGroup>
+			</h:form>
+		</h:panelGroup>
+    </ui:define>
 </ui:composition>

@@ -11,6 +11,16 @@ public class City {
 	private float lat;
 	private float lng;
 	
+	public City() {}
+	
+	public City(String name, String state, float lat, float lng) {
+		super();
+		this.name = name;
+		this.state = state;
+		this.lat = lat;
+		this.lng = lng;
+	}
+
 	public String getId() {
 		return id;
 	}

@@ -3,18 +3,15 @@ package br.ufrn.divertour.service;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
 
 import br.ufrn.divertour.config.MongoConfig;
 import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.repository.PlaceRepository;
+import br.ufrn.divertour.service.exception.ValidationException;
 
-@Component
 public class PlaceService {
 
-	@Autowired
 	private PlaceRepository placeRepository;
 	private static PlaceService placeService;
 	
@@ -32,16 +29,20 @@ public class PlaceService {
 		return placeService;
 	}
 	
-	private boolean validate(Place place) {
-		// TODO Implement validation	
-		return true;
+	private void validate(Place place) throws ValidationException {
+		// TODO Finish validation
+		Place foundPlace = placeRepository.findByName(place.getName());
+		if(foundPlace != null) {
+			if(place.getName().equals(foundPlace.getName()) && place.getCity() == foundPlace.getCity()) {
+				throw new ValidationException("Um lugar com esse nome já se foi cadastrado nessa cidade");
+			}
+		}
 	}
 	
-	public void register(Place place) {
-		if(validate(place)) {
-			placeRepository.save(place);
-			System.out.println("Persisted place");
-		}
+	public void register(Place place) throws ValidationException {
+		validate(place);
+		placeRepository.save(place);
+		System.out.println("Persisted place");
 	}
 
 	public void remove(String id) {
@@ -57,7 +58,7 @@ public class PlaceService {
 	}
 	
 	public static List<String> getCategoriesOfPlace() {
-		return Arrays.asList("Religioso", "Aventura", "Ecológico");
+		return Arrays.asList("Religioso", "Aventura", "Ecológico", "Histórico");
 	}
 
 }

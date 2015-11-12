@@ -6,7 +6,6 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-   
     <h:head>
 		<h:outputStylesheet library="common" name="fonts/roboto/roboto.css"/>        
         <h:outputStylesheet library="common" name="css/style.css"  />
@@ -15,7 +14,7 @@
         
         <ui:insert name="extra_script"></ui:insert>
     </h:head>
-
+    
     <h:body>
 		<b:container fluid="true">
 			<b:row id="topo">
@@ -24,16 +23,9 @@
 				</h:panelGroup>
 				
 				<h:panelGroup layout="block" id="nav-primary" styleClass="visible-md visible-lg">
-					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/" >Início</h:outputLink> </h:panelGroup>
-					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/guia" >Guia</h:outputLink> </h:panelGroup>
-					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/rotas" >Rotas</h:outputLink> </h:panelGroup>
-					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/cadastro" >Cadastro</h:outputLink> </h:panelGroup>
-					
+					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/admin" >Administração</h:outputLink> </h:panelGroup>
 					<h:panelGroup layout="block" styleClass="link" style="float:right;"> 
-						<h:outputLink value="/divertour/login" ><b:iconAwesome name="user" size="2x"/></h:outputLink>
-					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="link" style="float:right;">
-						<h:outputLink value="/">Natal-RN</h:outputLink>
+						<h:outputLink value="/divertour/login" ><b:iconAwesome name="user" /></h:outputLink>
 					</h:panelGroup>
 				</h:panelGroup>	
 					
@@ -44,11 +36,39 @@
 		</b:container>
 	
 		<b:container id="content-area" fluid="true">
-			<ui:insert name="content-area">
-				<h:panelGroup id="conteudo" layout="block">
-		    		<ui:insert name="content"> Default Content </ui:insert>		
-				</h:panelGroup>
-			</ui:insert>
+			<b:row>
+				<b:column col-md="2">
+					<b:panel look="primary">
+					    <f:facet name="heading">Menu</f:facet>   
+				    	<b:listLinks>
+					        <b:navLink header="Usuários" />
+					        <b:navLink href="/admin/usuarios" value="Visualizar" icon="globe"/>
+					        <b:navLink></b:navLink>
+					        
+					        <b:navLink header="Lugares"/>
+					        <b:navLink href="/admin/lugares" value="Visualizar" icon="globe"/>
+					        <b:navLink></b:navLink>
+					        
+					        <b:navLink header="Rotas" />
+					        <b:navLink href="/admin/rotas" value="Visualizar" icon="globe"/>
+					        <b:navLink></b:navLink>
+					        
+					        <b:navLink header="Cidades" />
+					        <b:navLink href="/admin/cidades/cadastro" value="Novo Registro" icon="globe"/>
+					        <b:navLink href="/admin/cidades" value="Visualizar" icon="globe"/>
+					        <b:navLink></b:navLink>
+					    </b:listLinks>
+					 </b:panel>
+				 </b:column>
+			
+				<b:column col-md="10">
+					<ui:insert name="content-area">
+						<h:panelGroup id="conteudo" layout="block">
+				    		<ui:insert name="content"> Default Content </ui:insert>		
+						</h:panelGroup>
+					</ui:insert>
+				</b:column>
+			</b:row>
 		</b:container>
-    </h:body>
+	</h:body>
 </html>

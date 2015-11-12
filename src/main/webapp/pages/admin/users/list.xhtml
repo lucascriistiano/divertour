@@ -1,4 +1,4 @@
-<ui:composition template="/pages/include/template.xhtml"
+<ui:composition template="/pages/include/template_admin.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -6,16 +6,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<ui:define name="title">
-		Lista de Usuários - Divertour
-	</ui:define>
+	<ui:define name="title">Lista de Usuários</ui:define>
 	
 	<ui:define name="content">
 		<b:container styleClass="background">
 			<h1>Lista de Usuários</h1>
 			
 			<h:form>
-				<p:dataTable var="user" value="#{listUsersMBean.users}" sortMode="multiple" scrollable="true" scrollHeight="150">
+				<p:dataTable var="user" value="#{userMBean.users}" sortMode="multiple" scrollable="true" scrollHeight="150">
 			        <p:column headerText="Nome" sortBy="#{user.name}">
 			            <h:outputText value="#{user.name}" />
 			        </p:column>
@@ -28,16 +26,16 @@
 			            <h:outputText value="#{user.email}" />
 			        </p:column>
 			        
-			        <p:column headerText="Cidade" sortBy="#{user.city}">
-			            <h:outputText value="#{user.city}" />
+			        <p:column headerText="Cidade" sortBy="#{user.city.name}">
+			            <h:outputText value="#{user.city.name}/#{user.city.state}" />
 			        </p:column>
 			        
 			        <p:column style="width:60px;text-align: center">
-						<p:commandButton action="#{listUsersMBean.editUser(user.id)}" icon="ui-icon-pencil" />
+						<p:commandButton action="#{userMBean.edit(user.id)}" icon="ui-icon-pencil" />
 	            	</p:column>	
 	            	
 	            	<p:column style="width:60px;text-align: center">
-	             		<p:commandButton action="#{listUsersMBean.removeUser(user.id)}" icon="ui-icon-trash" />
+	             		<p:commandButton action="#{userMBean.remove(user.id)}" icon="ui-icon-trash" />
 	            	</p:column>
 			    </p:dataTable>
 		    </h:form>

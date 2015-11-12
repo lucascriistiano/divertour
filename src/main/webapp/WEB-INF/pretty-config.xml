@@ -3,6 +3,7 @@
   xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
                       http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
 
+	<!-- COMMON PAGES -->
 	<url-mapping id="index">
 		<pattern value="/" />
 		<view-id value="/pages/common/index.xhtml" />
@@ -13,39 +14,72 @@
 		<view-id value="/pages/common/login.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="cadastro_usuario">
+	<url-mapping id="user_register">
 		<pattern value="/cadastro" />
 		<view-id value="/pages/common/register.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="guia">
+	<url-mapping id="guide">
 		<pattern value="/guia" />
 		<view-id value="/pages/common/guide.xhtml" />
 	</url-mapping>
 
-	<url-mapping id="rotas">
+	<url-mapping id="routes">
 		<pattern value="/rotas" />
 		<view-id value="/pages/common/routes.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="sobre">
+	<url-mapping id="about">
 		<pattern value="/sobre" />
 		<view-id value="/pages/common/about.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="cadastro_lugar">
+	
+	<!-- RESTRICTED PAGES -->
+	<url-mapping id="homepage_user">
+		<pattern value="/minhapagina" />
+		<view-id value="/pages/restricted/homepage.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="place_register">
 		<pattern value="/lugares/cadastro" />
 		<view-id value="/pages/restricted/places/register.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="listar_usuarios">
+	<url-mapping id="route_register">
+		<pattern value="/rotas/cadastro" />
+		<view-id value="/pages/restricted/routes/register.xhtml" />
+	</url-mapping>
+	
+	
+	<!-- ADMIN PAGES -->
+	<url-mapping id="homepage_admin">
+		<pattern value="/admin" />
+		<view-id value="/pages/admin/homepage.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="list_users">
 		<pattern value="/admin/usuarios" />
 		<view-id value="/pages/admin/users/list.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="listar_lugares">
+	<url-mapping id="list_places">
 		<pattern value="/admin/lugares" />
 		<view-id value="/pages/admin/places/list.xhtml" />
 	</url-mapping>
 	
+	<url-mapping id="list_routes">
+		<pattern value="/admin/rotas" />
+		<view-id value="/pages/admin/routes/list.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="list_cities">
+		<pattern value="/admin/cidades" />
+		<view-id value="/pages/admin/cities/list.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="city_register">
+		<pattern value="/admin/cidades/cadastro" />
+		<view-id value="/pages/admin/cities/register.xhtml" />
+	</url-mapping>
 </pretty-config>

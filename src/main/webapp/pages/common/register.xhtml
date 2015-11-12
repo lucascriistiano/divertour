@@ -3,41 +3,42 @@
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 	
-	<ui:define name="title">
-		Cadastro - Divertour
-	</ui:define>
+	<ui:define name="title">Cadastro</ui:define>
 	
 	<ui:define name="content">
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+	
 		<b:container styleClass="background">
 			<h1>Cadastro</h1>
 	
 			<h:form>
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:outputText value="Nome: "/>
-					<b:inputText value="#{userRegisterMBean.user.name}" placeholder="João da Silva"></b:inputText>
+					<b:inputText value="#{userMBean.user.name}" placeholder="João da Silva"></b:inputText>
 					
         			<h:outputText value="Email: "/>
-       				<b:inputText value="#{userRegisterMBean.user.email}" placeholder="joaosilva@divertour.com.br"></b:inputText>
+       				<b:inputText value="#{userMBean.user.email}" placeholder="joaosilva@divertour.com.br"></b:inputText>
        				
        				<h:outputText value="Usuário:"/>
-					<b:inputText value="#{userRegisterMBean.user.username}" placeholder="joaodasilva"></b:inputText>
+					<b:inputText value="#{userMBean.user.username}" placeholder="joaodasilva"></b:inputText>
        				
        				<h:outputText value="Senha: "/>
-       				<b:inputSecret value="#{userRegisterMBean.user.password}" placeholder="Sua senha"></b:inputSecret>
+       				<b:inputSecret value="#{userMBean.user.password}" placeholder="Sua senha"></b:inputSecret>
        				
        				<h:outputText value="Cidade: "/>
-					<b:selectOneMenu value="#{userRegisterMBean.user.city}">
-						<f:selectItems value="#{userRegisterMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city}" />
+					<b:selectOneMenu value="#{userMBean.user.city}">
+						<f:selectItems value="#{userMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city.name}/#{city.state}" />
 					</b:selectOneMenu>
 					
 					<!-- <h:outputText value="Procuro por: "/> -->
-					<!-- <ui:repeat value="#{userRegisterMBean.categoriesOfPlace}" var="category" varStatus="status"> -->
-						<!-- <b:selectBooleanCheckbox value="#{userRegisterMBean.user.interests[status.index]}" caption="#{category}"/> -->		
+					<!-- <ui:repeat value="#{userMBean.categoriesOfPlace}" var="category" varStatus="status"> -->
+						<!-- <b:selectBooleanCheckbox value="#{userMBean.user.interests[status.index]}" caption="#{category}"/> -->		
 					<!-- </ui:repeat> -->
        				
-       				<b:commandButton value="Registrar" action="#{userRegisterMBean.register}" look="primary"/>
+       				<b:commandButton value="Registrar" action="#{userMBean.register}" look="primary"/>
        			</h:panelGrid>
 			</h:form>
         </b:container>

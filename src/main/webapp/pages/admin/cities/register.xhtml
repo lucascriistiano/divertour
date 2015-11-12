@@ -1,0 +1,44 @@
+<ui:composition template="/pages/include/template_admin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="title">Nova Cidade</ui:define>
+	
+	<ui:define name="extra_script">
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>
+		<h:outputScript library="common" name="js/place_register_script.js" />
+	</ui:define>
+	
+	<ui:define name="content">
+		<b:container styleClass="background">
+			<h1>Nova Cidade</h1>
+			
+        	<h:form prependId="false">
+				<b:row>
+					<h:panelGrid columns="2" cellpadding="10">
+						<h:outputText for="name" value="Nome:" />
+						<b:inputText id="name" value="#{cityMBean.city.name}" placeholder="Nome da cidade" />
+	       				
+	       				<h:outputText for="state" value="Estado: "/>
+						<b:selectOneMenu id="state" value="#{cityMBean.city.state}">
+							<f:selectItems value="#{cityMBean.states}" var="state" itemValue="#{state}" itemLabel="#{state}" />
+						</b:selectOneMenu>
+	       				
+	       				<h:outputText for="lat" value="Latitude: " />
+	       				<b:inputText id="lat" value="#{cityMBean.city.lat}" placeholder="Ex: -23.6815314" />
+	       				
+	       				<h:outputText for="lng" value="Longitude: " />
+	       				<b:inputText id="lng" value="#{cityMBean.city.lng}" placeholder="Ex: -46.8754984" />
+	       			</h:panelGrid>
+       			</b:row>
+       			
+       			<p:commandButton value="Registrar" action="#{cityMBean.register}" />
+			</h:form>
+        </b:container>
+	</ui:define>
+
+</ui:composition>

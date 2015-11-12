@@ -6,8 +6,8 @@ $secundary-color-darker: #141414;
 $background-color: #F9F9F9;
 
 div#topo {
-
-  position: relative;
+  position: fixed;
+  width: 100%;
   background: $primary-color;
   height: 80px;
   padding: 0px 20px 0px 20px;
@@ -47,13 +47,10 @@ div#topo {
     a{
       color: #FFF!important;
     }
-
   }
-  
 }
 
 div#conteudo {
-
   margin:20px;
   padding: 10px 20px 10px 20px;
   border: 1px solid darken($background-color,5%);
@@ -73,13 +70,122 @@ div#conteudo {
       border-right: 1px solid $primary-color-darker;
     }
   }
-
-
 }
-
-
 
 body {
   background: $background-color;
+}
 
+/* Map style */
+html,body {
+  height:100%;
+}
+
+#content-area {
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 80px;
+	width: 100%;
+	height: 100%;
+}
+
+#wrapper {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#map-canvas {
+  width:100%;
+  height:100%;
+}
+
+.over-map {
+	/* Box coloring */
+	background-color: white;
+	filter:alpha(opacity=90);
+	opacity: 0.9;
+	-moz-opacity:0.9;
+	-webkit-opacity:0.9;
+	
+	/* Box shadow */	
+	-moz-box-shadow: 0px 3px 8px rgb(100,100,100);
+	-webkit-box-shadow: 0px 3px 8px rgb(100,100,100);
+	box-shadow: 0px 3px 8px rgb(100,100,100);
+}
+
+#over-map-left {
+	/* Box position left */
+	position: absolute;
+	top: 50px;
+	left: 10px;
+	z-index: 99;
+	height: 80%;
+	width: 200px;
+}
+
+#over-map-right {
+	/* Box position right */
+	position: absolute;
+	top: 50px;
+	right: 10px;
+	z-index: 99;
+	height: 70%;
+	width: 200px;
+}
+
+/* html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#map {
+	height: 100%;
+} */
+
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+.pac-container {
+  font-family: Roboto;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#target {
+	width: 345px;
 }

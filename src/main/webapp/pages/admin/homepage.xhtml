@@ -1,0 +1,32 @@
+<ui:composition template="/pages/include/template_admin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="title">Administração</ui:define>
+	
+	<ui:define name="content">
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+	
+		<b:container styleClass="background">
+			<h1>Administração</h1>
+			
+			<b:row>
+				<h:outputLink value="/divertour/admin/usuarios">Usuários</h:outputLink>
+			</b:row>
+			<b:row>
+				<h:outputLink value="/divertour/admin/lugares">Lugares</h:outputLink>
+			</b:row>
+			<b:row>
+				<h:outputLink value="/divertour/admin/rotas">Rotas</h:outputLink>
+			</b:row>
+			<b:row>
+				<h:outputLink value="/divertour/admin/cidades">Cidades</h:outputLink>
+			</b:row>
+        </b:container>
+	</ui:define>
+
+</ui:composition>

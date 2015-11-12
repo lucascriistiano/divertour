@@ -2,23 +2,23 @@ package br.ufrn.divertour.model;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
-
 public class Comment {
 	
-	@Id
-	private String id;
 	private String title;
 	private String text;
 	private Date date;
-	private float rating;
+	private int rating;
+	private String userId;
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+	public Comment() {}
+	
+	public Comment(String title, String text, Date date, int rating, String userId) {
+		super();
+		this.title = title;
+		this.text = text;
+		this.date = date;
+		this.rating = rating;
+		this.userId = userId;
 	}
 
 	public String getTitle() {
@@ -45,12 +45,20 @@ public class Comment {
 		this.date = date;
 	}
 
-	public float getRating() {
+	public int getRating() {
 		return rating;
 	}
 
-	public void setRating(float rating) {
+	public void setRating(int rating) {
 		this.rating = rating;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 }
