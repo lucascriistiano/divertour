@@ -19,14 +19,14 @@
 		<view-id value="/pages/common/register.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="guide">
-		<pattern value="/guia" />
-		<view-id value="/pages/common/guide.xhtml" />
+	<url-mapping id="places">
+		<pattern value="/lugares" />
+		<view-id value="/pages/common/places.xhtml" />
 	</url-mapping>
 
-	<url-mapping id="routes">
-		<pattern value="/rotas" />
-		<view-id value="/pages/common/routes.xhtml" />
+	<url-mapping id="guides">
+		<pattern value="/roteiros" />
+		<view-id value="/pages/common/guides.xhtml" />
 	</url-mapping>
 	
 	<url-mapping id="about">
@@ -46,9 +46,9 @@
 		<view-id value="/pages/restricted/places/register.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="route_register">
-		<pattern value="/rotas/cadastro" />
-		<view-id value="/pages/restricted/routes/register.xhtml" />
+	<url-mapping id="guide_register">
+		<pattern value="/roteiros/cadastro" />
+		<view-id value="/pages/restricted/guides/register.xhtml" />
 	</url-mapping>
 	
 	
@@ -68,9 +68,9 @@
 		<view-id value="/pages/admin/places/list.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="list_routes">
-		<pattern value="/admin/rotas" />
-		<view-id value="/pages/admin/routes/list.xhtml" />
+	<url-mapping id="list_guides">
+		<pattern value="/admin/roteiros" />
+		<view-id value="/pages/admin/guides/list.xhtml" />
 	</url-mapping>
 	
 	<url-mapping id="list_cities">

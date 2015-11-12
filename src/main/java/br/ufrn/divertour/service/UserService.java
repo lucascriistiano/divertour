@@ -43,7 +43,6 @@ public class UserService {
 	public void register(User user) throws ValidationException {
 		validate(user);
 		userRepository.save(user);
-		System.out.println("Persisted user");
 	}
 	
 	public void remove(String id) {

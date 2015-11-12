@@ -6,7 +6,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<ui:define name="title">Nova Rota</ui:define>
+	<ui:define name="title">Novo Roteiro</ui:define>
 	
 	<ui:define name="extra_script">
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>
@@ -17,41 +17,41 @@
 		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 		
 		<b:container styleClass="background">
-			<h1>Nova Rota</h1>
+			<h1>Novo Roteiro</h1>
 			
         	<h:form prependId="false">
 				<b:row>
 					<b:column col-md="5">
 						<h:panelGrid columns="2" cellpadding="10">
 							<h:outputText for="name" value="Nome:" />
-							<b:inputText id="name" value="#{routeMBean.route.name}" placeholder="Nome da rota" />
+							<b:inputText id="name" value="#{guideMBean.guide.name}" placeholder="Nome do roteiro" />
 		        			
 		        			<h:outputText value="Categoria: "/>
-							<b:selectOneMenu value="#{routeMBean.route.category}">
-								<f:selectItems value="#{routeMBean.categoriesOfRoute}" var="category" itemValue="#{category}" itemLabel="#{category}" />
+							<b:selectOneMenu value="#{guideMBean.guide.category}">
+								<f:selectItems value="#{guideMBean.categoriesOfGuide}" var="category" itemValue="#{category}" itemLabel="#{category}" />
 							</b:selectOneMenu>
 		        			
 		        			<h:outputText for="period" value="Dias sugeridos: " />
-							<b:inputText id="period" value="#{routeMBean.route.period}" placeholder="Número de dias" />
+							<b:inputText id="period" value="#{guideMBean.guide.period}" placeholder="Número de dias" />
 		       			</h:panelGrid>
 		       			
 	       			</b:column>
 	       			
 	       			<b:column col-md="7">
 						<h:outputText value="Lugares: "/>
-						<b:selectOneMenu value="#{routeMBean.selectedPlace}">
-							<f:selectItems value="#{routeMBean.places}" var="place" itemValue="#{place}" itemLabel="#{place.name} - #{place.city.name}/#{place.city.state}" />
+						<b:selectOneMenu value="#{guideMBean.selectedPlace}">
+							<f:selectItems value="#{guideMBean.places}" var="place" itemValue="#{place}" itemLabel="#{place.name} - #{place.city.name}/#{place.city.state}" />
 						</b:selectOneMenu>
 	       				    
-	       				<p:commandButton value="Adicionar" icon="ui-icon-plus" action="#{routeMBean.addPlace}" />
+	       				<p:commandButton value="Adicionar" icon="ui-icon-plus" action="#{guideMBean.addPlace}" />
 						
-						<p:gmap id="geoGmap" widgetVar="geoMap" center="#{routeMBean.centerGeoMap}" type="ROADMAP" model="#{routeMBean.geoModel}" style="width:100%; height:400px">
+						<p:gmap id="geoGmap" widgetVar="geoMap" center="#{guideMBean.centerGeoMap}" type="ROADMAP" model="#{guideMBean.geoModel}" style="width:100%; height:400px">
 							
 						</p:gmap>
 	       			</b:column>
        			</b:row>
        			
-       			<p:commandButton value="Registrar" action="#{routeMBean.register}" />
+       			<p:commandButton value="Registrar" action="#{guideMBean.register}" />
 			</h:form>
         </b:container>
 	</ui:define>

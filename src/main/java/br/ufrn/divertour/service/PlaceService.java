@@ -42,7 +42,6 @@ public class PlaceService {
 	public void register(Place place) throws ValidationException {
 		validate(place);
 		placeRepository.save(place);
-		System.out.println("Persisted place");
 	}
 
 	public void remove(String id) {

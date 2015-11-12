@@ -16,24 +16,24 @@ import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
 import br.ufrn.divertour.model.Place;
-import br.ufrn.divertour.model.Route;
+import br.ufrn.divertour.model.Guide;
 import br.ufrn.divertour.service.PlaceService;
-import br.ufrn.divertour.service.RouteService;
+import br.ufrn.divertour.service.GuideService;
 import br.ufrn.divertour.service.exception.ValidationException;
 
-@ManagedBean(name = "routeMBean")
+@ManagedBean(name = "guideMBean")
 @ViewScoped
-public class RouteMBean implements Serializable {
+public class GuideMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Route route;
+	private Guide guide;
 	
 	private Place selectedPlace;
 	private List<Place> selectedPlaces;
 
 	private PlaceService placeService = PlaceService.getInstance();
-	private RouteService routeService = RouteService.getInstance();
+	private GuideService guideService = GuideService.getInstance();
 
 	private MapModel geoModel;
     private List<Marker> placeMarkers;
@@ -47,8 +47,8 @@ public class RouteMBean implements Serializable {
 //        centerGeoMap = currentLat + ", " + currentLng;        
     }
 	
-	public RouteMBean() {
-		this.route = new Route();
+	public GuideMBean() {
+		this.guide = new Guide();
 		this.selectedPlaces = new ArrayList<>();
 		this.placeMarkers = new ArrayList<>();
 	}
@@ -128,8 +128,8 @@ public class RouteMBean implements Serializable {
 
 	public String register() {
 		try {
-			route.setPlaces(selectedPlaces);
-			this.routeService.register(route);
+			guide.setPlaces(selectedPlaces);
+			this.guideService.register(guide);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
 			return "/pages/restricted/homepage";
 		} catch (ValidationException e) {
@@ -143,7 +143,7 @@ public class RouteMBean implements Serializable {
 	}
 	
 	public String edit(String id) {
-		System.out.println("Edit route with id = " + id);
+		System.out.println("Edit guide with id = " + id);
 		return "";
 	}
 	
@@ -180,20 +180,20 @@ public class RouteMBean implements Serializable {
         return centerGeoMap;
     }
 
-	public Route getRoute() {
-		return route;
+	public Guide getGuide() {
+		return guide;
 	}
 
-	public void setRoute(Route route) {
-		this.route = route;
+	public void setGuide(Guide guide) {
+		this.guide = guide;
 	}
     
-	public List<Route> getRoutes() {
-		return routeService.listAll();
+	public List<Guide> getGuides() {
+		return guideService.listAll();
 	}
 	
-	public List<String> getCategoriesOfRoute() {
-		return RouteService.getCategoriesOfRoute();
+	public List<String> getCategoriesOfGuide() {
+		return GuideService.getCategoriesOfGuide();
 	}
 	
 }
