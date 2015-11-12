@@ -10,10 +10,11 @@
     <h:head>
 		<h:outputStylesheet library="common" name="fonts/roboto/roboto.css"/>        
         <h:outputStylesheet library="common" name="css/style.css"  />
-        <!-- 	<link href='https://fonts.googleapis.com/css?family=Roboto:500,400,300,700' rel='stylesheet' type='text/css' /> -->
-        <title><ui:insert name="title">Title</ui:insert> - Divertour </title>
-        
+        <h:outputStylesheet library="common" name="css/jquery.fullPage.css"/>
+        <h:outputScript library="common" name="js/jquery-2.1.4.min.js" />
+        <h:outputScript library="common" name="js/jquery.fullPage.js"/>
         <ui:insert name="extra_script"></ui:insert>
+        <title><ui:insert name="title">Title</ui:insert> - Divertour </title>
     </h:head>
 
     <h:body>
@@ -28,7 +29,7 @@
 					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/guia" >Lugares</h:outputLink> </h:panelGroup>
 					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/rotas" >Roteiros</h:outputLink> </h:panelGroup>
 					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/cadastro" >Cadastro</h:outputLink> </h:panelGroup>
-					
+
 					<h:panelGroup layout="block" styleClass="link" style="float:right;"> 
 						<h:outputLink value="/divertour/login" ><b:iconAwesome name="user" size="2x"/></h:outputLink>
 					</h:panelGroup>
@@ -43,12 +44,16 @@
 			</b:row>
 		</b:container>
 	
-		<b:container id="content-area" fluid="true">
+<!-- 		<b:container id="content-area" fluid="true">
 			<ui:insert name="content-area">
 				<h:panelGroup id="conteudo" layout="block">
 		    		<ui:insert name="content"> Default Content </ui:insert>		
 				</h:panelGroup>
 			</ui:insert>
-		</b:container>
+		</b:container> -->
+		
+		<ui:insert name="content"> Default Content </ui:insert>		
+				
+		
     </h:body>
 </html>

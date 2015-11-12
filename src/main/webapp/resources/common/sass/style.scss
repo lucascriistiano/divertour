@@ -11,7 +11,8 @@ div#topo {
   background: $primary-color;
   height: 80px;
   padding: 0px 20px 0px 20px;
-  border-bottom: 5px solid $primary-color-darker;
+  //border-bottom: 5px solid $primary-color-darker;
+  z-index: 100;
 
   div#logo {
     position: relative;

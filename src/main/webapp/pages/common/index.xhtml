@@ -5,32 +5,74 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
-
-	
+		
 	<ui:define name="title">Início</ui:define>
 	
 	<ui:define name="content">
-		<b:row>
-			<b:column style="text-align:center;" col-lg="2" col-md="12"  >
-				<h1> <b:iconAwesome name="search" /> Busca	</h1>
-			</b:column>
-			
-			<b:column id="emAlta" style="height:400px;" col-lg="8" col-md="12">
-				<h1 style="margin 0 auto; text-align:center;"> <b:iconAwesome name="line-chart" /> Em Alta	</h1>
-			</b:column>		
-			
-			<b:column col-lg="2" col-md="12">
-				<h1 style="text-align:center;"> <b:iconAwesome name="bookmark" /> Rotas	</h1>
-			</b:column>	
-
-		</b:row>
+	
+	<h:panelGroup layout="block" id="fullpage">
+	
+		<h:panelGroup layout="block" styleClass="section active">
+			<h:panelGroup layout="block" style="height:50%;background:#B23939;">
+				Buscar 
+			</h:panelGroup>
+			<h:panelGroup layout="block" style="height:50%;">
+				Buscar 
+			</h:panelGroup>			
 		
-		<b:row>
-			<b:column span="12" style="height:200px;">
-				<h1 style="text-align:center;"> <b:iconAwesome name="comments" /> Avaliações </h1>
-			</b:column>
-		</b:row>
+		</h:panelGroup>
+
+
+
+		<h:panelGroup layout="block" styleClass="section">
+			
+			Como usar
+			
+		</h:panelGroup>
+		
+		
+		<h:panelGroup layout="block" styleClass="section" style="background:#1C597F;">
+			
+			Como usar
+			
+		</h:panelGroup>		
+			
+	
+	 </h:panelGroup>
+	
+	
+		<ui:remove>
+		
+				<b:row>
+				<b:column style="text-align:center;" col-lg="2" col-md="12"  >
+					<h1> <b:iconAwesome name="search" /> Busca	</h1>
+				</b:column>
+				
+				<b:column id="emAlta" style="height:400px;" col-lg="8" col-md="12">
+					<h1 style="margin 0 auto; text-align:center;"> <b:iconAwesome name="line-chart" /> Em Alta	</h1>
+				</b:column>		
+				
+				<b:column col-lg="2" col-md="12">
+					<h1 style="text-align:center;"> <b:iconAwesome name="bookmark" /> Rotas	</h1>
+				</b:column>	
+	
+			</b:row>
+			
+			<b:row>
+				<b:column span="12" style="height:200px;">
+					<h1 style="text-align:center;"> <b:iconAwesome name="comments" /> Avaliações </h1>
+				</b:column>
+			</b:row>
+		
+		
+		</ui:remove>
+
+		<script>	
+			$(document).ready(function() {
+				$('#fullpage').fullpage();
+			});		
+		</script>
+
 
 						
 	</ui:define>
