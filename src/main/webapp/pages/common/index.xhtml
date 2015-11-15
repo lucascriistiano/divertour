@@ -10,14 +10,27 @@
 	
 	<ui:define name="content">
 	
-	<h:panelGroup layout="block" id="fullpage">
+	<h:panelGroup layout="block" id="fullpage" style="margin-top:80px;">
 	
-		<h:panelGroup layout="block" styleClass="section active">
-			<h:panelGroup layout="block" style="height:50%;background:#B23939;">
-				Buscar 
+		<h:panelGroup layout="block" styleClass="section active" style="padding-bottom:0px;">
+		
+			<h:panelGroup layout="block" 
+								style="display:block;
+											position:relative;height:50%;background:#B23939;padding:30px;
+											text-align:center;color:#FFF;font-size:2em;font-family:roboto-thin;
+											overflow-y:hidden;"
+								>
+				<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/>
+				Maecenas a pretium nisl, non luctus felis. 
+				</p>
+				
+				<h:inputText value="Buscar" title="Search" style="color:#333;text-align:center; width:30%;"  />
+				
 			</h:panelGroup>
-			<h:panelGroup layout="block" style="height:50%;">
-				Buscar 
+			
+			<h:panelGroup layout="block" style="height:50%;text-align:center;" styleClass="primary-color">
+				<b:iconAwesome name="angle-down" size="3x"></b:iconAwesome>
 			</h:panelGroup>			
 		
 		</h:panelGroup>
@@ -31,7 +44,7 @@
 		</h:panelGroup>
 			
 		
-		<h:panelGroup layout="block" styleClass="section" style="background:#1C597F;">
+		<h:panelGroup layout="block" styleClass="section">
 			
 			Como usar
 			
@@ -73,6 +86,11 @@
 			});		
 		</script>
 
+		<script>
+			$(function() {
+			    $(".fp-tableCell").css("vertical-align","top");
+			});	
+		</script>
 
 						
 	</ui:define>

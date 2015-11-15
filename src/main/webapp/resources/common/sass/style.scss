@@ -3,7 +3,11 @@ $primary-color: #B23939;
 $primary-color-darker: #A53232;
 $secundary-color: #666666;
 $secundary-color-darker: #141414;
-$background-color: #F9F9F9;
+$background-color: #F4F4F4;
+
+.primary-color {
+  color:$primary-color-darker;
+}
 
 div#topo {
   position: fixed;
@@ -34,8 +38,19 @@ div#topo {
     position: relative;
     display: inline-block;
 
-    div.link{
+    * {
+      font-weight: normal;
       font-family: $primary-font-family;
+    }
+    
+    .fa {
+      font-family: FontAwesome;
+    }
+
+
+
+    div.link{
+
       font-size: 1.6em;
       font-weight: 500;
       color: #fff;
