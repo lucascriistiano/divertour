@@ -15,7 +15,7 @@
 	
 	<h:panelGroup layout="block" id="fullpage" style="margin-top:80px;">
 	
-		<h:panelGroup layout="block" styleClass="section active" style="padding-bottom:0px;">
+			<h:panelGroup layout="block" styleClass="section active" style="padding-bottom:0px;">
 		
 			<h:panelGroup layout="block" 
 								style="display:block;
@@ -34,72 +34,37 @@
 			
 			<h:panelGroup layout="block" style="height:50%;text-align:center;" styleClass="primary-color">
 				<b:iconAwesome name="angle-down" size="3x"></b:iconAwesome>
-			</h:panelGroup>			
+			</h:panelGroup>			 
 		
 		</h:panelGroup>
 
-
-			<h:panelGroup layout="block" styleClass="section">
-				<b:row style="height:100%;">
-					<b:column style="background:#F2F2F2;height:100%;box-shadow:0 3px 2px -2px rgba(200,200,200,0.2); margin-top:40px; text-align:center;" offset="2" col-md="8">
-						<h:graphicImage library="common"  name="img/example-1.png" />
-					</b:column>
-				
-				</b:row>
+			<h:panelGroup layout="block" styleClass="section paper">
+				<b:container>
+					<b:row>
+						<b:column style="height:100%;box-shadow:0 3px 2px -2px rgba(200,200,200,0.2); margin-top:40px; text-align:center;" >
+							<h:graphicImage library="common"  name="img/example-1.png" />
+							<!-- <b:iconAwesome name="map" size="3x" /> Gerencie Lugares -->
+						</b:column>				
+					</b:row>
+				</b:container>
 			</h:panelGroup>	
 
-		<ui:remove>
-			<h:panelGroup layout="block" styleClass="section">
-				<b:row style="background:#B23939;height:100%;">
-					<b:column style="background:#F4F4F4;height:100%;" offset="2" col-md="8">
-						<!-- <b:iconAwesome name="map" size="3x" /> Gerencie Lugares -->
-					</b:column>
-				
-				</b:row>
-			</h:panelGroup>		
-		</ui:remove>
 
-			
+			<h:panelGroup layout="block" styleClass="section paper" >
+				<b:container >
+					<b:row>
+						<b:column>
+							<h:graphicImage library="common" name="img/example-1.png" />
+							<!-- <b:iconAwesome name="map" size="3x" /> Gerencie Lugares -->
+							<!--  <b:iconAwesome name="search" />  -->
+							<!--  <b:iconAwesome name="comments" />  -->
+						</b:column>									
+					</b:row>
+				</b:container>
+			</h:panelGroup>				
 		
-			<h:panelGroup layout="block" styleClass="section">
-				<b:row style="height:100%;">
-					<b:column style="background:#F2F2F2;height:100%;box-shadow:0 3px 2px -2px rgba(200,200,200,0.2);" offset="2" col-md="8">
-					<!-- 	Crie roteiros -->
-					</b:column>
-				
-				</b:row>
-			</h:panelGroup>	
-			
-	
 	 </h:panelGroup>
 	
-	
-		<ui:remove>
-		
-				<b:row>
-				<b:column style="text-align:center;" col-lg="2" col-md="12"  >
-					<h1> <b:iconAwesome name="search" /> Busca	</h1>
-				</b:column>
-				
-				<b:column id="emAlta" style="height:400px;" col-lg="8" col-md="12">
-					<h1 style="margin 0 auto; text-align:center;"> <b:iconAwesome name="line-chart" /> Em Alta	</h1>
-				</b:column>		
-				
-				<b:column col-lg="2" col-md="12">
-					<h1 style="text-align:center;"> <b:iconAwesome name="bookmark" /> Rotas	</h1>
-				</b:column>	
-	
-			</b:row>
-			
-			<b:row>
-				<b:column span="12" style="height:200px;">
-					<h1 style="text-align:center;"> <b:iconAwesome name="comments" /> Avaliações </h1>
-				</b:column>
-			</b:row>
-		
-		
-		</ui:remove>
-
 		<script>	
 			$(document).ready(function() {
 				$('#fullpage').fullpage();
