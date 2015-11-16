@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import br.ufrn.divertour.config.MongoConfig;
 import br.ufrn.divertour.model.Place;
@@ -15,9 +18,12 @@ public class PlaceService {
 	private PlaceRepository placeRepository;
 	private static PlaceService placeService;
 	
+	private MongoOperations mongoOperation;
+	
 	private PlaceService() {
 		@SuppressWarnings("resource")
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MongoConfig.class);
+		this.mongoOperation = (MongoOperations) context.getBean("mongoTemplate");
 		this.placeRepository = context.getBean(PlaceRepository.class);
 	}
 	
@@ -58,6 +64,12 @@ public class PlaceService {
 	
 	public static List<String> getCategoriesOfPlace() {
 		return Arrays.asList("Religioso", "Aventura", "Ecológico", "Histórico");
+	}
+
+	public List<Place> findByNameSimilarity(String name) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("name").regex(name, "i"));
+		return mongoOperation.find(query, Place.class);
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
-public class Guide {
+public class Guide implements Searchable {
 
 	@Id
 	private String id;
@@ -96,6 +96,11 @@ public class Guide {
 
 	public void setPlaces(List<Place> places) {
 		this.places = places;
+	}
+
+	@Override
+	public String getExhibitionName() {
+		return this.getName() + " / " + Searchable.GUIDE_RESULT; 
 	}
 	
 }

@@ -5,10 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import br.ufrn.divertour.config.MongoConfig;
-import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.model.Guide;
+import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.repository.GuideRepository;
 import br.ufrn.divertour.service.exception.ValidationException;
 
@@ -19,9 +22,12 @@ public class GuideService {
 	private GuideRepository guideRepository;
 	private static GuideService guideService;
 
+	private MongoOperations mongoOperation;
+	
 	private GuideService() {
 		@SuppressWarnings("resource")
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MongoConfig.class);
+		this.mongoOperation = (MongoOperations) context.getBean("mongoTemplate");
         this.guideRepository = context.getBean(GuideRepository.class);
 	}
 
@@ -65,6 +71,12 @@ public class GuideService {
 	
 	public static List<String> getCategoriesOfGuide() {
 		return Arrays.asList("Para relaxar", "Curta", "Adrenalina");
+	}
+
+	public List<Guide> findByNameSimilarity(String name) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("name").regex(name, "i"));
+		return mongoOperation.find(query, Guide.class);
 	}
 
 }

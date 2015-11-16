@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
-public class Place {
+public class Place implements Searchable {
 
 	@Id
 	private String id;
@@ -138,4 +138,9 @@ public class Place {
 		this.comments = comments;
 	}
 
+	@Override
+	public String getExhibitionName() {
+		return this.getName() + " / " + Searchable.PLACE_RESULT; 
+	}
+	
 }
