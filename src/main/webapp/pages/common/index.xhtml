@@ -20,7 +20,7 @@
 					<h:form>
 						<p:autoComplete id="search-box" value="#{searchMBean.selectedItem}" completeMethod="#{searchMBean.findResults}"
 							var="foundItem" itemLabel="#{foundItem.exhibitionName}" itemValue="#{foundItem}" converter="searchableConverter" forceSelection="true" maxResults="5" minQueryLength="3" />
-						<b:commandButton id="search-box-button" icon="ui-icon-search" action="#{searchMBean.showDetails}" />
+						<p:commandButton id="search-box-button" icon="ui-icon-search" action="#{searchMBean.showDetails}" />
 					</h:form>
 				</h:panelGroup>
 
