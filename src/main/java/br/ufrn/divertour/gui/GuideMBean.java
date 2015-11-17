@@ -148,7 +148,7 @@ public class GuideMBean implements Serializable {
 	}
 	
 	public String remove(String id) {
-		this.placeService.remove(id);
+		this.guideService.remove(id);
 		return "";
 	}
 	

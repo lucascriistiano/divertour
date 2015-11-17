@@ -17,7 +17,7 @@
 			</b:row>
 			
 			<h:form>
-				<p:dataTable var="city" value="#{cityMBean.cities}" sortMode="multiple" scrollable="true" scrollHeight="150">
+				<p:dataTable id="city-datatable" var="city" value="#{cityMBean.cities}" sortMode="multiple" scrollable="true" scrollHeight="150">
 			        <p:column headerText="Nome" sortBy="#{city.name}">
 			            <h:outputText value="#{city.name}" />
 			        </p:column>
@@ -34,12 +34,12 @@
 			            <h:outputText value="#{city.lng}" />
 			        </p:column>
 			        
-			        <p:column style="width:60px;text-align: center">
-						<p:commandButton action="#{cityMBean.edit(city.id)}" icon="ui-icon-pencil" />
-	            	</p:column>	
+			        <!-- <p:column style="width:60px;text-align: center">
+						<p:commandButton actionListener="#{cityMBean.edit(city.id)}" update="city-datatable" icon="ui-icon-pencil" />
+	            	</p:column> -->	
 	            	
 	            	<p:column style="width:60px;text-align: center">
-	             		<p:commandButton action="#{cityMBean.remove(city.id)}" icon="ui-icon-trash" />
+	             		<p:commandButton actionListener="#{cityMBean.remove(city.id)}" update="city-datatable" icon="ui-icon-trash" />
 	            	</p:column>
 			    </p:dataTable>
 		    </h:form>

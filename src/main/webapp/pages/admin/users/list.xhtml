@@ -13,7 +13,7 @@
 			<h1>Lista de Usuários</h1>
 			
 			<h:form>
-				<p:dataTable var="user" value="#{userMBean.users}" sortMode="multiple" scrollable="true" scrollHeight="150">
+				<p:dataTable id="user-datatable" var="user" value="#{userMBean.users}" sortMode="multiple" scrollable="true" scrollHeight="150">
 			        <p:column headerText="Nome" sortBy="#{user.name}">
 			            <h:outputText value="#{user.name}" />
 			        </p:column>
@@ -30,12 +30,12 @@
 			            <h:outputText value="#{user.city.name}/#{user.city.state}" />
 			        </p:column>
 			        
-			        <p:column style="width:60px;text-align: center">
-						<p:commandButton action="#{userMBean.edit(user.id)}" icon="ui-icon-pencil" />
-	            	</p:column>	
+			        <!-- <p:column style="width:60px;text-align: center">
+						<p:commandButton actionListener="#{userMBean.edit(user.id)}" update="user-datatable" icon="ui-icon-pencil" />
+	            	</p:column>	 -->
 	            	
 	            	<p:column style="width:60px;text-align: center">
-	             		<p:commandButton action="#{userMBean.remove(user.id)}" icon="ui-icon-trash" />
+	             		<p:commandButton actionListener="#{userMBean.remove(user.id)}" update="user-datatable" icon="ui-icon-trash" />
 	            	</p:column>
 			    </p:dataTable>
 		    </h:form>
