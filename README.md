@@ -1,3 +1,6 @@
+# DiverTour
+Projeto final das disciplinas de Desenvolvimento WEB II, Projeto de Interfaces de Usuário e Banco de Dados NoSQL
+
 # Como configurar SCSS / SASS no Eclipse
 
 ## Part 1 - Associate the .scss file type with the native Eclipse CSS Editor
