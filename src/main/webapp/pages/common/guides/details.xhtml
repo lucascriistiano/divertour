@@ -1,0 +1,44 @@
+<ui:composition template="/pages/include/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="title">Detalhes da Rota</ui:define>
+	
+	
+	<ui:define name="content">	
+		<h:panelGroup layout="block" id="fullpage" style="margin-top:80px;">
+	        <h:panelGroup layout="block" styleClass="section paper">
+				<b:container>
+					<b:row>
+						<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+						<b:column>
+							<h1>Roteiro #{guideDetailsMBean.selectedGuide.name}</h1>
+		
+							<h:outputText value="Categoria: #{guideDetailsMBean.selectedGuide.category}" /><br/>
+							<h:outputText value="Dias sugeridos: #{guideDetailsMBean.selectedGuide.period}"/><br/><br/>
+							
+							<h:outputText value="Lugares da rota"/><br/>
+							<ui:repeat value="#{guideDetailsMBean.selectedGuide.places}" var="place">
+            					<h:outputText value="Descrição: #{place.description}" /><br/>
+								<h:outputText value="Tipo: #{place.type}"/><br/>
+								<h:outputText value="Website: #{place.website}" /><br/>    
+								<h:outputText value="Contato(s): #{place.contacts}" /><br/>
+								
+								<h:outputText value="Endereço: #{place.address}" /><br/>
+								<h:outputText value="Lat: #{place.lat}" /><br/>
+								<h:outputText value="Lng: #{place.lng}" /><br/>
+	            
+	            				<h:outputText for="images" value="Imagens: #{place.images}" /><br/><br/>
+        					</ui:repeat>
+						</b:column>
+					</b:row>
+				</b:container>
+			</h:panelGroup>
+        </h:panelGroup>
+	</ui:define>
+
+</ui:composition>

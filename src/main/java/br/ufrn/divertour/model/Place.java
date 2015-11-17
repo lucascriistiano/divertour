@@ -142,5 +142,15 @@ public class Place implements Searchable {
 	public String getExhibitionName() {
 		return this.getName() + " / " + Searchable.PLACE_RESULT; 
 	}
+
+	@Override
+	public String getDetailsPage() {
+		return Searchable.PLACE_DETAILS_PAGE;
+	}
+
+	@Override
+	public String getConvertedId() {
+		return Searchable.PLACE_FIRST_CHAR + this.getId();
+	}
 	
 }

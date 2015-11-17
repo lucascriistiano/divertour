@@ -102,5 +102,15 @@ public class Guide implements Searchable {
 	public String getExhibitionName() {
 		return this.getName() + " / " + Searchable.GUIDE_RESULT; 
 	}
+
+	@Override
+	public String getDetailsPage() {
+		return Searchable.GUIDE_DETAILS_PAGE;
+	}
+
+	@Override
+	public String getConvertedId() {
+		return Searchable.GUIDE_FIRST_CHAR + this.getId();
+	}
 	
 }

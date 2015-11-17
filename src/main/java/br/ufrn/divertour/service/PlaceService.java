@@ -71,5 +71,9 @@ public class PlaceService {
 		query.addCriteria(Criteria.where("name").regex(name, "i"));
 		return mongoOperation.find(query, Place.class);
 	}
+	
+	public Place findById(String id) {
+		return placeRepository.findById(id);
+	}
 
 }

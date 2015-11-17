@@ -35,8 +35,8 @@ import br.ufrn.divertour.service.CityService;
 import br.ufrn.divertour.service.PlaceService;
 import br.ufrn.divertour.service.exception.ValidationException;
 
-@ManagedBean(name = "placeMBean")
 @ViewScoped
+@ManagedBean(name = "placeMBean")
 public class PlaceMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

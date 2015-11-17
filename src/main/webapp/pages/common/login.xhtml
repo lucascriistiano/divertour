@@ -8,24 +8,31 @@
 	
 	<ui:define name="title">Login</ui:define>
 	
-	<ui:define name="content">
-		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-
-		<b:container styleClass="background">
-			<h1>Login</h1>
+	<ui:define name="content">	
+		<h:panelGroup layout="block" id="fullpage" style="margin-top:80px;">
+	        <h:panelGroup layout="block" styleClass="section paper">
+				<b:container>
+					<b:row>
+					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+						<b:column>
+							<h1>Login</h1>
     
-        	<h:form>
-				<h:panelGrid columns="2" cellpadding="5">
-					<h:outputText value="Usuário:"/>
-					<b:inputText placeholder="Nome de usuário"></b:inputText>
-        			
-        			<h:outputText value="Senha"/>
-       				<b:inputSecret placeholder="Senha"></b:inputSecret>
-       				
-       				<b:button value="Login" look="primary"/>
-       			</h:panelGrid>
-			</h:form>
-        </b:container>
+				        	<h:form>
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputText value="Usuário:"/>
+									<b:inputText placeholder="Nome de usuário"></b:inputText>
+				        			
+				        			<h:outputText value="Senha"/>
+				       				<b:inputSecret placeholder="Senha"></b:inputSecret>
+				       				
+				       				<b:button value="Login" look="primary"/>
+				       			</h:panelGrid>
+							</h:form>
+						</b:column>
+					</b:row>
+				</b:container>
+			</h:panelGroup>
+        </h:panelGroup>
 	</ui:define>
 
 </ui:composition>

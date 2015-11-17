@@ -5,12 +5,15 @@ public interface Searchable {
 	public static final String PLACE_RESULT = "Lugar";
 	public static final String GUIDE_RESULT = "Roteiro";
 	
-//	public static final String PLACE_DETAILS_PAGE = "/divertour/";
-//	public static final String GUIDE_DETAILS_PAGE = "Roteiro";
+	public static final String PLACE_DETAILS_PAGE = "/pages/common/places/details";
+	public static final String GUIDE_DETAILS_PAGE = "/pages/common/guides/details";
 	
+	public static final char PLACE_FIRST_CHAR = 'P';
+	public static final char GUIDE_FIRST_CHAR = 'G';
 	
 	public String getId();
 	public String getExhibitionName();
-//	public String getDetailsPage();
+	public String getDetailsPage();
+	public String getConvertedId();
 	
 }

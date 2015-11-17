@@ -15,10 +15,10 @@ import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
-import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.model.Guide;
-import br.ufrn.divertour.service.PlaceService;
+import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.service.GuideService;
+import br.ufrn.divertour.service.PlaceService;
 import br.ufrn.divertour.service.exception.ValidationException;
 
 @ManagedBean(name = "guideMBean")

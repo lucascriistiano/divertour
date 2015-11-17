@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-
-import org.primefaces.event.SelectEvent;
+import javax.faces.bean.SessionScoped;
 
 import br.ufrn.divertour.model.Searchable;
 import br.ufrn.divertour.service.GuideService;
 import br.ufrn.divertour.service.PlaceService;
 
+@SessionScoped
 @ManagedBean(name = "searchMBean")
+
 public class SearchMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -20,38 +21,36 @@ public class SearchMBean implements Serializable {
 	private GuideService guideService = GuideService.getInstance();
 	private PlaceService placeService = PlaceService.getInstance();
 	
-	private String selectedItemId;
+	private Searchable selectedItem;
+	
+	List<Searchable> foundResults;
 	
 	public SearchMBean() {}
 	
 	public List<Searchable> findResults(String search) {
-		List<Searchable> foundResults = new ArrayList<>();
+		foundResults = new ArrayList<>();
 		foundResults.addAll(guideService.findByNameSimilarity(search));
 		foundResults.addAll(placeService.findByNameSimilarity(search));
 		
 		return foundResults;
 	}
 	
-	public void onItemSelect(SelectEvent event) {
-		System.out.println("onItemSelect");
-		if(selectedItemId != null) {
-			System.out.println("Selecionado: " + selectedItemId);
-		}
-	}
-	
-	public void detailSelected() {
-		System.out.println("detailSelected");
-		if(selectedItemId != null) {
-			System.out.println("Selecionado: " + selectedItemId);
-		}
-	}
-	
-	public String getSelectedItemId() {
-		return selectedItemId;
+	public Searchable getSelectedItem() {
+		return selectedItem;
 	}
 
-	public void setSelectedItemId(String selectedItemId) {
-		this.selectedItemId = selectedItemId;
+	public void setSelectedItem(Searchable selectedItem) {
+		this.selectedItem = selectedItem;
+	}
+	
+	public String showDetails() {
+		if(this.selectedItem == null) {
+			//TODO
+			System.out.println("Error. Selected null value");
+			return "";
+		}
+		
+		return this.selectedItem.getDetailsPage();
 	}
 	
 }

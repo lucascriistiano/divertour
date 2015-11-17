@@ -216,7 +216,6 @@ div#paper {
 }
 
 .paper {
-
   .container {
     height: 100%;
   }
@@ -225,8 +224,19 @@ div#paper {
     height: 100%;
     background: lighten($background-color,5%);
     height:100%;box-shadow:0 3px 2px -2px rgba(200,200,200,0.2); margin-top:40px; text-align:center;
-
-
   }
+}
 
+#search-box {
+	color:#333;
+	text-align:center;
+	width:30%;
+	font-size: 10px;
+}
+
+#search-box-button {
+/* 	color:#333; */
+	text-align:center;
+	font-size: 10px;
+	height: 100px;
 }

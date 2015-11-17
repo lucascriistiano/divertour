@@ -78,5 +78,9 @@ public class GuideService {
 		query.addCriteria(Criteria.where("name").regex(name, "i"));
 		return mongoOperation.find(query, Guide.class);
 	}
+	
+	public Guide findById(String id) {
+		return guideRepository.findById(id);
+	}
 
 }

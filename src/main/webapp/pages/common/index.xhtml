@@ -1,70 +1,61 @@
 <ui:composition template="/pages/include/template.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:b="http://bootsfaces.net/ui"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-		
+
 	<ui:define name="title">Início</ui:define>
-	
+
 	<ui:define name="content">
-	
-	
-	
-	
-	<h:panelGroup layout="block" id="fullpage" style="margin-top:80px;">
-	
+		<h:panelGroup layout="block" id="fullpage" style="margin-top:80px;">
+
 			<h:panelGroup layout="block" styleClass="section active" style="padding-bottom:0px;">
-		
-			<h:panelGroup layout="block" 
-								style="display:block;
-											position:relative;height:50%;background:#B23939;padding:30px;
-											text-align:center;color:#FFF;font-size:2em;font-family:roboto-thin;
-											overflow-y:hidden;"
-								>
-				<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br/>
-				Maecenas a pretium nisl, non luctus felis. 
-				</p>
-				
-				<h:inputText value="Buscar" title="Search" style="color:#333;text-align:center; width:30%;"  />
-				
+				<h:panelGroup layout="block" style="display:block; position:relative;height:50%;background:#B23939;padding:30px; text-align:center;color:#FFF;font-size:2em;font-family:roboto-thin; overflow-y:hidden;">
+					<h1>EXPLORE. VIAJE. DIVIRTA-SE.</h1><br />
+					<p>
+						Encontre lugares, roteiros e cidades com a caixa de pesquisa abaixo.
+					</p>
+
+					<h:form>
+						<p:autoComplete id="search-box" value="#{searchMBean.selectedItem}" completeMethod="#{searchMBean.findResults}"
+							var="foundItem" itemLabel="#{foundItem.exhibitionName}" itemValue="#{foundItem}" converter="searchableConverter" forceSelection="true" maxResults="5" minQueryLength="3" />
+						<b:commandButton id="search-box-button" icon="ui-icon-search" action="#{searchMBean.showDetails}" />
+					</h:form>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" style="height:50%;text-align:center;" styleClass="primary-color">
+					<b:iconAwesome name="angle-down" size="3x"></b:iconAwesome>
+				</h:panelGroup>
 			</h:panelGroup>
-			
-			<h:panelGroup layout="block" style="height:50%;text-align:center;" styleClass="primary-color">
-				<b:iconAwesome name="angle-down" size="3x"></b:iconAwesome>
-			</h:panelGroup>			 
-		
-		</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="section paper">
 				<b:container>
 					<b:row>
 						<b:column>
-							<h:graphicImage library="common"  name="img/example-1.png" />
+							<h:graphicImage library="common" name="img/example-1.png" />
 							<!-- <b:iconAwesome name="map" size="3x" /> Gerencie Lugares -->
-						</b:column>				
+						</b:column>
 					</b:row>
 				</b:container>
-			</h:panelGroup>	
+			</h:panelGroup>
 
 
-			<h:panelGroup layout="block" styleClass="section paper" >
-				<b:container >
+			<h:panelGroup layout="block" styleClass="section paper">
+				<b:container>
 					<b:row>
 						<b:column>
 							<h:graphicImage library="common" name="img/example-1.png" />
 							<!-- <b:iconAwesome name="map" size="3x" /> Gerencie Lugares -->
 							<!--  <b:iconAwesome name="search" />  -->
 							<!--  <b:iconAwesome name="comments" />  -->
-						</b:column>									
+						</b:column>
 					</b:row>
 				</b:container>
-			</h:panelGroup>				
-		
-	 </h:panelGroup>
-	
+			</h:panelGroup>
+
+		</h:panelGroup>
+
 		<script>	
 			$(document).ready(function() {
 				$('#fullpage').fullpage();
@@ -76,8 +67,6 @@
 			    $(".fp-tableCell").css("vertical-align","top");
 			});	
 		</script>
-
-						
 	</ui:define>
 
 </ui:composition>
