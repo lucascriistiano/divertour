@@ -9,14 +9,14 @@
 
 	<ui:define name="extra_script">
 		<script
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgeHiIZP3daD3XwqOFpjaFPTkU1cAWask&amp;libraries=places&amp;callback=initAutocomplete"
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgeHiIZP3daD3XwqOFpjaFPTkU1cAWask&amp;signed_in=true&amp;libraries=places&amp;callback=initAutocomplete"
 			async="async" defer="defer"></script>
 		<h:outputScript library="common" name="js/mapscript.js" />
 	</ui:define>
 
 	<ui:define name="content-area">
 		<h:panelGroup id="wrapper" layout="block">
-			<b:inputText id="pac-input" styleClass="controls" type="text" placeholder="Endereço ou nome do local" style="display:none;" />
+			<!-- <b:inputText id="pac-input" styleClass="controls" type="text" placeholder="Endereço ou nome do local" style="display:none;" rendered="false" /> -->
 			<h:panelGroup id="map-canvas" layout="block"></h:panelGroup>
 			<h:panelGroup id="push" layout="block"></h:panelGroup>
 
@@ -36,10 +36,12 @@
 					<b:inputText id="period" value="#{guideMBean.guide.period}" placeholder="Dias sugeridos" />
 					
 					<h3>Lugares</h3>
-					<b:selectOneMenu value="#{guideMBean.selectedPlace}">
-						<f:selectItems value="#{guideMBean.places}" var="place" itemValue="#{place}" itemLabel="#{place.name} - #{place.city.name}/#{place.city.state}" />
-					</b:selectOneMenu>
-       				<p:commandButton value="Adicionar" icon="ui-icon-plus" action="#{guideMBean.addPlace}" />
+					
+					<p:autoComplete id="place-search" value="#{guideMBean.selectedItem}" completeMethod="#{guideMBean.findResults}" var="foundItem" itemLabel="#{foundItem.exhibitionName}" itemValue="#{foundItem}" converter="searchableConverter" forceSelection="true" maxResults="5" minQueryLength="3">
+						<p:ajax event="itemSelect" listener="#{guideMBean.addPlace}" update="selected-place-json" oncomplete="addMarker()"/>
+					</p:autoComplete>
+       				
+       				<h:inputHidden id="selected-place-json" value="#{guideMBean.selectedPlaceJSON}" />
        				
        				<p:commandButton value="Registrar" action="#{guideMBean.register}" />
 				</h:form>

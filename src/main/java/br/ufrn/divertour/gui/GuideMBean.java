@@ -4,19 +4,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.LatLng;
-import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
+import org.primefaces.event.SelectEvent;
+
+import com.google.gson.Gson;
 
 import br.ufrn.divertour.model.Guide;
 import br.ufrn.divertour.model.Place;
+import br.ufrn.divertour.model.Searchable;
 import br.ufrn.divertour.service.GuideService;
 import br.ufrn.divertour.service.PlaceService;
 import br.ufrn.divertour.service.exception.ValidationException;
@@ -27,102 +26,31 @@ public class GuideMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Guide guide;
-	
-	private Place selectedPlace;
-	private List<Place> selectedPlaces;
-
 	private PlaceService placeService = PlaceService.getInstance();
 	private GuideService guideService = GuideService.getInstance();
 
-	private MapModel geoModel;
-    private List<Marker> placeMarkers;
-
-    private String centerGeoMap = "41.850033, -87.6500523";
-//    private String centerGeoMap;
+	private Guide guide;
+	private List<Place> selectedPlaces;
 	
-	@PostConstruct
-    public void init() {
-        geoModel = new DefaultMapModel();
-//        centerGeoMap = currentLat + ", " + currentLng;        
-    }
+	// For search
+	private Searchable selectedItem;
+	
+	// For markers add and remove
+	private String selectedPlaceJSON;
 	
 	public GuideMBean() {
 		this.guide = new Guide();
 		this.selectedPlaces = new ArrayList<>();
-		this.placeMarkers = new ArrayList<>();
 	}
 	
-//	public void onGeocode(GeocodeEvent event) {
-//        List<GeocodeResult> results = event.getResults();
-//         
-//        if (results != null && !results.isEmpty()) {
-//            LatLng center = results.get(0).getLatLng();
-//            centerGeoMap = center.getLat() + "," + center.getLng();
-//             
-//            for (int i = 0; i < results.size(); i++) {
-//                GeocodeResult result = results.get(i);
-//                geoModel.addOverlay(new Marker(result.getLatLng(), result.getAddress()));
-//            }
-//        }
-//    }
-     
-//    public void onReverseGeocode(ReverseGeocodeEvent event) {
-//        List<String> addresses = event.getAddresses();
-//        LatLng coord = event.getLatlng();
-//         
-//        if (addresses != null && !addresses.isEmpty()) {
-//        	centerGeoMap = coord.getLat() + "," + coord.getLng();
-//            geoModel.addOverlay(new Marker(coord, addresses.get(0)));
-//        }
-//    }
-    
-//    public void onPointSelect(PointSelectEvent event) {
-//		LatLng coord = event.getLatLng();
-//		centerGeoMap = coord.getLat() + "," + coord.getLng();
-//		
-//		if(placeMarker == null) {
-//			placeMarker = new Marker(coord);
-//			geoModel.addOverlay(placeMarker);
-//		} else {
-//			placeMarker.setLatlng(coord);
-//		}
-//		
-//		String resultAddress;
-//		try {
-//			resultAddress = getAddressByGpsCoordinates(coord.getLat(), coord.getLng());
-//		} catch (MalformedURLException e) {
-//			resultAddress = "";
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			resultAddress = "";
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch(Exception e) {
-//			resultAddress = "";
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		this.place.setAddress(resultAddress);
-//	}
-	
-    public void addPlace() {
+    public void addPlace(SelectEvent event) {
+    	Place selectedPlace = (Place) event.getObject();
+    	
     	if(selectedPlace != null) {
     		this.selectedPlaces.add(selectedPlace);
+    		System.out.println("Added place: " + selectedPlace.getName());
     		
-    		// Add place marker to map
-    		LatLng selectedPlaceCoords = new LatLng(selectedPlace.getLat(), selectedPlace.getLng());
-    		Marker selectedPlaceMarker = new Marker(selectedPlaceCoords);
-    		placeMarkers.add(selectedPlaceMarker);
-    		geoModel.addOverlay(selectedPlaceMarker);
-    		
-    		// Center map on added marker    		
-    		centerGeoMap = selectedPlace.getLat() + ", " + selectedPlace.getLng();
-    		
-			// Deselect place	
-    		this.selectedPlace = null;
+    		this.selectedPlaceJSON = new Gson().toJson(selectedPlace).toString();
     	}
     }
 
@@ -160,26 +88,6 @@ public class GuideMBean implements Serializable {
 		return selectedPlaces;
 	}
 
-	public List<Marker> getPlaceMarkers() {
-		return placeMarkers;
-	}
-
-	public Place getSelectedPlace() {
-		return selectedPlace;
-	}
-
-	public void setSelectedPlace(Place selectedPlace) {
-		this.selectedPlace = selectedPlace;
-	}
-
-    public MapModel getGeoModel() {
-        return geoModel;
-    }
- 
-    public String getCenterGeoMap() {
-        return centerGeoMap;
-    }
-
 	public Guide getGuide() {
 		return guide;
 	}
@@ -194,6 +102,30 @@ public class GuideMBean implements Serializable {
 	
 	public List<String> getCategoriesOfGuide() {
 		return GuideService.getCategoriesOfGuide();
+	}
+	
+	// For search in route creation
+	public Searchable getSelectedItem() {
+		return selectedItem;
+	}
+
+	public void setSelectedItem(Searchable selectedItem) {
+		this.selectedItem = selectedItem;
+	}
+	
+	public List<Searchable> findResults(String search) {
+		List<Searchable> foundResults = new ArrayList<>();
+		foundResults.addAll(placeService.findByNameSimilarity(search));
+		
+		return foundResults;
+	}
+	
+	public String getSelectedPlaceJSON() {
+		return selectedPlaceJSON;
+	}
+
+	public void setSelectedPlaceJSON(String selectedPlaceJSON) {
+		this.selectedPlaceJSON = selectedPlaceJSON;
 	}
 	
 }
