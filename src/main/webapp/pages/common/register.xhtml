@@ -1,4 +1,7 @@
-<ui:composition template="/pages/include/template.xhtml"
+
+
+
+<ui:composition template="/pages/include/template_paper.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -8,7 +11,66 @@
 	
 	<ui:define name="title">Cadastro</ui:define>
 	
-	<ui:define name="content">	
+	<ui:define name="title-paper">Cadastro  <b:iconAwesome name="user-plus"></b:iconAwesome> </ui:define>
+		
+	<ui:define name="first-topic">
+		Informações
+	</ui:define>
+	
+	<ui:define name="content-paper">	
+	
+		<h:form>
+		
+			<b:row>
+				<b:column offset="3" col-md="6">
+					<h:outputLabel value="Nome: "/>
+					<b:inputText value="#{userMBean.user.name}" placeholder="João da Silva"></b:inputText>
+									
+					<h:outputLabel value="Email: "/>
+					<b:inputText value="#{userMBean.user.email}" placeholder="joaosilva@divertour.com.br"></b:inputText>
+					
+					<h:outputLabel value="Cidade: "/>
+					<b:selectOneMenu value="#{userMBean.user.city}">
+						<f:selectItems value="#{userMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city.name}/#{city.state}" />
+					</b:selectOneMenu>	
+				
+					<h:outputLabel value="Usuário:"/>
+					<b:inputText value="#{userMBean.user.username}" placeholder="joaodasilva"></b:inputText>
+				       				
+					<h:outputLabel value="Senha: "/>
+					<b:inputSecret value="#{userMBean.user.password}" placeholder="Sua senha"></b:inputSecret>
+				
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column col-md="12" styleClass="title">
+					<hr />	Interesses  <hr />
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column offset="3" col-md="6" >
+				    <p:selectManyCheckbox id="grid2" value="#{userMBean.selectedCategories}" layout="responsive" columns="3">
+						<f:selectItems value="#{userMBean.categoriesOfPlace}" />
+    				</p:selectManyCheckbox>				
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column col-md="12"><b:commandButton value="Registrar" action="#{userMBean.register}" look="primary"/></b:column>
+			</b:row>
+			
+			
+			
+		
+		
+		
+		</h:form>
+	
+	
+	
+		<ui:remove>
 		<h:panelGroup layout="block" id="fullpage" style="margin-top:80px;">
 	        <h:panelGroup layout="block" styleClass="section paper">
 				<b:container>
@@ -19,11 +81,7 @@
 		
 							<h:form>
 								<h:panelGrid columns="2" cellpadding="5">
-									<h:outputText value="Nome: "/>
-									<b:inputText value="#{userMBean.user.name}" placeholder="João da Silva"></b:inputText>
 									
-				        			<h:outputText value="Email: "/>
-				       				<b:inputText value="#{userMBean.user.email}" placeholder="joaosilva@divertour.com.br"></b:inputText>
 				       				
 				       				<h:outputText value="Usuário:"/>
 									<b:inputText value="#{userMBean.user.username}" placeholder="joaodasilva"></b:inputText>
@@ -31,17 +89,14 @@
 				       				<h:outputText value="Senha: "/>
 				       				<b:inputSecret value="#{userMBean.user.password}" placeholder="Sua senha"></b:inputSecret>
 				       				
-				       				<h:outputText value="Cidade: "/>
-									<b:selectOneMenu value="#{userMBean.user.city}">
-										<f:selectItems value="#{userMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city.name}/#{city.state}" />
-									</b:selectOneMenu>
+				       				
 									
 									<!-- <h:outputText value="Procuro por: "/> -->
 									<!-- <ui:repeat value="#{userMBean.categoriesOfPlace}" var="category" varStatus="status"> -->
 										<!-- <b:selectBooleanCheckbox value="#{userMBean.user.interests[status.index]}" caption="#{category}"/> -->		
 									<!-- </ui:repeat> -->
 				       				
-				       				<b:commandButton value="Registrar" action="#{userMBean.register}" look="primary"/>
+				       				
 				       			</h:panelGrid>
 							</h:form>
 						</b:column>
@@ -49,6 +104,8 @@
 				</b:container>
 			</h:panelGroup>
         </h:panelGroup>
+        
+        </ui:remove>	
 	</ui:define>
 
 </ui:composition>
