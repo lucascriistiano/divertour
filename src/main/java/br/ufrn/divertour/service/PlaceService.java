@@ -1,6 +1,7 @@
 package br.ufrn.divertour.service;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -75,5 +76,49 @@ public class PlaceService {
 	public Place findById(String id) {
 		return placeRepository.findById(id);
 	}
+
+	public List<Place> findByCity(String city) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("city").regex(city, "i"));
+		return mongoOperation.find(query, Place.class);
+	}
+
+	public List<Place> findByType(String type) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("type").regex(type, "i"));
+		return mongoOperation.find(query, Place.class);
+	}
+	
+	public List<Place> findByCategory(String category) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("category").regex(category, "i"));
+		return mongoOperation.find(query, Place.class);
+	}		
+
+	public List<Place> findByCityAndType(String city, String type) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("city").regex(city, "i").andOperator(Criteria.where("type").regex(type, "i")));
+		return mongoOperation.find(query, Place.class);
+	}
+	
+	public List<Place> findByTypeAndCategory(String type, String category) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("category").regex(category, "i").andOperator(Criteria.where("type").regex(type, "i")));
+		return mongoOperation.find(query, Place.class);
+	}
+
+	public List<Place> findByCityAndCategory(String city, String category) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("city").regex(city, "i").andOperator(Criteria.where("category").regex(category, "i")));
+		return mongoOperation.find(query, Place.class);
+	}
+
+	public List<Place> findByCityAndTypeAndCategory(String city, String type, String category) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("city").regex(city, "i").andOperator(Criteria.where("type").regex(type, "i").andOperator(Criteria.where("category").regex(category, "i"))));
+		return mongoOperation.find(query, Place.class);
+	}
+
+
 
 }

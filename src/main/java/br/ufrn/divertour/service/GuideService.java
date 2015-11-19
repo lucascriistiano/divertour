@@ -83,4 +83,46 @@ public class GuideService {
 		return guideRepository.findById(id);
 	}
 
+	public List<Guide> findByNumberOfPlaces(int numberOfPlaces) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("places").size(numberOfPlaces));
+		return mongoOperation.find(query, Guide.class);
+	}
+
+	public List<Guide> findByPeriod(int period) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("period").is(period));
+		return mongoOperation.find(query, Guide.class);
+	}
+
+	public List<Guide> findByCategory(String category) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("category").regex(category, "i"));
+		return mongoOperation.find(query, Guide.class);
+	}
+
+	public List<Guide> findByNumberOfPlacesAndPeriod(int numberOfPlaces, int period) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("places").size(numberOfPlaces).andOperator(Criteria.where("period").is(period)));
+		return mongoOperation.find(query, Guide.class);
+	}
+
+	public List<Guide> findByNumberOfPlacesAndCategory(int numberOfPlaces, String category) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("places").size(numberOfPlaces).andOperator(Criteria.where("category").regex(category, "i")));
+		return mongoOperation.find(query, Guide.class);
+	}
+
+	public List<Guide> findByPeriodAndCategory(int period, String category) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("category").regex(category, "i").andOperator(Criteria.where("period").is(period)));
+		return mongoOperation.find(query, Guide.class);
+	}
+
+	public List<Guide> findByNumberOfPlacesAndPeriodAndCategory(int numberOfPlaces, int period, String category) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("places").size(numberOfPlaces).andOperator(Criteria.where("period").is(period)).andOperator(Criteria.where("category").regex(category, "i")));
+		return mongoOperation.find(query, Guide.class);
+	}
+
 }

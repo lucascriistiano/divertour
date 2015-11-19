@@ -3,13 +3,59 @@
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 	
 	<ui:define name="title">Roteiros</ui:define>
 	
 	<ui:define name="content">
 		<b:container styleClass="background">
         	<h1>Roteiros</h1>
+        	
+        	
+        	<h:form>
+				<br></br>		
+				<h:outputLabel value="Busca Parametrizada: " />
+				<br></br>
+				
+				<h:outputLabel for="period" value="Periodo: " />
+				<b:inputText id="period" value="#{searchGuideMBean.period}" placeholder="Quantidade de dias do roteiro" />
+				
+				<h:outputLabel for="numberOfPlaces" value="Quantidade de lugares: " />
+				<b:inputText id="numberOfPlaces" value="#{searchGuideMBean.numberOfPlaces}"  />
+				
+				<h:outputLabel for="category" value="Categoria " />
+				<p:selectOneMenu id="category" value="#{searchPlaceMBean.category}">
+					<f:selectItems value="#{guideMBean.categoriesOfGuide}" var="category"
+						itemValue="#{category}" itemLabel="#{category}" />
+				</p:selectOneMenu>				
+				
+				
+				<p:dataTable id="guide-datatable-search" var="guide" value="#{guideMBean.guides}" sortMode="multiple" scrollable="true" scrollHeight="150">
+			        <p:column headerText="Nome" sortBy="#{guide.name}">
+			            <h:outputText value="#{guide.name}" />
+			        </p:column>
+			        
+			        <p:column headerText="Categoria" sortBy="#{guide.category}">
+			            <h:outputText value="#{guide.category}" />
+			        </p:column>
+			        
+			        <p:column headerText="Dias" sortBy="#{guide.period}">
+			            <h:outputText value="#{guide.period}" />
+			        </p:column>
+			        
+			        <p:column headerText="Número de Lugares" sortBy="#{guide.places.size()}">
+			            <h:outputText value="#{guide.places.size()}" />
+			        </p:column>
+			        
+			        <p:column headerText="Ver mais" style="width:60px;text-align: center">
+	             		<p:commandButton update="guide-datatable-search" icon="ui-icon-plus" />
+	            	</p:column>
+			        			       
+			    </p:dataTable>
+
+				
+			</h:form>
         </b:container>
 	</ui:define>
 
