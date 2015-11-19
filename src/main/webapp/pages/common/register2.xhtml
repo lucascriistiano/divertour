@@ -1,0 +1,57 @@
+
+
+
+<ui:composition template="/pages/include/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="title">Cadastro</ui:define>
+	
+	<ui:define name="content">	
+		<h:panelGroup layout="block" id="fullpage" style="margin-top:80px;">
+	        <h:panelGroup layout="block" styleClass="section paper">
+				<b:container>
+					<b:row>
+					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+						<b:column>
+							<h1>Cadastro</h1>
+		
+							<h:form>
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputText value="Nome: "/>
+									<b:inputText value="#{userMBean.user.name}" placeholder="João da Silva"></b:inputText>
+									
+				        			<h:outputText value="Email: "/>
+				       				<b:inputText value="#{userMBean.user.email}" placeholder="joaosilva@divertour.com.br"></b:inputText>
+				       				
+				       				<h:outputText value="Usuário:"/>
+									<b:inputText value="#{userMBean.user.username}" placeholder="joaodasilva"></b:inputText>
+				       				
+				       				<h:outputText value="Senha: "/>
+				       				<b:inputSecret value="#{userMBean.user.password}" placeholder="Sua senha"></b:inputSecret>
+				       				
+				       				<h:outputText value="Cidade: "/>
+									<b:selectOneMenu value="#{userMBean.user.city}">
+										<f:selectItems value="#{userMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city.name}/#{city.state}" />
+									</b:selectOneMenu>
+									
+									<!-- <h:outputText value="Procuro por: "/> -->
+									<!-- <ui:repeat value="#{userMBean.categoriesOfPlace}" var="category" varStatus="status"> -->
+										<!-- <b:selectBooleanCheckbox value="#{userMBean.user.interests[status.index]}" caption="#{category}"/> -->		
+									<!-- </ui:repeat> -->
+				       				
+				       				<b:commandButton value="Registrar" action="#{userMBean.register}" look="primary"/>
+				       			</h:panelGrid>
+							</h:form>
+						</b:column>
+					</b:row>
+				</b:container>
+			</h:panelGroup>
+        </h:panelGroup>
+	</ui:define>
+
+</ui:composition>

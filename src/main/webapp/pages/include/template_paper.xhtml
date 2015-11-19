@@ -1,0 +1,63 @@
+
+<ui:composition template="/pages/include/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	
+	<ui:define name="content">
+			<h:panelGroup layout="block" styleClass="section active" style="margin-top:80px;">
+				
+				<h:panelGroup layout="block" style="display:block; position:relative;height:20%;background:#B23939;padding:30px; text-align:center;color:#FFF;font-size:2em;font-family:roboto-thin; overflow-y:hidden;">
+					<h1 style="color:white;"> <ui:insert name="title-paper">Title</ui:insert> </h1><br />
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" style="height:50%;text-align:center;" styleClass="primary-color">
+					<b:iconAwesome name="angle-down" size="3x" />
+				</h:panelGroup> 
+			</h:panelGroup>
+	
+			<h:panelGroup layout="block" styleClass="section paper" >
+				<b:container styleClass="divsRow">
+					
+						<b:row id="firstRow">
+							<b:column col-md="12" styleClass="title">
+								<hr />	<ui:insert name="first-topic">Default</ui:insert>  <hr />
+							</b:column>
+						</b:row>
+	
+					<ui:insert name="content-paper">
+						Conteudo
+					</ui:insert>
+					
+					
+				</b:container>
+			</h:panelGroup>	
+	
+  
+        <script>
+   	$( document ).ready(function() {
+		$(".divsRow > .equalizer").each(function() { 
+		    var height = 0;
+		    $(this).find(".watch").each(function() {
+		      if($(this).height() > height){
+		    	height = $(this).height();
+		      }
+		    });
+		    $(this).find(".watch").height(height);
+	  	});
+	});       
+   	
+   	$(function(){
+   		$('#description').css('height', '100%').css('height', '-=35px');   		
+   	});
+   	
+        </script>
+        
+        
+	</ui:define>
+
+</ui:composition>
