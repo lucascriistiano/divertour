@@ -7,7 +7,6 @@ $secundary-color-darker: #141414;
 $background-color: #E5E5E5;
 $header-height: 80px;
 
-
 .primary-color {
   color:$primary-color-darker;
 }
@@ -100,6 +99,17 @@ html,body {
   height:100%;
 }
 
+h1,h2,h3 {
+  color: $primary-color-darker;
+}
+
+hr {
+  border-color: $primary-color-darker;
+  width: 50%;
+  margin: 0 auto;
+
+}
+
 #content-area {
 	padding-left: 0px;
 	padding-right: 0px;
@@ -190,13 +200,26 @@ div#paper {
 .paper {
   .container {
     height: 100%;
+
+    .title {
+      color: $primary-color-darker;
+      margin: 50px 0px 25px 0px;
+      font-size: 2.6em;
+    }
+
   }
 
   .row {
     height: 100%;
     background: lighten($background-color,5%);
-    height:100%;box-shadow:0 3px 2px -2px rgba(200,200,200,0.2); margin-top:40px; text-align:center;
+    box-shadow:0 3px 2px -2px rgba(200,200,200,0.2);
   }
+
+  #firstRow {
+    height:100%; margin-top:40px; text-align:center;
+  }
+
+
 }
 
 #search-box {
@@ -211,4 +234,45 @@ div#paper {
 	text-align:center;
 	font-size: 10px;
 	height: 100px;
+}
+
+
+input:hover,input:focus,select:hover,select:focus,textarea:hover,textarea:focus {
+  border-color: $primary-color-darker;
+}
+
+:active {
+  border-color: $primary-color-darker;
+}
+
+
+label {
+  color: #7D7D7D  ;
+}
+
+/*==========  Mobile First Method  ==========*/
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
 }
