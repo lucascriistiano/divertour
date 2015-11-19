@@ -20,7 +20,8 @@ function success(position) {
 	var mapOptions = {
 		center : latlng,
 		zoom : 13,
-		mapTypeId : google.maps.MapTypeId.ROADMAP
+		mapTypeId : google.maps.MapTypeId.ROADMAP,
+		mapTypeControl: false
 	};
 	initAutocomplete(mapOptions);
 }
@@ -42,7 +43,8 @@ function error(msg) {
 	var mapOptions = {
 		center : brasilLatLng,
 		zoom : 4,
-		mapTypeId : google.maps.MapTypeId.ROADMAP
+		mapTypeId : google.maps.MapTypeId.ROADMAP,
+		mapTypeControl: false
 	};
 	initAutocomplete(mapOptions);
 }
@@ -59,6 +61,7 @@ function initAutocomplete(mapOptions) {
 	var input = document.getElementById('pac-input');
 	map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 	searchBox = new google.maps.places.SearchBox(input);
+//	input.style.display = 'block';
 
 	// Bias the SearchBox results towards current map's viewport.
 	map.addListener('bounds_changed', function() {
@@ -113,3 +116,8 @@ function initAutocomplete(mapOptions) {
 	});
 	// [END region_getplaces]
 }
+
+$(function() {
+	$('#pac-input').show();
+	
+})
