@@ -77,7 +77,7 @@
 								<h:outputLabel for="address" value="Endereço: "/>
 								<b:inputText id="address" value="#{placeMBean.place.address}" placeholder="Endereço do local" >
 									<f:facet name="append">
-										<b:commandButton value="Buscar" iconAwesome="search" onclick="geocode()"/>
+										<b:commandButton value="Buscar" iconAwesome="search" onclick="geocode();return false;"/>
 									</f:facet>
 								</b:inputText>						
 							</b:column>
