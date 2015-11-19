@@ -1,3 +1,4 @@
+
 <ui:composition template="/pages/include/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:b="http://bootsfaces.net/ui"
@@ -9,17 +10,17 @@
 	<ui:define name="title">Novo Lugar</ui:define>
 	
 	<ui:define name="extra_script">
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>
-		<h:outputScript library="common" name="js/place_register_script.js" />
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgeHiIZP3daD3XwqOFpjaFPTkU1cAWask&amp;signed_in=true&amp;libraries=places&amp;callback=initAutocomplete"
+			async="async" defer="defer"></script>
+		<h:outputScript library="common" name="js/script-map-create-place.js" />
 	</ui:define>
 	
 	<ui:define name="content">
-	
 			<h:panelGroup layout="block" styleClass="section active" style="margin-top:80px;">
 				
 				<h:panelGroup layout="block" style="display:block; position:relative;height:20%;background:#B23939;padding:30px; text-align:center;color:#FFF;font-size:2em;font-family:roboto-thin; overflow-y:hidden;">
 					<h1 style="color:white;">Novo Lugar <b:iconAwesome name="map-marker"></b:iconAwesome> </h1><br />
-					
 				</h:panelGroup>
 
 				<h:panelGroup layout="block" style="height:50%;text-align:center;" styleClass="primary-color">
@@ -35,78 +36,74 @@
 						</b:column>
 					</b:row>
 					
-				<h:form prependId="false">	
-					
-					<b:row styleClass="equalizer">
-					
-						<b:column col-md="6" styleClass="watch">
-							<h:outputLabel for="name" value="Nome" />
-							<b:inputText id="name" value="#{placeMBean.place.name}" placeholder="Nome do lugar" />
-							
-							<h:outputLabel for="type" value="Tipo "/>
-							<b:selectOneMenu id="type" value="#{placeMBean.place.type}">
-								<f:selectItems value="#{placeMBean.typesOfPlace}" var="type" itemValue="#{type}" itemLabel="#{type}" />
-							</b:selectOneMenu>
-							
-							<h:outputLabel for="website" value="Website " />
-		       				<b:inputText id="website" value="#{placeMBean.place.website}" placeholder="Website do local" />	
-		       				
-							<h:outputLabel for="contacts" value="Contato(s): " />
-		       				<b:inputText id="contacts" value="#{placeMBean.insertedContact}" placeholder="Contatos do local" />
-		       				<p:commandButton value="Adicionar" action="#{placeMBean.addContact}" rendered="false" />		   		       				
-		       																			
-		       				<h:inputHidden id="currentLat" value="#{placeMBean.currentLat}" />
-		       				<h:inputHidden id="currentLng" value="#{placeMBean.currentLng}" />						
-						</b:column>
-						<b:column col-md="6" styleClass="watch">
-							<h:outputLabel for="description" value="Descrição " />
-							<p:inputTextarea autoResize="false"  id="description" value="#{placeMBean.place.description}" placeholder="Descrição do local" style="width:100%;height:100%!important;" />				
-						</b:column>
-					</b:row>
-					
-					<b:row>
-					
-						<b:column col-md="6">
-							<h:outputLabel value="Cidade: "/>
-							<b:selectOneMenu value="#{placeMBean.place.city}">
-								<f:selectItems value="#{placeMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city.name}/#{city.state}" />
-							</b:selectOneMenu>								
-						</b:column>
+					<h:form prependId="false">	
 						
-						<b:column col-md="6">
-							<h:outputLabel for="address" value="Endereço: "/>
-		       				<b:inputText id="address" value="#{placeMBean.place.address}" placeholder="Endereço do local" />
-		       				<p:commandButton value="Buscar" icon="ui-icon-search" onclick="geocode()" />							
+						<b:row styleClass="equalizer">
+							<b:column col-md="6" styleClass="watch">
+								<h:outputLabel for="name" value="Nome" />
+								<b:inputText id="name" value="#{placeMBean.place.name}" placeholder="Nome do lugar" />
+								
+								<h:outputLabel for="type" value="Tipo "/>
+								<b:selectOneMenu id="type" value="#{placeMBean.place.type}">
+									<f:selectItems value="#{placeMBean.typesOfPlace}" var="type" itemValue="#{type}" itemLabel="#{type}" />
+								</b:selectOneMenu>
+								
+								<h:outputLabel for="website" value="Website " />
+			       				<b:inputText id="website" value="#{placeMBean.place.website}" placeholder="Website do local" />	
+			       				
+								<h:outputLabel for="contacts" value="Contato(s): " />
+			       				<b:inputText id="contacts" value="#{placeMBean.insertedContact}" placeholder="Contatos do local" />
+			       				<p:commandButton value="Adicionar" action="#{placeMBean.addContact}" rendered="false" />		   		       				
+			       																			
+			       				<h:inputHidden id="currentLat" value="#{placeMBean.currentLat}" />
+			       				<h:inputHidden id="currentLng" value="#{placeMBean.currentLng}" />						
+							</b:column>
+							<b:column col-md="6" styleClass="watch">
+								<h:outputLabel for="description" value="Descrição " />
+								<p:inputTextarea autoResize="false"  id="description" value="#{placeMBean.place.description}" placeholder="Descrição do local" style="width:100%;height:100%!important;" />				
+							</b:column>
+						</b:row>
 						
-						</b:column>
-					
-						<b:column col-md="12">
-						<p:gmap id="geoGmap" widgetVar="geoMap" center="#{placeMBean.centerGeoMap}" type="ROADMAP" model="#{placeMBean.geoModel}" style="width:100%; height:400px">
-							<p:ajax event="geocode" listener="#{placeMBean.onGeocode}" update="@this" />
-							<p:ajax event="pointSelect" listener="#{placeMBean.onPointSelect}" update="@this" />
-						</p:gmap>	
-							    												
-						</b:column>
-						
-						<b:column col-md="12" style="height:50px;">
-							<p:commandButton value="Registrar" action="#{placeMBean.register}" />		
-						</b:column>
-					</b:row>
-					
-					<b:row>
-						<b:column col-md="12">
-							<ui:remove>
-									<h:outputText for="images" value="Imagens: " />
-					       				<p:fileUpload value="#{placeMBean.selectedFile}" mode="simple" skinSimple="true"/>
-										<p:commandButton value="Submit" ajax="false" actionListener="#{placeMBean.addImage}" disabled="true" />
-
-					       			<p:galleria value="#{placeMBean.uploadedFiles}" var="image" panelHeight="200" showCaption="true" >
-										<p:graphicImage name="demo/images/nature/#{image}" alt="Image Description for #{image}" title="#{image}"/>
-									</p:galleria>
-							</ui:remove>
+						<b:row>
+							<b:column col-md="6">
+								<h:outputLabel value="Cidade: "/>
+								<b:selectOneMenu id="city" value="#{placeMBean.place.city}">
+									<f:selectItems value="#{placeMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city.name}/#{city.state}" />
+								</b:selectOneMenu>								
+							</b:column>
 							
-						</b:column>					
-					</b:row>
+							<b:column col-md="5">
+								<h:outputLabel for="address" value="Endereço: "/>
+			       				<b:inputText id="address" value="#{placeMBean.place.address}" placeholder="Endereço do local" />							
+							</b:column>
+							
+							<b:column col-md="1">
+			       				<p:commandButton value="Buscar" icon="ui-icon-search" onclick="geocode()" />							
+							</b:column>
+						
+							<b:column col-md="12">
+								<h:panelGroup id="map-canvas" layout="block" style="height:300px"></h:panelGroup>
+								<h:panelGroup id="push" layout="block"></h:panelGroup>
+							</b:column>
+							
+							<b:column col-md="12" style="height:50px;">
+								<p:commandButton value="Registrar" action="#{placeMBean.register}" />		
+							</b:column>
+						</b:row>
+						
+						<b:row>
+							<b:column col-md="12">
+								<ui:remove>
+										<h:outputText for="images" value="Imagens: " />
+						       				<p:fileUpload value="#{placeMBean.selectedFile}" mode="simple" skinSimple="true"/>
+											<p:commandButton value="Submit" ajax="false" actionListener="#{placeMBean.addImage}" disabled="true" />
+	
+						       			<p:galleria value="#{placeMBean.uploadedFiles}" var="image" panelHeight="300" showCaption="true" >
+											<p:graphicImage name="demo/images/nature/#{image}" alt="Image Description for #{image}" title="#{image}"/>
+										</p:galleria>
+								</ui:remove>
+							</b:column>					
+						</b:row>
 					</h:form>
 				</b:container>
 			</h:panelGroup>	
