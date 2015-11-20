@@ -23,7 +23,6 @@ public class UserMBean implements Serializable {
 	
 	private UserService userService = UserService.getInstance();
 	private CityService cityService = CityService.getInstance();
-	private String[] selectedCategories;
 	
 	private User user;
 	
@@ -68,14 +67,6 @@ public class UserMBean implements Serializable {
 		return cityService.listAll();
 	}
 		
-	public String[] getSelectedCategories() {
-		return selectedCategories;
-	}
-
-	public void setSelectedCategories(String[] selectedCategories) {
-		this.selectedCategories = selectedCategories;
-	}
-
 	public List<User> getUsers() {
 		return userService.listAll();
 	}

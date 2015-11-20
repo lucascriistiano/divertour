@@ -53,10 +53,9 @@
 			       				
 								<h:outputLabel for="contacts" value="Contato(s): " />
 			       				<b:inputText id="contacts" value="#{placeMBean.insertedContact}" placeholder="Contatos do local" />
-			       				<p:commandButton value="Adicionar" action="#{placeMBean.addContact}" rendered="false" />		   		       				
-			       																			
-			       				<h:inputHidden id="currentLat" value="#{placeMBean.currentLat}" />
-			       				<h:inputHidden id="currentLng" value="#{placeMBean.currentLng}" />						
+			       				<p:commandButton value="Adicionar" action="#{placeMBean.addContact}" rendered="false" />
+			       				
+			       				<!-- Adicionar horário de funcionamento -->						
 							</b:column>
 							<b:column col-md="6" styleClass="watch">	
 							    <h:outputLabel for="description" value="Descrição" />     
@@ -84,7 +83,10 @@
 									<f:facet name="append">
 										<b:commandButton value="Buscar" iconAwesome="search" onclick="geocode();return false;"/>
 									</f:facet>
-								</b:inputText>						
+								</b:inputText>
+								
+								<h:inputHidden id="selected-lat" value="#{placeMBean.place.lat}" />
+			       				<h:inputHidden id="selected-lng" value="#{placeMBean.place.lng}" />				
 							</b:column>
 						</b:row>
 						

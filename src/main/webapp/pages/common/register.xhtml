@@ -1,6 +1,3 @@
-
-
-
 <ui:composition template="/pages/include/template_paper.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:b="http://bootsfaces.net/ui"
@@ -18,9 +15,7 @@
 	</ui:define>
 	
 	<ui:define name="content-paper">	
-	
 		<h:form>
-		
 			<b:row>
 				<b:column offset="3" col-md="6">
 					<h:outputLabel value="Nome: "/>
@@ -39,7 +34,6 @@
 				       				
 					<h:outputLabel value="Senha: "/>
 					<b:inputSecret value="#{userMBean.user.password}" placeholder="Sua senha"></b:inputSecret>
-				
 				</b:column>
 			</b:row>
 			
@@ -51,7 +45,7 @@
 			
 			<b:row>
 				<b:column offset="3" col-md="6" >
-				    <p:selectManyCheckbox id="grid2" value="#{userMBean.selectedCategories}" layout="responsive" columns="3">
+				    <p:selectManyCheckbox value="#{userMBean.user.interests}" layout="responsive" columns="3">
 						<f:selectItems value="#{userMBean.categoriesOfPlace}" />
     				</p:selectManyCheckbox>				
 				</b:column>
@@ -60,52 +54,6 @@
 			<b:row>
 				<b:column col-md="12"><b:commandButton value="Registrar" action="#{userMBean.register}" look="primary"/></b:column>
 			</b:row>
-			
-			
-			
-		
-		
-		
 		</h:form>
-	
-	
-	
-		<ui:remove>
-		<h:panelGroup layout="block" id="fullpage" style="margin-top:80px;">
-	        <h:panelGroup layout="block" styleClass="section paper">
-				<b:container>
-					<b:row>
-					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-						<b:column>
-							<h1>Cadastro</h1>
-		
-							<h:form>
-								<h:panelGrid columns="2" cellpadding="5">
-									
-				       				
-				       				<h:outputText value="Usuário:"/>
-									<b:inputText value="#{userMBean.user.username}" placeholder="joaodasilva"></b:inputText>
-				       				
-				       				<h:outputText value="Senha: "/>
-				       				<b:inputSecret value="#{userMBean.user.password}" placeholder="Sua senha"></b:inputSecret>
-				       				
-				       				
-									
-									<!-- <h:outputText value="Procuro por: "/> -->
-									<!-- <ui:repeat value="#{userMBean.categoriesOfPlace}" var="category" varStatus="status"> -->
-										<!-- <b:selectBooleanCheckbox value="#{userMBean.user.interests[status.index]}" caption="#{category}"/> -->		
-									<!-- </ui:repeat> -->
-				       				
-				       				
-				       			</h:panelGrid>
-							</h:form>
-						</b:column>
-					</b:row>
-				</b:container>
-			</h:panelGroup>
-        </h:panelGroup>
-        
-        </ui:remove>	
 	</ui:define>
-
 </ui:composition>
