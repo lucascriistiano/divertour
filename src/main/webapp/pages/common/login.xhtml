@@ -1,4 +1,4 @@
-<ui:composition template="/pages/include/template.xhtml"
+<ui:composition template="/pages/include/template_paper.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -8,31 +8,38 @@
 	
 	<ui:define name="title">Login</ui:define>
 	
-	<ui:define name="content">	
-		<h:panelGroup layout="block" id="fullpage" style="margin-top:80px;">
-	        <h:panelGroup layout="block" styleClass="section paper">
-				<b:container>
-					<b:row>
-					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-						<b:column>
-							<h1>Login</h1>
-    
-				        	<h:form>
-								<h:panelGrid columns="2" cellpadding="5">
-									<h:outputText value="Usuário:"/>
-									<b:inputText placeholder="Nome de usuário"></b:inputText>
-				        			
-				        			<h:outputText value="Senha"/>
-				       				<b:inputSecret placeholder="Senha"></b:inputSecret>
-				       				
-				       				<b:button value="Login" look="primary"/>
-				       			</h:panelGrid>
-							</h:form>
-						</b:column>
-					</b:row>
-				</b:container>
-			</h:panelGroup>
-        </h:panelGroup>
+	<ui:define name="title-paper">Login<b:iconAwesome name="user" /> </ui:define>
+		
+	<ui:define name="first-topic">
+		Informações de Acesso
 	</ui:define>
-
+	
+	<ui:define name="content-paper">
+		<h:form>
+			<b:row>
+				<b:column offset="3" col-md="6">
+					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+					
+					<h:outputLabel value="Usuário:"/>
+					<b:inputText placeholder="Nome de usuário" />
+	       			
+	       			<h:outputLabel value="Senha"/>
+	   				<b:inputSecret placeholder="Senha" />
+				</b:column>
+			</b:row>
+			
+			<b:row style="padding-bottom:80px;">
+				<b:column col-md="6" offset="3" style="text-align:center;">
+					<b:commandButton value="Login" iconAwesome="user" styleClass="submit-form" />		
+				</b:column>
+			</b:row>
+			
+		</h:form>
+			
+	
+	</ui:define>
+	
+	
+	
+	
 </ui:composition>
