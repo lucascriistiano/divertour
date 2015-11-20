@@ -262,6 +262,15 @@ label {
   width: 200px;
 }
 
+button.submit-form{
+  margin:0 auto;width:100%;height:50px;margin-top:30px;background:$primary-color;color:#fff;border:0;font-family:roboto;font-size:1.5em;text-shadow:none!important;
+}
+button.submit-form:hover,button.submit-form:focus{
+  background: $primary-color-darker;
+  color:#fff;
+}
+
+
 /*==========  Mobile First Method  ==========*/
 
 /* Custom, iPhone Retina */

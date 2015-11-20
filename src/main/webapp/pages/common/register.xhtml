@@ -44,16 +44,26 @@
 			</b:row>
 			
 			<b:row>
-				<b:column offset="3" col-md="6" >
-				    <p:selectManyCheckbox value="#{userMBean.user.interests}" layout="responsive" columns="3">
-						<f:selectItems value="#{userMBean.categoriesOfPlace}" />
-    				</p:selectManyCheckbox>				
+				<b:column offset="3" col-md="6" style="text-align:center;">
+						<p:selectManyCheckbox value="#{userMBean.user.interests}" styleClass="interesses">
+							<f:selectItems value="#{userMBean.categoriesOfPlace}"></f:selectItems>
+						</p:selectManyCheckbox>
 				</b:column>
+
 			</b:row>
 			
-			<b:row>
-				<b:column col-md="12"><b:commandButton value="Registrar" action="#{userMBean.register}" look="primary"/></b:column>
+			<b:row style="padding-bottom:80px;">
+				<b:column col-md="6" offset="3" style="text-align:center;">
+					<b:commandButton value="Registrar" iconAwesome="user-plus" action="#{userMBean.register}" styleClass="submit-form" />		
+				</b:column>
 			</b:row>
 		</h:form>
+		
+		<style>
+			.interesses > tbody > tr > td {
+				padding:5px!important;
+			}
+		</style>
+		
 	</ui:define>
 </ui:composition>
