@@ -1,4 +1,4 @@
-<ui:composition template="/pages/include/template.xhtml"
+<ui:composition template="/pages/include/template_paper.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -6,33 +6,58 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<ui:define name="title">Detalhes do Lugar</ui:define>
+	<ui:define name="title">Detalhes de #{placeDetailsMBean.selectedPlace.name}</ui:define>
 	
-	
-	<ui:define name="content">	
-		<h:panelGroup layout="block" id="fullpage" style="margin-top:80px;">
-	        <h:panelGroup layout="block" styleClass="section paper">
-				<b:container>
-					<b:row>
-						<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-						<b:column>
-							<h1>#{placeDetailsMBean.selectedPlace.name}</h1>
-		
-							<h:outputText value="Descrição: #{placeDetailsMBean.selectedPlace.description}" /><br/>
-							<h:outputText value="Tipo: #{placeDetailsMBean.selectedPlace.type}"/><br/>
-							<h:outputText value="Website: #{placeDetailsMBean.selectedPlace.website}" /><br/>    
-							<h:outputText value="Contato(s): #{placeDetailsMBean.selectedPlace.contacts}" /><br/>
-							
-							<h:outputText value="Endereço: #{placeDetailsMBean.selectedPlace.address}" /><br/>
-							<h:outputText value="Lat: #{placeDetailsMBean.selectedPlace.lat}" /><br/>
-							<h:outputText value="Lng: #{placeDetailsMBean.selectedPlace.lng}" /><br/>
-            
-            				<h:outputText for="images" value="Imagens: #{placeDetailsMBean.selectedPlace.images}" /><br/>
-						</b:column>
-					</b:row>
-				</b:container>
-			</h:panelGroup>
-        </h:panelGroup>
+	<ui:define name="title-paper">Detalhes de #{placeDetailsMBean.selectedPlace.name} <b:iconAwesome name="map-marker"/> <br/>
 	</ui:define>
-
+		
+	<ui:define name="first-topic">#{placeDetailsMBean.selectedPlace.name}</ui:define>
+	
+	<ui:define name="content-paper">
+	
+		<b:row styleClass="divsRow equalizer section" style="padding-bottom:20px;" >
+		
+			<b:column col-md="5" styleClass="watch" style="margin-top:30px;">
+				<h:panelGroup layout="block" style="background:#fff;height:100%;">
+					<h:outputText for="images" value="Imagens: #{placeDetailsMBean.selectedPlace.images}" /><br/>
+				</h:panelGroup>
+			</b:column>
+		
+			<b:column col-md="7" styleClass="watch" style="margin-top:30px;">
+				<b:panel look="primary" title="Informações do Lugar" collapsible="false">
+					<h:outputLabel value="Tipo " /> <h:outputText value="#{placeDetailsMBean.selectedPlace.type}" style="margin-left:10px;"/><br/> 
+					<h:outputLabel value="Website " /> <h:outputText value="#{placeDetailsMBean.selectedPlace.website}" style="margin-left:10px;"/><br/> 
+					<h:outputLabel value="Contato(s) " /> <h:outputText value="#{placeDetailsMBean.selectedPlace.contacts}" style="margin-left:10px;"/><br/> 
+					<h:outputLabel value="Endereço 	" /> <h:outputText value="#{placeDetailsMBean.selectedPlace.address}" style="margin-left:10px;"/><br/> 			
+					<h:outputLabel value="Latitude/Longitude" /><h:outputText value="#{placeDetailsMBean.selectedPlace.lat} - #{placeDetailsMBean.selectedPlace.lng}" style="margin-left:10px;"/><br/> 
+				</b:panel>
+				
+				<b:panel look="primary" title="Descrição do Lugar" collapsible="false" >
+					<p style="text-align:justify;font-weight:normal;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tempor dolor sed tristique porttitor. Ut sit amet aliquam elit, 
+						sit amet pulvinar nibh. Aenean rhoncus augue ut augue facilisis ornare. Integer eu nunc justo. In vitae luctus quam. Praesent odio mauris,
+				 		auctor sed posuere in, pretium et nunc. Praesent ex mauris, tincidunt a feugiat eget, facilisis vel lorem. Fusce lobortis diam quis tortor
+				  		laoreet vehicula. Proin vel lacus eleifend, tempus libero nec, sagittis leo.	 
+				  	</p>				
+				</b:panel>
+			</b:column>	
+		</b:row>
+	
+	
+	<b:row>
+		<b:column col-md="12">
+			<b:panel look="primary" title="Últimos Comentários" collapsible="false">	
+			
+			</b:panel>
+		</b:column>
+	</b:row>
+	
+	<script>
+		$(function(){
+			$('#firstRow').css('display','none');	
+		});
+	
+	</script>	
+			
+	</ui:define>
+	
 </ui:composition>

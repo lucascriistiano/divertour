@@ -40,5 +40,37 @@
     	<param-name>primefaces.THEME</param-name>
     	<param-value>bootstrap</param-value>
 	</context-param>
+	
+	<!-- ===================== Default MIME Type Mappings =================== -->
+  <!-- When serving static resources, Tomcat will automatically generate    -->
+  <!-- a "Content-Type" header based on the resource's filename extension,  -->
+  <!-- based on these mappings.  Additional mappings can be added here (to  -->
+  <!-- apply to all web applications), or in your own application's web.xml -->
+  <!-- deployment descriptor.                                               -->
+  
+  	<mime-mapping>
+        <extension>eot</extension>
+        <mime-type>application/vnd.ms-fontobject</mime-type>
+    </mime-mapping>
+	
+  	<mime-mapping>
+        <extension>ttf</extension>
+        <mime-type>application/octet-stream</mime-type>
+    </mime-mapping>
+    
+   	<mime-mapping>
+        <extension>.svg</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>   	
+
+  	<mime-mapping>
+        <extension>woff</extension>
+        <mime-type>application/font-woff</mime-type>
+    </mime-mapping>
+
+  	<mime-mapping>
+        <extension>woff2</extension>
+        <mime-type>application/font-woff2</mime-type>
+    </mime-mapping>
 
 </web-app>

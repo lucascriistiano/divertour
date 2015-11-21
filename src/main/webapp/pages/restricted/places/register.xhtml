@@ -20,7 +20,7 @@
 			<h:panelGroup layout="block" styleClass="section active" style="margin-top:80px;">
 				
 				<h:panelGroup layout="block" style="display:block; position:relative;height:20%;background:#B23939;padding:30px; text-align:center;color:#FFF;font-size:2em;font-family:roboto-thin; overflow-y:hidden;">
-					<h1 style="color:white;">Novo Lugar <b:iconAwesome name="map-marker"></b:iconAwesome> </h1><br />
+					<h1 style="color:white;">Novo Lugar <b:iconAwesome name="map-marker"/> </h1><br />
 				</h:panelGroup>
 
 				<h:panelGroup layout="block" style="height:50%;text-align:center;" styleClass="primary-color">
@@ -128,22 +128,9 @@
 	
   
         <script>
-   	$( document ).ready(function() {
-		$(".divsRow > .equalizer").each(function() { 
-		    var height = 0;
-		    $(this).find(".watch").each(function() {
-		      if($(this).height() > height){
-		    	height = $(this).height();
-		      }
-		    });
-		    $(this).find(".watch").height(height);
-	  	});
-	});       
-   	
-   	$(function(){
-   		$('#description').css('height', '100%').css('height', '-=35px');   		
-   	});
-   	
+		   	$(function(){
+		   		$('#description').css('height', '100%').css('height', '-=35px');   		
+		   	});
         </script>
         
         
