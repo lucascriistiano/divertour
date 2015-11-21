@@ -15,32 +15,32 @@
 	
 	<ui:define name="content-paper">
 	
-	<b:row styleClass="divsRow equalizer" style="padding-bottom:20px;" >
-	
-		<b:column col-md="5" styleClass="watch" style="margin-top:30px;">
-			<h:panelGroup layout="block" style="background:#fff;height:100%;">
-				<h:outputText for="images" value="Imagens: #{placeDetailsMBean.selectedPlace.images}" /><br/>
-			</h:panelGroup>
-		</b:column>
-	
-		<b:column col-md="7" styleClass="watch" style="margin-top:30px;">
-			<b:panel look="primary" title="Informações do Lugar" collapsible="false">
-				<h:outputLabel value="Tipo " /> <h:outputText value="#{placeDetailsMBean.selectedPlace.type}" style="margin-left:10px;"/><br/> 
-				<h:outputLabel value="Website " /> <h:outputText value="#{placeDetailsMBean.selectedPlace.website}" style="margin-left:10px;"/><br/> 
-				<h:outputLabel value="Contato(s) " /> <h:outputText value="#{placeDetailsMBean.selectedPlace.contacts}" style="margin-left:10px;"/><br/> 
-				<h:outputLabel value="Endereço 	" /> <h:outputText value="#{placeDetailsMBean.selectedPlace.address}" style="margin-left:10px;"/><br/> 			
-				<h:outputLabel value="Latitude/Longitude" /><h:outputText value="#{placeDetailsMBean.selectedPlace.lat} - #{placeDetailsMBean.selectedPlace.lng}" style="margin-left:10px;"/><br/> 
-			</b:panel>
-			
-			<b:panel look="primary" title="Descrição do Lugar" collapsible="false" >
-				<p style="text-align:justify;font-weight:normal;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tempor dolor sed tristique porttitor. Ut sit amet aliquam elit, 
-					sit amet pulvinar nibh. Aenean rhoncus augue ut augue facilisis ornare. Integer eu nunc justo. In vitae luctus quam. Praesent odio mauris,
-			 		auctor sed posuere in, pretium et nunc. Praesent ex mauris, tincidunt a feugiat eget, facilisis vel lorem. Fusce lobortis diam quis tortor
-			  		laoreet vehicula. Proin vel lacus eleifend, tempus libero nec, sagittis leo.	 
-			  	</p>				
-			</b:panel>
-		</b:column>	
-	</b:row>
+		<b:row styleClass="divsRow equalizer section" style="padding-bottom:20px;" >
+		
+			<b:column col-md="5" styleClass="watch" style="margin-top:30px;">
+				<h:panelGroup layout="block" style="background:#fff;height:100%;">
+					<h:outputText for="images" value="Imagens: #{placeDetailsMBean.selectedPlace.images}" /><br/>
+				</h:panelGroup>
+			</b:column>
+		
+			<b:column col-md="7" styleClass="watch" style="margin-top:30px;">
+				<b:panel look="primary" title="Informações do Lugar" collapsible="false">
+					<h:outputLabel value="Tipo " /> <h:outputText value="#{placeDetailsMBean.selectedPlace.type}" style="margin-left:10px;"/><br/> 
+					<h:outputLabel value="Website " /> <h:outputText value="#{placeDetailsMBean.selectedPlace.website}" style="margin-left:10px;"/><br/> 
+					<h:outputLabel value="Contato(s) " /> <h:outputText value="#{placeDetailsMBean.selectedPlace.contacts}" style="margin-left:10px;"/><br/> 
+					<h:outputLabel value="Endereço 	" /> <h:outputText value="#{placeDetailsMBean.selectedPlace.address}" style="margin-left:10px;"/><br/> 			
+					<h:outputLabel value="Latitude/Longitude" /><h:outputText value="#{placeDetailsMBean.selectedPlace.lat} - #{placeDetailsMBean.selectedPlace.lng}" style="margin-left:10px;"/><br/> 
+				</b:panel>
+				
+				<b:panel look="primary" title="Descrição do Lugar" collapsible="false" >
+					<p style="text-align:justify;font-weight:normal;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tempor dolor sed tristique porttitor. Ut sit amet aliquam elit, 
+						sit amet pulvinar nibh. Aenean rhoncus augue ut augue facilisis ornare. Integer eu nunc justo. In vitae luctus quam. Praesent odio mauris,
+				 		auctor sed posuere in, pretium et nunc. Praesent ex mauris, tincidunt a feugiat eget, facilisis vel lorem. Fusce lobortis diam quis tortor
+				  		laoreet vehicula. Proin vel lacus eleifend, tempus libero nec, sagittis leo.	 
+				  	</p>				
+				</b:panel>
+			</b:column>	
+		</b:row>
 	
 	
 	<b:row>
