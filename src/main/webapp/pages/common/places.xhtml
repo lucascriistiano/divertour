@@ -10,60 +10,50 @@
 	
 	<ui:define name="title-paper">Lugares  <b:iconAwesome name="map-marker"/></ui:define>
 		
-		<ui:define name="first-topic">
-			 Busca
-		</ui:define>
+	<ui:define name="first-topic">
+		 Busca
+	</ui:define>
 	
 	<ui:define name="content-paper">	
 		<h:form>
 			<b:row>
-				<b:column offset="3" col-md="6">
-					<b:row>
-						<b:column col-md="4">
-							<h:outputLabel for="type" value="Tipo: " /><br/>
-							<b:selectOneMenu id="type" value="#{searchPlaceMBean.type}">
-								<f:selectItems value="#{placeMBean.typesOfPlace}" var="type" itemValue="#{type}" itemLabel="#{type}" />
-							</b:selectOneMenu>
-						</b:column>
-						
-						<b:column col-md="4">
-							<h:outputLabel for="category" value="Categoria: " /><br/>
-							<b:selectOneMenu id="category" value="#{searchPlaceMBean.category}">
-								<f:selectItems value="#{placeMBean.categoriesOfPlace}" var="category" itemValue="#{category}" itemLabel="#{category}" />
-							</b:selectOneMenu>
-						</b:column>
-		
-						<b:column col-md="4">
-							<h:outputLabel value="Cidade: " /><br/>
-							<b:selectOneMenu value="#{searchPlaceMBean.city}">
-								<f:selectItems value="#{placeMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city.name}/#{city.state}" />
-							</b:selectOneMenu>
-						</b:column>
-					</b:row>
+				<b:column col-md="6">
+					<h:outputLabel for="filter" value="Filtrar por: " /><br/>
+					<b:selectOneMenu id="filter" value="#{searchPlaceMBean.selectedFilter}" valueChangeListener="#{searchPlaceMBean.test()}" onchange="">
+						<f:selectItems value="#{searchPlaceMBean.filters}" var="filter" itemValue="#{filter.filterName}" itemLabel="#{filter.filterDisplayName}" />
+					</b:selectOneMenu>
 				</b:column>
+
+				<b:column col-md="6">
+					<h:outputLabel value=" " /><br/>
+					<b:selectOneMenu id="filter-values" value="#{searchPlaceMBean.selectedFilterValue}">
+						<f:selectItems value="#{searchPlaceMBean.values}" var="value" itemValue="#{value}" itemLabel="#{value}" />
+					</b:selectOneMenu>
+				</b:column>
+			</b:row>
 	
-				<b:column offset="1" col-md="10">
-					<p:dataTable id="place-datatable-search" var="place" value="#{searchPlaceMBean.foundResults}" sortMode="multiple" scrollable="true" scrollHeight="150">
-						<p:column headerText="Nome" sortBy="#{place.name}">
-							<h:outputText value="#{place.name}" />
-						</p:column>
-	
-						<p:column headerText="Cidade" sortBy="#{place.city}">
-							<h:outputText value="#{place.city.name}/#{place.city.state}" />
-						</p:column>
-	
-						<p:column headerText="Categoria" sortBy="#{place.categories}">
-							<h:outputText value="#{place.categories}" />
-						</p:column>
-	
-						<p:column headerText="Tipo" sortBy="#{place.type}">
-							<h:outputText value="#{place.type}" />
-						</p:column>
-						
-						<p:column headerText="Ver mais" style="width:60px;text-align: center">
-		             		<p:commandButton update="place-datatable-search" icon="ui-icon-plus" />
-		            	</p:column>
-					</p:dataTable>
+			<b:row>
+				<b:column col-md="12">
+					<ui:repeat value="#{searchPlaceMBean.foundResults}" var="place">
+						<b:panel>
+							<b:row styleClass="list-item">
+								<b:column col-md="5">
+									<h:panelGroup layout="block" style="height:100%;">
+										<h:outputText for="images" value="Imagens:" /><br/>
+									</h:panelGroup>
+								</b:column>
+								<b:column col-md="5">
+									<h3>#{place.name}</h3>
+	        						<p:rating value="#{place.rating}" readonly="true" /><br/>
+									<h:outputText value="#{place.description}"/><br/> 
+								</b:column>
+								<b:column col-md="2">
+									<b:commandButton value="Ver mais" action="#{searchPlaceMBean.showDetails(place.id)}" styleClass="list-button" />
+									<b:commandButton value="Adicionar à Rota" action="#{searchPlaceMBean.addToRoute(place.id)}" styleClass="list-button" />
+								</b:column>
+							</b:row>
+						</b:panel>
+					</ui:repeat>
 				</b:column>
 			</b:row>
 		</h:form>
