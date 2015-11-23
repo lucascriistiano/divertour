@@ -1,135 +1,137 @@
 package br.ufrn.divertour.gui;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.ufrn.divertour.model.Guide;
 import br.ufrn.divertour.service.GuideService;
 
-
-@SessionScoped
+@ViewScoped
 @ManagedBean(name = "searchGuideMBean")
-
 public class SearchGuideMBean implements Serializable {
-
+	
 	private static final long serialVersionUID = 1L;
 
 	private GuideService guideService = GuideService.getInstance();
 	
-	private int period;
-	
-	private int numberOfPlaces;
-	
-	private String category;
-	
-	List<Guide> foundResults;	
-	
-	public SearchGuideMBean() {}
-	
+	private List<Guide> foundResults;
 
+	private Map<String, Map<String, String>> searchFilters = new HashMap<String, Map<String,String>>();
+
+	private Map<String, String> searchFiltersNames;
+	private Map<String, String> searchFiltersValues;
+	
+	private String selectedFilterName;
+	private String selectedFilterValue;
+	
+	@PostConstruct
+    public void init() {
+		this.searchFiltersNames = new HashMap<>();
+//		this.searchFiltersNames.put("Período", "period");
+//		this.searchFiltersNames.put("Número de Lugares", "numberOfPlaces");
+		this.searchFiltersNames.put("Categoria", "category");
+		
+		// Load periods
+		Map<String,String> map = new HashMap<String, String>();
+//		List<String> categoriesOfPlace = guideService.getCategoriesOfGuide();
+//		for (String category : categoriesOfPlace) {
+//			map.put(category, category);
+//		}
+//		this.searchFilters.put("period", map);
+		
+		// Load number of places
+//		map = new HashMap<String, String>();
+//		List<Integer> numberOfPlaces = guideService.getNum .getTypesOfPlace();
+//		for (String type : typesOfPlace) {
+//			map.put(type, type);
+//		}
+//		this.searchFilters.put("numberOfPlaces", map);
+
+		// Load categories
+		map = new HashMap<String, String>();
+		List<String> categories = GuideService.getCategoriesOfGuide();
+		for (String category : categories) {
+			map.put(category, category);
+		}
+		this.searchFilters.put("category", map);
+	}
+	
+	public SearchGuideMBean() {
+		this.foundResults = guideService.listAll();
+	}
+	
 	public List<Guide> getFoundResults() {
 		return foundResults;
 	}
-
-
-	public void setFoundResults(List<Guide> foundResults) {
-		this.foundResults = foundResults;
+	
+	public String getSelectedFilterName() {
+		return selectedFilterName;
 	}
 
-		
-
-	public int getPeriod() {
-		return period;
-	}
-
-
-	public void setPeriod(int period) {
-		this.period = period;
-	}
-
-
-	public int getNumberOfPlaces() {
-		return numberOfPlaces;
-	}
-
-
-	public void setNumberOfPlaces(int numberOfPlaces) {
-		this.numberOfPlaces = numberOfPlaces;
-	}
-
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
+	public void setSelectedFilterName(String selectedFilterName) {
+		this.selectedFilterName = selectedFilterName;
 	}
 	
-	
-	public List<Guide> findResultsByNumberOfPlaces(int numberOfPlaces) {
-		foundResults = new ArrayList<>();
-		foundResults.addAll(guideService.findByNumberOfPlaces(numberOfPlaces));
-		
-		return foundResults;
+	public String getSelectedFilterValue() {
+		return selectedFilterValue;
+	}
+
+	public void setSelectedFilterValue(String selectedFilterValue) {
+		this.selectedFilterValue = selectedFilterValue;
+	}
+
+	public Map<String, String> getFiltersNames() {
+		return this.searchFiltersNames;
 	}
 	
-	public List<Guide> findResultsByPerior(int period) {
-		foundResults = new ArrayList<>();
-		foundResults.addAll(guideService.findByPeriod(period));
-		
-		return foundResults;
+	public Map<String, String> getFiltersValues() {
+		return this.searchFiltersValues;
 	}
 	
-	public List<Guide> findResultsByCategory(String category) {
-		foundResults = new ArrayList<>();
-		foundResults.addAll(guideService.findByCategory(category));
-		
-		return foundResults;
+	public void onFilterNameChange() {
+		if(selectedFilterName != null && !selectedFilterName.equals("")) {
+            searchFiltersValues = searchFilters.get(selectedFilterName);
+		} else {
+			searchFiltersValues = new HashMap<String, String>();
+			foundResults = guideService.listAll();
+		}
 	}
 	
-	
-	public List<Guide> findResultsByNumberOfPlacesAndPerior(int numberOfPlaces, int period) {
-		foundResults = new ArrayList<>();
-		foundResults.addAll(guideService.findByNumberOfPlacesAndPeriod(numberOfPlaces, period));
-		
-		return foundResults;
+	public void onFilterValueChange() {
+		if(selectedFilterValue != null && !selectedFilterValue.equals("")) {
+			if(selectedFilterName.equals("period")) {
+				int period = Integer.parseInt(selectedFilterValue);
+				foundResults = guideService.findByPeriod(period);
+			} else if(selectedFilterName.equals("numberOfPlaces")) {
+				int numberOfPlaces = Integer.parseInt(selectedFilterValue);
+				foundResults = guideService.findByNumberOfPlaces(numberOfPlaces);
+			} else if(selectedFilterName.equals("category")) {
+				foundResults = guideService.findByCategory(selectedFilterValue);
+			} else {
+				foundResults = guideService.listAll();
+			}
+		} else {
+			foundResults = guideService.listAll();
+		}
 	}
 	
-	public List<Guide> findResultsByNumberOfPlacesAndCategory(int numberOfPlaces, String category) {
-		foundResults = new ArrayList<>();
-		foundResults.addAll(guideService.findByNumberOfPlacesAndCategory(numberOfPlaces, category));
-		
-		return foundResults;
+	public String showDetails(String id) {
+		return "/pages/common/guides/details.xhtml?id=" + id + "&faces-redirect=true";
 	}
 	
-	public List<Guide> findResultsByPeriorAndCategory(int period, String category) {
-		foundResults = new ArrayList<>();
-		foundResults.addAll(guideService.findByPeriodAndCategory(period, category));
-		
-		return foundResults;
+	public String customize(String id) {
+		System.out.println("Vai personalizar a partir da rota o lugar com ID: " + id);
+		return "";
 	}
 	
-	public List<Guide> findResults(int numberOfPlaces, int period, String category) {
-		foundResults = new ArrayList<>();
-		foundResults.addAll(guideService.findByNumberOfPlacesAndPeriodAndCategory(numberOfPlaces, period, category));
-		
-		return foundResults;
+	public String newGuide() {
+		return "pretty:guide_register";
 	}
-	
-	
-//	public String showDetails() {
-//		if(this.selectedItem == null) {
-//			//TODO
-//			System.out.println("Error. Selected null value");
-//			return "";
-//		}
-//		
-//		return this.selectedItem.getDetailsPage();
-//	}
 	
 }

@@ -16,7 +16,6 @@ import br.ufrn.divertour.service.PlaceService;
 
 @ViewScoped
 @ManagedBean(name = "searchPlaceMBean")
-
 public class SearchPlaceMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -73,10 +72,6 @@ public class SearchPlaceMBean implements Serializable {
 
 	public List<Place> getFoundResults() {
 		return foundResults;
-	}
-
-	public void setFoundResults(List<Place> foundResults) {
-		this.foundResults = foundResults;
 	}
 	
 	public String getSelectedFilterName() {
