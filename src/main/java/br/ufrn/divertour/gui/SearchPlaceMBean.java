@@ -1,18 +1,20 @@
 package br.ufrn.divertour.gui;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
+import br.ufrn.divertour.model.City;
 import br.ufrn.divertour.model.Place;
-import br.ufrn.divertour.model.SearchFilter;
+import br.ufrn.divertour.service.CityService;
 import br.ufrn.divertour.service.PlaceService;
 
-@SessionScoped
+@ViewScoped
 @ManagedBean(name = "searchPlaceMBean")
 
 public class SearchPlaceMBean implements Serializable {
@@ -20,80 +22,69 @@ public class SearchPlaceMBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private PlaceService placeService = PlaceService.getInstance();
+	private CityService cityService = CityService.getInstance();
 	
-	private SearchFilter selectedFilter;
+	private List<Place> foundResults;
+
+	private Map<String, Map<String, String>> searchFilters = new HashMap<String, Map<String,String>>();
+
+	private Map<String, String> searchFiltersNames;
+	private Map<String, String> searchFiltersValues;
+	
+	private String selectedFilterName;
 	private String selectedFilterValue;
 	
-	List<Place> foundResults;	
+	@PostConstruct
+    public void init() {
+		this.searchFiltersNames = new HashMap<>();
+		this.searchFiltersNames.put("Categoria", "category");
+		this.searchFiltersNames.put("Tipo", "type");
+		this.searchFiltersNames.put("Cidade", "city");
+		
+		// Load categories
+		Map<String,String> map = new HashMap<String, String>();
+		List<String> categoriesOfPlace = PlaceService.getCategoriesOfPlace();
+		for (String category : categoriesOfPlace) {
+			map.put(category, category);
+		}
+		this.searchFilters.put("category", map);
+		
+		// Load types
+		map = new HashMap<String, String>();
+		List<String> typesOfPlace = PlaceService.getTypesOfPlace();
+		for (String type : typesOfPlace) {
+			map.put(type, type);
+		}
+		this.searchFilters.put("type", map);
+
+		// Load cities
+		map = new HashMap<String, String>();
+		List<City> cities = cityService.listAll();
+		for (City city : cities) {
+			String cityFullName = city.getName() + "/" + city.getState();
+			map.put(cityFullName, cityFullName);
+		}
+		this.searchFilters.put("city", map);
+	}
 	
-	public SearchPlaceMBean() {}
-	
+	public SearchPlaceMBean() {
+		this.foundResults = placeService.listAll();
+	}
 
 	public List<Place> getFoundResults() {
-//		return foundResults;
-		return placeService.listAll();
+		return foundResults;
 	}
 
 	public void setFoundResults(List<Place> foundResults) {
 		this.foundResults = foundResults;
 	}
 	
-//	public List<Place> findResultsByCity(String city) {
-//		foundResults = new ArrayList<>();
-//		foundResults.addAll(placeService.findByCity(city));
-//		
-//		return foundResults;
-//	}
-//	
-//	public List<Place> findResultsByType(String type) {
-//		foundResults = new ArrayList<>();
-//		foundResults.addAll(placeService.findByType(type));
-//		
-//		return foundResults;
-//	}
-//	
-//	public List<Place> findResultsByCategory(String category) {
-//		foundResults = new ArrayList<>();
-//		foundResults.addAll(placeService.findByType(category));
-//		
-//		return foundResults;
-//	}
-//	
-//	
-//	public List<Place> findResultsByCityAndType(String city, String type) {
-//		foundResults = new ArrayList<>();
-//		foundResults.addAll(placeService.findByCityAndType(city, type));
-//		
-//		return foundResults;
-//	}
-//	
-//	public List<Place> findResultsByCityAndCategory(String city, String category) {
-//		foundResults = new ArrayList<>();
-//		foundResults.addAll(placeService.findByCityAndCategory(city, category));
-//		
-//		return foundResults;
-//	}
-//	
-//	public List<Place> findResultsByTypeAndCategory(String type, String category) {
-//		foundResults = new ArrayList<>();
-//		foundResults.addAll(placeService.findByTypeAndCategory(type, category));
-//		
-//		return foundResults;
-//	}
-//	
-//	public List<Place> findResults(String city, String type, String category) {
-//		foundResults = new ArrayList<>();
-//		foundResults.addAll(placeService.findByCityAndTypeAndCategory(city, type, category));
-//		
-//		return foundResults;
-//	}
-	
-	public SearchFilter getSelectedFilter() {
-		return selectedFilter;
+	public String getSelectedFilterName() {
+		return selectedFilterName;
 	}
 
-	public void setSelectedFilter(SearchFilter selectedFilter) {
-		this.selectedFilter = selectedFilter;
+	public void setSelectedFilterName(String selectedFilterName) {
+		this.selectedFilterName = selectedFilterName;
 	}
 	
 	public String getSelectedFilterValue() {
@@ -104,22 +95,40 @@ public class SearchPlaceMBean implements Serializable {
 		this.selectedFilterValue = selectedFilterValue;
 	}
 
-	public List<SearchFilter> getFilters() {
-		List<SearchFilter> searchFilters = new ArrayList<>();
-		searchFilters.add(new SearchFilter("Nenhum", "", Arrays.asList()));
-		searchFilters.add(new SearchFilter("Categoria", "category", Arrays.asList("1 estrela", "2 estrelas", "3 estrelas", "4 estrelas", "5 estrelas")));
-		searchFilters.add(new SearchFilter("Tipo", "type", Arrays.asList("Hotel", "Ponto Turístico", "Restaurante", "Loja", "Outro")));
-		searchFilters.add(new SearchFilter("Cidade", "city", Arrays.asList("Natal/RN", "São Paulo/SP")));
-		return searchFilters;
+	public Map<String, String> getFiltersNames() {
+		return this.searchFiltersNames;
 	}
 	
-	public List<String> getValues() {
-		if(selectedFilter != null) return selectedFilter.getPossibleValues();
-		return new ArrayList<>();
+	public Map<String, String> getFiltersValues() {
+		return this.searchFiltersValues;
 	}
 	
-	public void test() {
-		System.out.println("teste");
+	public void onFilterNameChange() {
+		if(selectedFilterName != null && !selectedFilterName.equals("")) {
+            searchFiltersValues = searchFilters.get(selectedFilterName);
+		} else {
+			searchFiltersValues = new HashMap<String, String>();
+			foundResults = placeService.listAll();
+		}
+	}
+	
+	public void onFilterValueChange() {
+		if(selectedFilterValue != null && !selectedFilterValue.equals("")) {
+			if(selectedFilterName.equals("type")) {
+				foundResults = placeService.findByType(selectedFilterValue);
+			} else if(selectedFilterName.equals("category")) {
+				foundResults = placeService.findByCategory(selectedFilterValue);
+			} else if(selectedFilterName.equals("city")) {
+				String[] cityFields = selectedFilterValue.split("/");
+				String cityName = cityFields[0];
+				String cityState = cityFields[1];
+				foundResults = placeService.findByCityAndState(cityName, cityState);
+			} else {
+				foundResults = placeService.listAll();
+			}
+		} else {
+			foundResults = placeService.listAll();
+		}
 	}
 	
 	public String showDetails(String id) {
@@ -130,6 +139,10 @@ public class SearchPlaceMBean implements Serializable {
 	public String addToRoute(String id) {
 		System.out.println("Vai adicionar a uma rota o lugar com ID: " + id);
 		return "";
+	}
+	
+	public String newPlace() {
+		return "/pages/restricted/places/register.xhtml";
 	}
 	
 }

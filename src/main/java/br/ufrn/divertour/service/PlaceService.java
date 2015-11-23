@@ -1,7 +1,6 @@
 package br.ufrn.divertour.service;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -60,11 +59,11 @@ public class PlaceService {
 	}
 	
 	public static List<String> getTypesOfPlace() {
-		return Arrays.asList("Hotel", "Restaurante", "Bar", "Ponto Turístico", "Loja");
+		return Arrays.asList("Hotel", "Restaurante", "Bar", "Ponto Turístico", "Comércio", "Parque", "Outro");
 	}
 	
 	public static List<String> getCategoriesOfPlace() {
-		return Arrays.asList("Religioso", "Aventura", "Ecológico", "Histórico");
+		return Arrays.asList("Aventura", "Ecológico", "Histórico", "Religioso", "Esportivo");
 	}
 
 	public List<Place> findByNameSimilarity(String name) {
@@ -77,48 +76,25 @@ public class PlaceService {
 		return placeRepository.findById(id);
 	}
 
-	public List<Place> findByCity(String city) {
+	//TODO remover para Daos
+	public List<Place> findByCityAndState(String city, String state) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("city").regex(city, "i"));
+		query.addCriteria(Criteria.where("city.name").is(city).and("city.state").is(state));
 		return mongoOperation.find(query, Place.class);
 	}
 
+	//TODO remover para Daos
 	public List<Place> findByType(String type) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("type").regex(type, "i"));
+		query.addCriteria(Criteria.where("type").is(type));
 		return mongoOperation.find(query, Place.class);
 	}
 	
+	//TODO remover para Daos
 	public List<Place> findByCategory(String category) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("category").regex(category, "i"));
+		query.addCriteria(Criteria.where("categories").in(category));
 		return mongoOperation.find(query, Place.class);
 	}		
-
-	public List<Place> findByCityAndType(String city, String type) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("city").regex(city, "i").andOperator(Criteria.where("type").regex(type, "i")));
-		return mongoOperation.find(query, Place.class);
-	}
-	
-	public List<Place> findByTypeAndCategory(String type, String category) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("category").regex(category, "i").andOperator(Criteria.where("type").regex(type, "i")));
-		return mongoOperation.find(query, Place.class);
-	}
-
-	public List<Place> findByCityAndCategory(String city, String category) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("city").regex(city, "i").andOperator(Criteria.where("category").regex(category, "i")));
-		return mongoOperation.find(query, Place.class);
-	}
-
-	public List<Place> findByCityAndTypeAndCategory(String city, String type, String category) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("city").regex(city, "i").andOperator(Criteria.where("type").regex(type, "i").andOperator(Criteria.where("category").regex(category, "i"))));
-		return mongoOperation.find(query, Place.class);
-	}
-
-
 
 }

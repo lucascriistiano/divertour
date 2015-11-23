@@ -19,16 +19,19 @@
 			<b:row style="padding-top:10px;">
 				<b:column col-md="6">
 					<h:outputLabel for="filter" value="Filtrar por: " /><br/>
-					<b:selectOneMenu id="filter" value="#{searchPlaceMBean.selectedFilter}" valueChangeListener="#{searchPlaceMBean.test()}" onchange="">
-						<f:selectItems value="#{searchPlaceMBean.filters}" var="filter" itemValue="#{filter.filterName}" itemLabel="#{filter.filterDisplayName}" />
-					</b:selectOneMenu>
-				
+					<p:selectOneMenu id="filter" value="#{searchPlaceMBean.selectedFilterName}" style="width:100%;">
+						<p:ajax event="itemSelect" listener="#{searchPlaceMBean.onFilterNameChange}" update="filter-values found-places" />
+						<f:selectItem itemLabel="Nenhum filtro" itemValue="" />
+						<f:selectItems value="#{searchPlaceMBean.filtersNames}" />
+					</p:selectOneMenu>
 				</b:column>
 
 				<b:column col-md="6">
-					<b:selectOneMenu id="filter-values" value="#{searchPlaceMBean.selectedFilterValue}" style="margin-top:25px;">
-						<f:selectItems value="#{searchPlaceMBean.values}" var="value" itemValue="#{value}" itemLabel="#{value}" />
-					</b:selectOneMenu>
+					<p:selectOneMenu id="filter-values" value="#{searchPlaceMBean.selectedFilterValue}" style="width:100%; margin-top:25px;">
+						<p:ajax listener="#{searchPlaceMBean.onFilterValueChange}" update="found-places"/>
+						<f:selectItem itemLabel="Selecione o filtro" itemValue="" />
+						<f:selectItems value="#{searchPlaceMBean.filtersValues}" />
+					</p:selectOneMenu>
 				</b:column>
 			</b:row>
 	
@@ -40,32 +43,36 @@
 								<h3 style="margin-top:6px;">Registrar um lugar</h3>
 							</b:column>
 							<b:column col-md="2">
-								<b:commandButton value="Novo Lugar"  styleClass="list-button" />
+								<b:commandButton value="Novo Lugar" styleClass="list-button" action="#{searchPlaceMBean.newPlace}"/>
 							</b:column>						
 						
 						</b:row>
 					</b:panel>
 				
-					<ui:repeat value="#{searchPlaceMBean.foundResults}" var="place">
-						<b:panel style="box-shadow:0 3px 2px -2px rgba(200,200,200,0.2);border-radius:0;" >
-							<b:row styleClass="list-item" style="box-shadow:none;">
-								<b:column col-md="3">
-									<h:panelGroup layout="block" style="height:100%;">
-										<h:outputText for="images" value="Imagens:" /><br/>
-									</h:panelGroup>
-								</b:column>
-								<b:column col-md="7">
-									<h3 style="margin-top:6px;">#{place.name}</h3>
-	        						<p:rating value="#{place.rating}" readonly="true" /><br/>
-									<h:outputText value="#{place.description}"/><br/> 
-								</b:column>
-								<b:column col-md="2">
-									<b:commandButton value="Ver mais" action="#{searchPlaceMBean.showDetails(place.id)}" styleClass="list-button" />
-									<b:commandButton value="Adicionar à Rota" action="#{searchPlaceMBean.addToRoute(place.id)}" styleClass="list-button" />
-								</b:column>
-							</b:row>
-						</b:panel>
-					</ui:repeat>
+					<h:panelGroup id="found-places" layout="block">
+						<h:outputLabel value="Nenhum lugar encontrado" rendered="#{empty searchPlaceMBean.foundResults}" />
+						
+						<ui:repeat value="#{searchPlaceMBean.foundResults}" var="place">
+							<b:panel style="box-shadow:0 3px 2px -2px rgba(200,200,200,0.2);border-radius:0;" >
+								<b:row styleClass="list-item" style="box-shadow:none;">
+									<b:column col-md="3">
+										<h:panelGroup layout="block" style="height:100%;">
+											<h:outputText for="images" value="Imagens:" /><br/>
+										</h:panelGroup>
+									</b:column>
+									<b:column col-md="7">
+										<h3 style="margin-top:6px;">#{place.name}</h3>
+		        						<p:rating value="#{place.rating}" readonly="true" /><br/>
+										<h:outputText value="#{place.description}"/><br/> 
+									</b:column>
+									<b:column col-md="2">
+										<b:commandButton value="Ver mais" action="#{searchPlaceMBean.showDetails(place.id)}" styleClass="list-button" />
+										<b:commandButton value="Adicionar à Rota" action="#{searchPlaceMBean.addToRoute(place.id)}" styleClass="list-button" />
+									</b:column>
+								</b:row>
+							</b:panel>
+						</ui:repeat>
+					</h:panelGroup>
 				</b:column>
 			</b:row>
 		</h:form>
