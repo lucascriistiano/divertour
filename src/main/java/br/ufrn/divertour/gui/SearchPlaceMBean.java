@@ -132,8 +132,7 @@ public class SearchPlaceMBean implements Serializable {
 	}
 	
 	public String showDetails(String id) {
-		System.out.println("Vai detalhar lugar com ID: " + id);
-		return "";
+		return "/pages/common/places/details.xhtml?id=" + id + "&faces-redirect=true";
 	}
 	
 	public String addToRoute(String id) {
@@ -142,7 +141,7 @@ public class SearchPlaceMBean implements Serializable {
 	}
 	
 	public String newPlace() {
-		return "/pages/restricted/places/register.xhtml";
+		return "pretty:place_register";
 	}
 	
 }

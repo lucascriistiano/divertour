@@ -5,15 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.ufrn.divertour.model.Searchable;
 import br.ufrn.divertour.service.GuideService;
 import br.ufrn.divertour.service.PlaceService;
 
-@SessionScoped
+@ViewScoped
 @ManagedBean(name = "searchMBean")
-
 public class SearchMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -45,7 +44,7 @@ public class SearchMBean implements Serializable {
 	
 	public String showDetails() {
 		if(this.selectedItem == null) {
-			//TODO
+			//TODO show error message
 			System.out.println("Error. Selected null value");
 			return "";
 		}

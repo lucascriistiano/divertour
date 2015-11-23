@@ -145,7 +145,7 @@ public class Place implements Searchable {
 
 	@Override
 	public String getDetailsPage() {
-		return Searchable.PLACE_DETAILS_PAGE;
+		return Searchable.PLACE_DETAILS_PAGE + "?id=" + this.id + "&faces-redirect=true";
 	}
 
 	@Override

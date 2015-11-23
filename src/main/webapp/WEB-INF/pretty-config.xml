@@ -3,10 +3,31 @@
   xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
                       http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
 
+	<!-- RESTRICTED PAGES -->
+	<url-mapping id="homepage_user">
+		<pattern value="/minhapagina" />
+		<view-id value="/pages/restricted/homepage.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="place_register">
+		<pattern value="/lugares/cadastro" />
+		<view-id value="/pages/restricted/places/register.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="guide_register">
+		<pattern value="/roteiros/cadastro" />
+		<view-id value="/pages/restricted/guides/register.xhtml" />
+	</url-mapping>
+
 	<!-- COMMON PAGES -->
 	<url-mapping id="index">
 		<pattern value="/" />
 		<view-id value="/pages/common/index.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="about">
+		<pattern value="/sobre" />
+		<view-id value="/pages/common/about.xhtml" />
 	</url-mapping>
 	
 	<url-mapping id="login">
@@ -29,28 +50,15 @@
 		<view-id value="/pages/common/guides.xhtml" />
 	</url-mapping>
 	
-	<url-mapping id="about">
-		<pattern value="/sobre" />
-		<view-id value="/pages/common/about.xhtml" />
+	<url-mapping id="place_details">
+		<pattern value="/lugares/#{id}" />
+		<view-id value="/pages/common/places/details.xhtml" />
 	</url-mapping>
 	
-	
-	<!-- RESTRICTED PAGES -->
-	<url-mapping id="homepage_user">
-		<pattern value="/minhapagina" />
-		<view-id value="/pages/restricted/homepage.xhtml" />
+	<url-mapping id="guide_details">
+		<pattern value="/roteiros/#{id}" />
+		<view-id value="/pages/common/guides/details.xhtml" />
 	</url-mapping>
-	
-	<url-mapping id="place_register">
-		<pattern value="/lugares/cadastro" />
-		<view-id value="/pages/restricted/places/register.xhtml" />
-	</url-mapping>
-	
-	<url-mapping id="guide_register">
-		<pattern value="/roteiros/cadastro" />
-		<view-id value="/pages/restricted/guides/register.xhtml" />
-	</url-mapping>
-	
 	
 	<!-- ADMIN PAGES -->
 	<url-mapping id="homepage_admin">

@@ -105,7 +105,7 @@ public class Guide implements Searchable {
 
 	@Override
 	public String getDetailsPage() {
-		return Searchable.GUIDE_DETAILS_PAGE;
+		return Searchable.GUIDE_DETAILS_PAGE + "?id=" + this.id + "&faces-redirect=true";
 	}
 
 	@Override
