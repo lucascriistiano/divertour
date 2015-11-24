@@ -40,7 +40,7 @@
 					<b:panel style="box-shadow:0 3px 2px -2px rgba(200,200,200,0.2);border-radius:0;">
 						<b:row styleClass="list-item" style="box-shadow:none;">
 							<b:column col-md="10">
-								<h3 style="margin-top:6px;">Registrar um lugar</h3>
+								<h3 style="margin-top:6px;">Deseja registrar um novo lugar?</h3>
 							</b:column>
 							<b:column col-md="2">
 								<b:commandButton value="Novo Lugar" styleClass="list-button" action="#{searchPlaceMBean.newPlace}"/>
@@ -63,7 +63,7 @@
 									<b:column col-md="7">
 										<h3 style="margin-top:6px;">#{place.name}</h3>
 		        						<p:rating value="#{place.rating}" readonly="true" /><br/>
-										<h:outputText value="#{place.description}"/><br/> 
+										<h:outputText value="#{place.description}" escape="false"/><br/> 
 									</b:column>
 									<b:column col-md="2">
 										<b:commandButton value="Ver mais" action="#{searchPlaceMBean.showDetails(place.id)}" styleClass="list-button" />
