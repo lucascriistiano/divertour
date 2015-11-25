@@ -1,8 +1,12 @@
 package br.ufrn.divertour.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -19,9 +23,9 @@ public class GuideService {
 
 	private static final int MIN_GUIDE_PLACES = 2;
 	
-	private GuideRepository guideRepository;
 	private static GuideService guideService;
 
+	private GuideRepository guideRepository;
 	private MongoOperations mongoOperation;
 	
 	private GuideService() {
@@ -68,10 +72,6 @@ public class GuideService {
 	public List<Guide> listAll() {
 		return guideRepository.findAll();
 	}
-	
-	public static List<String> getCategoriesOfGuide() {
-		return Arrays.asList("Para relaxar", "Curta", "Adrenalina");
-	}
 
 	public List<Guide> findByNameSimilarity(String name) {
 		Query query = new Query();
@@ -83,22 +83,50 @@ public class GuideService {
 		return guideRepository.findById(id);
 	}
 
+	//TODO move to dao
 	public List<Guide> findByNumberOfPlaces(int numberOfPlaces) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("places").size(numberOfPlaces));
 		return mongoOperation.find(query, Guide.class);
 	}
 
+	//TODO move to dao
 	public List<Guide> findByPeriod(int period) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("period").is(period));
 		return mongoOperation.find(query, Guide.class);
 	}
 
+	//TODO move to dao
 	public List<Guide> findByCategory(String category) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("category").regex(category, "i"));
+		query.addCriteria(Criteria.where("category").is(category));
 		return mongoOperation.find(query, Guide.class);
 	}
+	
+	//TODO move to dao
+	public List<Integer> getPeriodsOfGuide() {
+		@SuppressWarnings("unchecked")
+		List<Integer> periods = mongoOperation.getCollection("guide").distinct("period");
+		return periods;
+	}
 
+	//TODO move to dao
+	public List<Integer> getNumberOfPlaces() { 
+		List<Guide> guides = guideRepository.findAll();
+		Set<Integer> numPlacesSet = new HashSet<>();
+		for (Guide guide : guides) {
+			numPlacesSet.add(guide.getPlaces().size());
+		}
+		
+		ArrayList<Integer> numPlaces = new ArrayList<>(numPlacesSet);
+		Collections.sort(numPlaces);
+		
+		return numPlaces;
+	}
+
+	public static List<String> getCategoriesOfGuide() {
+		return Arrays.asList("Para relaxar", "Curta", "Adrenalina", "Cultural", "Histórico", "Gastronômico", "Natural");
+	}
+	
 }

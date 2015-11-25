@@ -23,14 +23,16 @@
 
 			<b:column col-md="5" styleClass="watch" style="margin-top:30px;">
 				<h:panelGroup layout="block" style="background:#fff;height:100%;">
+					<p:rating value="#{placeDetailsMBean.selectedPlace.rating}" readonly="true" />
+					<br/>
+					
 					<h:outputText for="images" value="Imagens: #{placeDetailsMBean.selectedPlace.images}" />
 					<br />
 				</h:panelGroup>
 			</b:column>
 
 			<b:column col-md="7" styleClass="watch" style="margin-top:30px;">
-				<b:panel look="primary" title="Informações do Lugar"
-					collapsible="false">
+				<b:panel look="primary" title="Informações do Lugar" collapsible="false">
 					<h:outputLabel value="Tipo: " />
 					<h:outputText value="#{placeDetailsMBean.selectedPlace.type}" style="margin-left:10px;" />
 					<br />

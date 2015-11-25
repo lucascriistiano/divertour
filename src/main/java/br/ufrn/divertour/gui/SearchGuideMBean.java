@@ -1,6 +1,7 @@
 package br.ufrn.divertour.gui;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,25 +34,28 @@ public class SearchGuideMBean implements Serializable {
 	@PostConstruct
     public void init() {
 		this.searchFiltersNames = new HashMap<>();
-//		this.searchFiltersNames.put("Período", "period");
-//		this.searchFiltersNames.put("Número de Lugares", "numberOfPlaces");
+		this.searchFiltersNames.put("Período", "period");
+		this.searchFiltersNames.put("Número de Lugares", "numberOfPlaces");
 		this.searchFiltersNames.put("Categoria", "category");
 		
 		// Load periods
 		Map<String,String> map = new HashMap<String, String>();
-//		List<String> categoriesOfPlace = guideService.getCategoriesOfGuide();
-//		for (String category : categoriesOfPlace) {
-//			map.put(category, category);
-//		}
-//		this.searchFilters.put("period", map);
+		List<Integer> periods = guideService.getPeriodsOfGuide();
+		Collections.sort(periods);
+		for (Integer period : periods) {
+			String strPeriod = String.valueOf(period);
+			map.put(strPeriod, strPeriod);
+		}
+		this.searchFilters.put("period", map);
 		
 		// Load number of places
-//		map = new HashMap<String, String>();
-//		List<Integer> numberOfPlaces = guideService.getNum .getTypesOfPlace();
-//		for (String type : typesOfPlace) {
-//			map.put(type, type);
-//		}
-//		this.searchFilters.put("numberOfPlaces", map);
+		map = new HashMap<String, String>();
+		List<Integer> numberOfPlaces = guideService.getNumberOfPlaces();
+		for (Integer places : numberOfPlaces) {
+			String strNumPlaces = String.valueOf(places);
+			map.put(strNumPlaces, strNumPlaces);
+		}
+		this.searchFilters.put("numberOfPlaces", map);
 
 		// Load categories
 		map = new HashMap<String, String>();
