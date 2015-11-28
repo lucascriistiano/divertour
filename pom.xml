@@ -18,6 +18,7 @@
 		<bootsfaces.version>0.7.0</bootsfaces.version>
 		<spring.data.mongodb.version>1.8.0.RELEASE</spring.data.mongodb.version>
 		<spring.data.redis.version>1.6.1.RELEASE</spring.data.redis.version>
+		<jedis.version>2.7.3</jedis.version>
 		<rewrite.servlet.version>2.0.12.Final</rewrite.servlet.version>
 		<rewrite.config.prettyfaces.version>2.0.12.Final</rewrite.config.prettyfaces.version>
 		<cdi.api.version>1.2</cdi.api.version>
@@ -121,6 +122,11 @@
 			<artifactId>spring-beans</artifactId>
 			<version>4.2.3.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.2.3.RELEASE</version>
+		</dependency>
 
 		<!-- SPRING DATA MONGODB -->
 		<dependency>
@@ -135,6 +141,12 @@
         	<artifactId>spring-data-redis</artifactId>
         	<version>${spring.data.redis.version}</version>
     	</dependency>
+    	<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
+    	
   		
   		<!-- SPRING SECURITY -->
   		<!-- <dependency>

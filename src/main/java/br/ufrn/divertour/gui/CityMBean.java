@@ -8,6 +8,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import br.ufrn.divertour.model.City;
 import br.ufrn.divertour.service.CityService;
 import br.ufrn.divertour.service.exception.ValidationException;
@@ -18,11 +21,15 @@ public class CityMBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private CityService cityService = CityService.getInstance();
+	private final CityService cityService;
 	
 	private City city;
 	
 	public CityMBean() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		this.cityService = (CityService) context.getBean(CityService.class);
+		
 		this.city = new City();
 	}
 	

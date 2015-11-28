@@ -2,30 +2,21 @@ package br.ufrn.divertour.service;
 
 import java.util.List;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import br.ufrn.divertour.config.MongoConfig;
 import br.ufrn.divertour.model.User;
 import br.ufrn.divertour.repository.UserRepository;
 import br.ufrn.divertour.service.exception.ValidationException;
 
+@Service
 public class UserService {
 	
-	private UserRepository userRepository;
-	private static UserService userService;
+	private final UserRepository userRepository;
 	
-	private UserService() {
-		@SuppressWarnings("resource")
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MongoConfig.class);
-        this.userRepository = context.getBean(UserRepository.class);
-	}
-	
-	public static UserService getInstance() {
-		if(userService == null) {
-			userService = new UserService();
-		}
-		
-		return userService;
+	@Autowired
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}
 	
 	private void validate(User user) throws ValidationException {

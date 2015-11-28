@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.service.PlaceService;
 
@@ -14,10 +17,16 @@ public class PlaceDetailsMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private PlaceService placeService = PlaceService.getInstance();
+	private PlaceService placeService;
 	
 	private String placeId;
 	private Place selectedPlace;
+	
+	public PlaceDetailsMBean() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		this.placeService = (PlaceService) context.getBean(PlaceService.class);
+	}
 
 	public void loadData() {
 		selectedPlace = placeService.findById(placeId);

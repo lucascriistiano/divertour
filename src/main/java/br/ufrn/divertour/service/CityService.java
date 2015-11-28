@@ -4,32 +4,23 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import br.ufrn.divertour.config.MongoConfig;
 import br.ufrn.divertour.model.City;
 import br.ufrn.divertour.repository.CityRepository;
 import br.ufrn.divertour.service.exception.ValidationException;
 
+@Service
 public class CityService implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private CityRepository cityRepository;
-	private static CityService cityService;
 	
-	private CityService() {
-		@SuppressWarnings("resource")
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MongoConfig.class);
-        this.cityRepository = context.getBean(CityRepository.class);
-	}
-	
-	public static CityService getInstance() {
-		if(cityService == null) {
-			cityService = new CityService();
-		}
-		
-		return cityService;
+	@Autowired
+	public CityService(CityRepository cityRepository) {
+		this.cityRepository = cityRepository;
 	}
 
 	private void validate(City city) throws ValidationException {

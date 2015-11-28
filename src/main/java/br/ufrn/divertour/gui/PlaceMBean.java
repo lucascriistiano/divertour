@@ -10,6 +10,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.model.UploadedFile;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import br.ufrn.divertour.model.City;
 import br.ufrn.divertour.model.Place;
@@ -23,10 +25,11 @@ public class PlaceMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Place place;
-	private PlaceService placeService = PlaceService.getInstance();
-	private CityService cityService = CityService.getInstance();
+	private final PlaceService placeService;	
+	private final CityService cityService;
 
+	private Place place;
+	
 	private float currentLat;
     private float currentLng;
 
@@ -38,10 +41,15 @@ public class PlaceMBean implements Serializable {
     private List<String> insertedContacts;
 //    private List<String> uploadedImagesPath;
     
-	private List<String> typesOfPlace;
-	private List<String> categoriesOfPlace;
+	private final List<String> typesOfPlace;
+	private final List<String> categoriesOfPlace;
 	
 	public PlaceMBean() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		this.cityService = (CityService) context.getBean(CityService.class);
+		this.placeService = (PlaceService) context.getBean(PlaceService.class);
+		
 		this.place = new Place();
 		
 		this.insertedContacts = new ArrayList<>();

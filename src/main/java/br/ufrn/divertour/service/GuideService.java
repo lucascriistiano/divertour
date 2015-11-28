@@ -8,40 +8,30 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
 
-import br.ufrn.divertour.config.MongoConfig;
 import br.ufrn.divertour.model.Guide;
 import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.repository.GuideRepository;
 import br.ufrn.divertour.service.exception.ValidationException;
 
+@Service
 public class GuideService {
 
 	private static final int MIN_GUIDE_PLACES = 2;
 	
-	private static GuideService guideService;
-
 	private GuideRepository guideRepository;
-	private MongoOperations mongoOperation;
+	private MongoTemplate mongoTemplate;
 	
-	private GuideService() {
-		@SuppressWarnings("resource")
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MongoConfig.class);
-		this.mongoOperation = (MongoOperations) context.getBean("mongoTemplate");
-        this.guideRepository = context.getBean(GuideRepository.class);
-	}
-
-	public static GuideService getInstance() {
-		if (guideService == null) {
-			guideService = new GuideService();
-		}
-
-		return guideService;
+	@Autowired
+	public GuideService(GuideRepository guideRepository, MongoTemplate mongoTemplate) {
+		this.guideRepository = guideRepository;
+		this.mongoTemplate = mongoTemplate;
 	}
 
 	private void validate(Guide guide) throws ValidationException {
@@ -76,7 +66,7 @@ public class GuideService {
 	public List<Guide> listAll() {
 		Query query = new Query();
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoOperation.find(query, Guide.class);
+		return mongoTemplate.find(query, Guide.class);
 	}
 
 	//TODO move to dao
@@ -84,7 +74,7 @@ public class GuideService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("name").regex(name, "i"));
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoOperation.find(query, Guide.class);
+		return mongoTemplate.find(query, Guide.class);
 	}
 
 	//TODO move to dao
@@ -92,7 +82,7 @@ public class GuideService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("places").size(numberOfPlaces));
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoOperation.find(query, Guide.class);
+		return mongoTemplate.find(query, Guide.class);
 	}
 
 	//TODO move to dao
@@ -100,7 +90,7 @@ public class GuideService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("period").is(period));
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoOperation.find(query, Guide.class);
+		return mongoTemplate.find(query, Guide.class);
 	}
 
 	//TODO move to dao
@@ -108,13 +98,13 @@ public class GuideService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("category").is(category));
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoOperation.find(query, Guide.class);
+		return mongoTemplate.find(query, Guide.class);
 	}
 	
 	//TODO move to dao
 	public List<Integer> getPeriodsOfGuide() {
 		@SuppressWarnings("unchecked")
-		List<Integer> periods = mongoOperation.getCollection("guide").distinct("period");
+		List<Integer> periods = mongoTemplate.getCollection("guide").distinct("period");
 		return periods;
 	}
 

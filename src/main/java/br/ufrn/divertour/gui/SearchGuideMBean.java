@@ -10,6 +10,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import br.ufrn.divertour.model.Guide;
 import br.ufrn.divertour.service.GuideService;
 
@@ -19,7 +22,7 @@ public class SearchGuideMBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private GuideService guideService = GuideService.getInstance();
+	private final GuideService guideService;
 	
 	private List<Guide> foundResults;
 
@@ -30,6 +33,14 @@ public class SearchGuideMBean implements Serializable {
 	
 	private String selectedFilterName;
 	private String selectedFilterValue;
+	
+	public SearchGuideMBean() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		this.guideService = (GuideService) context.getBean(GuideService.class);
+		
+		this.foundResults = guideService.listAll();
+	}
 	
 	@PostConstruct
     public void init() {
@@ -64,10 +75,6 @@ public class SearchGuideMBean implements Serializable {
 			map.put(category, category);
 		}
 		this.searchFilters.put("category", map);
-	}
-	
-	public SearchGuideMBean() {
-		this.foundResults = guideService.listAll();
 	}
 	
 	public List<Guide> getFoundResults() {

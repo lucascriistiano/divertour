@@ -5,6 +5,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import br.ufrn.divertour.model.Searchable;
 import br.ufrn.divertour.service.GuideService;
 import br.ufrn.divertour.service.PlaceService;
@@ -12,8 +15,15 @@ import br.ufrn.divertour.service.PlaceService;
 @FacesConverter("searchableConverter")
 public class SearchableConverter implements Converter {
 	
-	private PlaceService placeService = PlaceService.getInstance();
-	private GuideService guideService = GuideService.getInstance();
+	private PlaceService placeService;
+	private GuideService guideService;
+	
+	public SearchableConverter() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		this.placeService = (PlaceService) context.getBean(PlaceService.class);
+		this.guideService = (GuideService) context.getBean(GuideService.class);
+	}
 	
 	@Override
 	public Object getAsObject(FacesContext fc, UIComponent uic, String value) {

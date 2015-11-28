@@ -7,6 +7,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import br.ufrn.divertour.model.Searchable;
 import br.ufrn.divertour.service.GuideService;
 import br.ufrn.divertour.service.PlaceService;
@@ -17,14 +20,19 @@ public class SearchMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private GuideService guideService = GuideService.getInstance();
-	private PlaceService placeService = PlaceService.getInstance();
+	private final GuideService guideService;
+	private final PlaceService placeService;
 	
 	private Searchable selectedItem;
 	
 	List<Searchable> foundResults;
 	
-	public SearchMBean() {}
+	public SearchMBean() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		this.guideService = (GuideService) context.getBean(GuideService.class);
+		this.placeService = (PlaceService) context.getBean(PlaceService.class);
+	}
 	
 	public List<Searchable> findResults(String search) {
 		foundResults = new ArrayList<>();

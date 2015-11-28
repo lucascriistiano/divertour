@@ -8,6 +8,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import br.ufrn.divertour.model.City;
 import br.ufrn.divertour.model.User;
 import br.ufrn.divertour.service.CityService;
@@ -21,12 +24,17 @@ public class UserMBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private UserService userService = UserService.getInstance();
-	private CityService cityService = CityService.getInstance();
+	private final UserService userService;
+	private final CityService cityService;
 	
 	private User user;
 	
 	public UserMBean() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		this.userService = (UserService) context.getBean(UserService.class);
+		this.cityService = (CityService) context.getBean(CityService.class);
+		
 		this.user = new User();
 	}
 	

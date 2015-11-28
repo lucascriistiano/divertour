@@ -9,6 +9,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import br.ufrn.divertour.model.City;
 import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.service.CityService;
@@ -20,8 +23,8 @@ public class SearchPlaceMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private PlaceService placeService = PlaceService.getInstance();
-	private CityService cityService = CityService.getInstance();
+	private final PlaceService placeService;
+	private final CityService cityService;
 	
 	private List<Place> foundResults;
 
@@ -33,8 +36,17 @@ public class SearchPlaceMBean implements Serializable {
 	private String selectedFilterName;
 	private String selectedFilterValue;
 	
+	public SearchPlaceMBean() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		this.placeService = (PlaceService) context.getBean(PlaceService.class);
+		this.cityService = (CityService) context.getBean(CityService.class);
+		
+		this.foundResults = placeService.listAll();
+	}
+	
 	@PostConstruct
-    public void init() {
+    public void init() {		
 		this.searchFiltersNames = new HashMap<>();
 		this.searchFiltersNames.put("Categoria", "category");
 		this.searchFiltersNames.put("Tipo", "type");
@@ -64,10 +76,6 @@ public class SearchPlaceMBean implements Serializable {
 			map.put(cityFullName, cityFullName);
 		}
 		this.searchFilters.put("city", map);
-	}
-	
-	public SearchPlaceMBean() {
-		this.foundResults = placeService.listAll();
 	}
 
 	public List<Place> getFoundResults() {

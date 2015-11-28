@@ -3,37 +3,27 @@ package br.ufrn.divertour.service;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
 
-import br.ufrn.divertour.config.MongoConfig;
 import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.repository.PlaceRepository;
 import br.ufrn.divertour.service.exception.ValidationException;
 
+@Service
 public class PlaceService {
-
+	
 	private PlaceRepository placeRepository;
-	private static PlaceService placeService;
+	private MongoTemplate mongoTemplate;
 	
-	private MongoOperations mongoOperation;
-	
-	private PlaceService() {
-		@SuppressWarnings("resource")
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MongoConfig.class);
-		this.mongoOperation = (MongoOperations) context.getBean("mongoTemplate");
-		this.placeRepository = context.getBean(PlaceRepository.class);
-	}
-	
-	public static PlaceService getInstance() {
-		if(placeService == null) {
-			placeService = new PlaceService();
-		}
-		
-		return placeService;
+	@Autowired
+	public PlaceService(PlaceRepository placeRepository, MongoTemplate mongoTemplate) {
+		this.placeRepository = placeRepository;
+		this.mongoTemplate = mongoTemplate;
 	}
 	
 	private void validate(Place place) throws ValidationException {
@@ -63,7 +53,7 @@ public class PlaceService {
 	public List<Place> listAll() {
 		Query query = new Query();
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoOperation.find(query, Place.class);
+		return mongoTemplate.find(query, Place.class);
 	}
 	
 	//TODO remover para Daos	
@@ -71,7 +61,7 @@ public class PlaceService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("name").regex(name, "i"));
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoOperation.find(query, Place.class);
+		return mongoTemplate.find(query, Place.class);
 	}
 
 	//TODO remover para Daos
@@ -79,7 +69,7 @@ public class PlaceService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("city.name").is(city).and("city.state").is(state));
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoOperation.find(query, Place.class);
+		return mongoTemplate.find(query, Place.class);
 	}
 
 	//TODO remover para Daos
@@ -87,7 +77,7 @@ public class PlaceService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("type").is(type));
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoOperation.find(query, Place.class);
+		return mongoTemplate.find(query, Place.class);
 	}
 	
 	//TODO remover para Daos
@@ -95,7 +85,7 @@ public class PlaceService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("categories").in(category));
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoOperation.find(query, Place.class);
+		return mongoTemplate.find(query, Place.class);
 	}		
 	
 	public static List<String> getTypesOfPlace() {

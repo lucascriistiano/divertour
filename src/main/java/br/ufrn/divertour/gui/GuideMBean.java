@@ -10,6 +10,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.google.gson.Gson;
 
@@ -26,8 +29,8 @@ public class GuideMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private PlaceService placeService = PlaceService.getInstance();
-	private GuideService guideService = GuideService.getInstance();
+	private final PlaceService placeService;
+	private final GuideService guideService;
 
 	private Guide guide;
 	private List<Place> selectedPlaces;
@@ -39,6 +42,12 @@ public class GuideMBean implements Serializable {
 	private String selectedPlaceJSON;
 	
 	public GuideMBean() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		BeanFactory factory = context;
+		this.placeService = (PlaceService) factory.getBean(PlaceService.class);
+		this.guideService = (GuideService) factory.getBean(GuideService.class);
+		
 		this.guide = new Guide();
 		this.selectedPlaces = new ArrayList<>();
 	}
