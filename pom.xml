@@ -17,6 +17,7 @@
 		<primefaces.version>5.3</primefaces.version>
 		<bootsfaces.version>0.7.0</bootsfaces.version>
 		<spring.data.mongodb.version>1.8.0.RELEASE</spring.data.mongodb.version>
+		<spring.data.redis.version>1.6.1.RELEASE</spring.data.redis.version>
 		<rewrite.servlet.version>2.0.12.Final</rewrite.servlet.version>
 		<rewrite.config.prettyfaces.version>2.0.12.Final</rewrite.config.prettyfaces.version>
 		<cdi.api.version>1.2</cdi.api.version>
@@ -85,12 +86,19 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- SPRING MONGODB -->
+		<!-- SPRING DATA MONGODB -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>${spring.data.mongodb.version}</version>
 		</dependency>
+		
+		<!-- SPRING DATA REDIS -->
+    	<dependency>
+        	<groupId>org.springframework.data</groupId>
+        	<artifactId>spring-data-redis</artifactId>
+        	<version>${spring.data.redis.version}</version>
+    	</dependency>
 
 		<!-- PRETTYFACES -->
 		<dependency>
