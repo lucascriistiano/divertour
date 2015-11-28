@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -56,27 +57,15 @@ public class GuideService {
 	public void register(Guide guide) throws ValidationException {
 		validate(guide);
 		
-		// Erase comments before save guide				
 		for (Place place : guide.getPlaces()) {		
-			place.setComments(null);
+			place.setComments(null); // Erase comments before save guide
 		}
 		guide.setCreationDate(new Date());
-		
 		guideRepository.save(guide);
 	}
 
 	public void remove(String id) {
 		guideRepository.delete(id);
-	}
-
-	public List<Guide> listAll() {
-		return guideRepository.findAll();
-	}
-
-	public List<Guide> findByNameSimilarity(String name) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("name").regex(name, "i"));
-		return mongoOperation.find(query, Guide.class);
 	}
 	
 	public Guide findById(String id) {
@@ -84,9 +73,25 @@ public class GuideService {
 	}
 
 	//TODO move to dao
+	public List<Guide> listAll() {
+		Query query = new Query();
+		query.with(new Sort(Sort.Direction.DESC, "rating"));
+		return mongoOperation.find(query, Guide.class);
+	}
+
+	//TODO move to dao
+	public List<Guide> findByNameSimilarity(String name) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("name").regex(name, "i"));
+		query.with(new Sort(Sort.Direction.DESC, "rating"));
+		return mongoOperation.find(query, Guide.class);
+	}
+
+	//TODO move to dao
 	public List<Guide> findByNumberOfPlaces(int numberOfPlaces) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("places").size(numberOfPlaces));
+		query.with(new Sort(Sort.Direction.DESC, "rating"));
 		return mongoOperation.find(query, Guide.class);
 	}
 
@@ -94,6 +99,7 @@ public class GuideService {
 	public List<Guide> findByPeriod(int period) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("period").is(period));
+		query.with(new Sort(Sort.Direction.DESC, "rating"));
 		return mongoOperation.find(query, Guide.class);
 	}
 
@@ -101,6 +107,7 @@ public class GuideService {
 	public List<Guide> findByCategory(String category) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("category").is(category));
+		query.with(new Sort(Sort.Direction.DESC, "rating"));
 		return mongoOperation.find(query, Guide.class);
 	}
 	
@@ -121,7 +128,6 @@ public class GuideService {
 		
 		ArrayList<Integer> numPlaces = new ArrayList<>(numPlacesSet);
 		Collections.sort(numPlaces);
-		
 		return numPlaces;
 	}
 
