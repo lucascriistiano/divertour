@@ -85,21 +85,7 @@
 			<version>${bootsfaces.version}</version>
 			<scope>compile</scope>
 		</dependency>
-
-		<!-- SPRING DATA MONGODB -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-			<version>${spring.data.mongodb.version}</version>
-		</dependency>
 		
-		<!-- SPRING DATA REDIS -->
-    	<dependency>
-        	<groupId>org.springframework.data</groupId>
-        	<artifactId>spring-data-redis</artifactId>
-        	<version>${spring.data.redis.version}</version>
-    	</dependency>
-
 		<!-- PRETTYFACES -->
 		<dependency>
 			<groupId>org.ocpsoft.rewrite</groupId>
@@ -123,9 +109,35 @@
 			<artifactId>gson</artifactId>
 			<version>1.7.1</version>
   		</dependency>
+
+		<!-- SPRING CORE -->
+	    <dependency>
+    	    <groupId>org.springframework</groupId>
+        	<artifactId>spring-context</artifactId>
+			<version>4.2.3.RELEASE</version>
+    	</dependency>
+    	<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>4.2.3.RELEASE</version>
+		</dependency>
+
+		<!-- SPRING DATA MONGODB -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>${spring.data.mongodb.version}</version>
+		</dependency>
+		
+		<!-- SPRING DATA REDIS -->
+    	<dependency>
+        	<groupId>org.springframework.data</groupId>
+        	<artifactId>spring-data-redis</artifactId>
+        	<version>${spring.data.redis.version}</version>
+    	</dependency>
   		
   		<!-- SPRING SECURITY -->
-  		<dependency>
+  		<!-- <dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>3.2.6.RELEASE</version>
@@ -134,7 +146,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>3.2.6.RELEASE</version>
-		</dependency>
+		</dependency>  -->
 		
 	</dependencies>
 
