@@ -1,33 +1,15 @@
 package br.ufrn.divertour.gui;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.event.map.GeocodeEvent;
-import org.primefaces.event.map.PointSelectEvent;
-import org.primefaces.event.map.ReverseGeocodeEvent;
-import org.primefaces.json.JSONArray;
-import org.primefaces.json.JSONObject;
 import org.primefaces.model.UploadedFile;
-import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.GeocodeResult;
-import org.primefaces.model.map.LatLng;
-import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
 
 import br.ufrn.divertour.model.City;
 import br.ufrn.divertour.model.Place;
@@ -44,129 +26,31 @@ public class PlaceMBean implements Serializable {
 	private Place place;
 	private PlaceService placeService = PlaceService.getInstance();
 	private CityService cityService = CityService.getInstance();
-	
-	private MapModel geoModel;
-    private Marker placeMarker;
-    
-    private float currentLat;
+
+	private float currentLat;
     private float currentLng;
-    
-    private String centerGeoMap = "41.850033, -87.6500523";
-//    private String centerGeoMap;
 
     private String insertedContact;
-    private UploadedFile selectedFile;
+    
+    private UploadedFile selectedImageFile;
+    private List<UploadedFile> selectedImagesFiles;
 
     private List<String> insertedContacts;
-    private List<String> uploadedImagesPath;
-    private List<UploadedFile> uploadedFiles;
+//    private List<String> uploadedImagesPath;
     
 	private List<String> typesOfPlace;
 	private List<String> categoriesOfPlace;
-
-	
-	@PostConstruct
-    public void init() {
-        geoModel = new DefaultMapModel();
-//        centerGeoMap = currentLat + ", " + currentLng;
-        
-    }
 	
 	public PlaceMBean() {
 		this.place = new Place();
 		
 		this.insertedContacts = new ArrayList<>();
-		this.uploadedImagesPath = new ArrayList<>();
-		this.uploadedFiles = new ArrayList<>();
+//		this.uploadedImagesPath = new ArrayList<>();
+		this.selectedImagesFiles = new ArrayList<>();
 		
 		this.typesOfPlace = PlaceService.getTypesOfPlace();
 		this.categoriesOfPlace = PlaceService.getCategoriesOfPlace();
 	}
-	
-	public void onGeocode(GeocodeEvent event) {
-        List<GeocodeResult> results = event.getResults();
-         
-        if (results != null && !results.isEmpty()) {
-            LatLng center = results.get(0).getLatLng();
-            centerGeoMap = center.getLat() + "," + center.getLng();
-             
-            for (int i = 0; i < results.size(); i++) {
-                GeocodeResult result = results.get(i);
-                geoModel.addOverlay(new Marker(result.getLatLng(), result.getAddress()));
-            }
-        }
-    }
-     
-    public void onReverseGeocode(ReverseGeocodeEvent event) {
-        List<String> addresses = event.getAddresses();
-        LatLng coord = event.getLatlng();
-         
-        if (addresses != null && !addresses.isEmpty()) {
-        	centerGeoMap = coord.getLat() + "," + coord.getLng();
-            geoModel.addOverlay(new Marker(coord, addresses.get(0)));
-        }
-    }
-    
-    public void onPointSelect(PointSelectEvent event) {
-		LatLng coord = event.getLatLng();
-		centerGeoMap = coord.getLat() + "," + coord.getLng();
-		
-		if(placeMarker == null) {
-			placeMarker = new Marker(coord);
-			geoModel.addOverlay(placeMarker);
-		} else {
-			placeMarker.setLatlng(coord);
-		}
-		
-		String resultAddress;
-		try {
-			resultAddress = getAddressByGpsCoordinates(coord.getLat(), coord.getLng());
-		} catch (MalformedURLException e) {
-			resultAddress = "";
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			resultAddress = "";
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch(Exception e) {
-			resultAddress = "";
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		this.place.setAddress(resultAddress);
-	}
-    
-    @SuppressWarnings("finally")
-	private String getAddressByGpsCoordinates(double lat, double lng) throws MalformedURLException, IOException {
-         
-        URL url = new URL("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=true");
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        String formattedAddress = "";
- 
-        try {
-            InputStream in = url.openStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String result, line = reader.readLine();
-            result = line;
-            while ((line = reader.readLine()) != null) {
-                result += line;
-            }
-            
-            JSONObject rsp = new JSONObject(result);
-            if (rsp.has("results")) {
-                JSONArray matches = (JSONArray) rsp.get("results");
-                JSONObject data = (JSONObject) matches.get(0); //TODO: check if idx=0 exists
-                formattedAddress = (String) data.get("formatted_address");
-            }
- 
-            return "";
-        } finally {
-            urlConnection.disconnect();
-            return formattedAddress;
-        }
-    }
 	
     public void addContact() {
     	if(insertedContact != null && !insertedContact.equals("")) {
@@ -178,15 +62,24 @@ public class PlaceMBean implements Serializable {
     }
     
     public void addImage() {
-    	if(selectedFile != null) {
-    		this.uploadedFiles.add(selectedFile);
+    	if(this.selectedImageFile != null) {
+        	System.out.println("Adicionando o arquivo " + selectedImageFile.getFileName());
+    		this.selectedImagesFiles.add(selectedImageFile);
+    		this.selectedImageFile = null;
+    		System.out.println("Arquivo adicionado");
+    	} else {
+    		System.out.println("Arquivo não adicionado");
     	}
+    }
+    
+    public void cancelImage() {
+    	this.selectedImageFile = null;
     }
     
     public String register() {
 		try {
 			this.place.setContacts(insertedContacts);
-			this.place.setImages(uploadedImagesPath);
+//			this.place.setImages(uploadedImagesPath);
 			
 			this.placeService.register(this.place);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
@@ -219,21 +112,18 @@ public class PlaceMBean implements Serializable {
 		this.place = place;
 	}
 	
-	public UploadedFile getSelectedFile() {
-		return selectedFile;
+	public UploadedFile getSelectedImageFile() {
+		return selectedImageFile;
 	}
 
-	public void setSelectedFile(UploadedFile selectedFile) {
-		this.selectedFile = selectedFile;
+	public void setSelectedImageFile(UploadedFile selectedImageFile) {
+		System.out.println("Setou");
+		this.selectedImageFile = selectedImageFile;
 	}
 	
-    public MapModel getGeoModel() {
-        return geoModel;
-    }
- 
-    public String getCenterGeoMap() {
-        return centerGeoMap;
-    }
+	public List<UploadedFile> getSelectedImagesFiles() {
+		return selectedImagesFiles;
+	}
 
 	public float getCurrentLat() {
 		return currentLat;
@@ -261,10 +151,6 @@ public class PlaceMBean implements Serializable {
 
 	public List<String> getCategoriesOfPlace() {
 		return categoriesOfPlace;
-	}
-	
-	public List<UploadedFile> getUploadedFiles() {
-		return uploadedFiles;
 	}
 	
 	public List<City> getCities() {
