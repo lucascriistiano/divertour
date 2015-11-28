@@ -10,36 +10,35 @@
 	
 	<ui:define name="title-paper">Cadastro  <b:iconAwesome name="user-plus"/></ui:define>
 		
-	<ui:define name="first-topic">
-		Informações
-	</ui:define>
+	<ui:define name="first-topic">Informações</ui:define>
 	
 	<ui:define name="content-paper">	
 		<h:form>
 			<b:row>
 				<b:column offset="3" col-md="6">
 					<h:outputLabel value="Nome: "/>
-					<b:inputText value="#{userMBean.user.name}" placeholder="João da Silva"></b:inputText>
+					<b:inputText value="#{userMBean.user.name}" placeholder="Insira o seu nome"></b:inputText>
 									
 					<h:outputLabel value="Email: "/>
-					<b:inputText value="#{userMBean.user.email}" placeholder="joaosilva@divertour.com.br"></b:inputText>
+					<b:inputText value="#{userMBean.user.email}" placeholder="Insira o seu email"></b:inputText>
 					
 					<h:outputLabel value="Cidade: "/>
 					<b:selectOneMenu value="#{userMBean.user.city}">
+						<f:selectItem itemValue="" itemLabel="Selecione a sua cidade de residência" />
 						<f:selectItems value="#{userMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city.name}/#{city.state}" />
 					</b:selectOneMenu>	
 				
 					<h:outputLabel value="Usuário:"/>
-					<b:inputText value="#{userMBean.user.username}" placeholder="joaodasilva"></b:inputText>
+					<b:inputText value="#{userMBean.user.username}" placeholder="Insira o nome de usuário desejado"></b:inputText>
 				       				
 					<h:outputLabel value="Senha: "/>
-					<b:inputSecret value="#{userMBean.user.password}" placeholder="Sua senha"></b:inputSecret>
+					<b:inputSecret value="#{userMBean.user.password}" placeholder="Insira a sua senha"></b:inputSecret>
 				</b:column>
 			</b:row>
 			
 			<b:row>
 				<b:column col-md="12" styleClass="title">
-					<hr />	Interesses  <hr />
+					<hr />Interesses<hr />
 				</b:column>
 			</b:row>
 			

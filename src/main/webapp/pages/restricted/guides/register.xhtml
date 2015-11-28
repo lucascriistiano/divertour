@@ -19,30 +19,36 @@
 			<h:panelGroup id="map-canvas" layout="block"></h:panelGroup>
 			<h:panelGroup id="push" layout="block"></h:panelGroup>
 
-			<h:panelGroup id="left-map-menu" layout="block">
-				<h2>Novo Roteiro</h2>
+			<h:panelGroup id="left-map-menu" layout="block" style="padding-left:20px; padding-right:20px;">
+				<h2 style="text-align:center; padding-top: 10px; padding-bottom: 20px;">Novo Roteiro  <b:iconAwesome name="map-signs" /></h2>
 				
 				<h:form prependId="false">
-					<h3>Informações</h3>
+					<!-- <h3>Informações</h3>  -->
+					
+					<h:outputLabel for="name" value="Nome: " />
 					<b:inputText id="name" value="#{guideMBean.guide.name}" placeholder="Nome do roteiro" />
         			
         			<br/>
-					<b:selectOneMenu value="#{guideMBean.guide.category}">
+        			<h:outputLabel for="category" value="Categoria: " />
+					<b:selectOneMenu id="category" value="#{guideMBean.guide.category}">
+						<f:selectItem itemLabel="Selecione a categoria do roteiro" itemValue="" />
 						<f:selectItems value="#{guideMBean.categoriesOfGuide}" var="category" itemValue="#{category}" itemLabel="#{category}" />
 					</b:selectOneMenu>
         			
         			<br/>
-					<b:inputText id="period" value="#{guideMBean.guide.period}" placeholder="Dias sugeridos" />
+        			<h:outputLabel for="period" value="Número de dias sugeridos: " />
+					<b:inputText id="period" value="#{guideMBean.guide.period}" placeholder="Número de dias" />
 					
 					<h3>Lugares</h3>
 					
 					<p:autoComplete id="place-search" value="#{guideMBean.selectedItem}" completeMethod="#{guideMBean.findResults}" var="foundItem" itemLabel="#{foundItem.exhibitionName}" itemValue="#{foundItem}" converter="searchableConverter" forceSelection="true" maxResults="5" minQueryLength="3">
-						<p:ajax event="itemSelect" listener="#{guideMBean.addPlace}" update="selected-place-json" oncomplete="addMarker()"/>
+						<p:ajax event="itemSelect" listener="#{guideMBean.addPlace}" update="selected-place-json" oncomplete="addMarker()" />
 					</p:autoComplete>
        				
        				<h:inputHidden id="selected-place-json" value="#{guideMBean.selectedPlaceJSON}" />
+       				<br/>
        				
-       				<p:commandButton value="Registrar" action="#{guideMBean.register}" />
+       				<p:commandButton styleClass="submit-form" value="Registrar" action="#{guideMBean.register}" />
 				</h:form>
 			</h:panelGroup>
 		</h:panelGroup>

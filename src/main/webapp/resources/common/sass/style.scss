@@ -204,6 +204,11 @@ div#paper {
 
 }
 
+#result-list {
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+}
+
 #search-box {
 	color:#333;
 	text-align:center;
@@ -217,7 +222,6 @@ div#paper {
 	font-size: 10px;
 	height: 100px;
 }
-
 
 input:hover,input:focus,select:hover,select:focus,textarea:hover,textarea:focus {
   border-color: $primary-color-darker;

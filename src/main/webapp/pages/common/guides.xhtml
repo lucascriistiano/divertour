@@ -22,7 +22,7 @@
 					<h:outputLabel for="filter" value="Filtrar por: " />
 					<br />
 					<p:selectOneMenu id="filter" value="#{searchGuideMBean.selectedFilterName}" style="width:100%;">
-						<p:ajax event="itemSelect" listener="#{searchGuideMBean.onFilterNameChange}" update="filter-values found-guides" />
+						<p:ajax event="itemSelect" listener="#{searchGuideMBean.onFilterNameChange}" update="filter-values result-list" />
 						<f:selectItem itemLabel="Nenhum filtro" itemValue="" />
 						<f:selectItems value="#{searchGuideMBean.filtersNames}" />
 					</p:selectOneMenu>
@@ -30,7 +30,7 @@
 
 				<b:column col-md="6">
 					<p:selectOneMenu id="filter-values" value="#{searchGuideMBean.selectedFilterValue}" style="width:100%; margin-top:25px;">
-						<p:ajax listener="#{searchGuideMBean.onFilterValueChange}" update="found-guides" />
+						<p:ajax listener="#{searchGuideMBean.onFilterValueChange}" update="result-list" />
 						<f:selectItem itemLabel="Selecione o filtro" itemValue="" />
 						<f:selectItems value="#{searchGuideMBean.filtersValues}" />
 					</p:selectOneMenu>
@@ -53,8 +53,10 @@
 						</b:row>
 					</b:panel>
 
-					<h:panelGroup id="found-guides" layout="block">
-						<h:outputLabel value="Nenhum roteiro encontrado" rendered="#{empty searchGuideMBean.foundResults}" />
+					<h:panelGroup id="result-list" layout="block">
+						<h:panelGroup layout="block" rendered="#{empty searchGuideMBean.foundResults}" style="text-align:center; font-size: 1.5em; padding-bottom: 20px;" >
+							<h:outputText value="Nenhum roteiro encontrado" style=""/>
+						</h:panelGroup>
 
 						<ui:repeat value="#{searchGuideMBean.foundResults}" var="guide">
 							<b:panel style="box-shadow:0 3px 2px -2px rgba(200,200,200,0.2);border-radius:0;">
