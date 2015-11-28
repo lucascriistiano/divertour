@@ -17,6 +17,8 @@
 		<b:container styleClass="background">
 			<h1>Nova Cidade</h1>
 			
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			
         	<h:form prependId="false">
 				<b:row>
 					<h:panelGrid columns="2" cellpadding="10">
@@ -27,16 +29,10 @@
 						<b:selectOneMenu id="state" value="#{cityMBean.city.state}">
 							<f:selectItems value="#{cityMBean.states}" var="state" itemValue="#{state}" itemLabel="#{state}" />
 						</b:selectOneMenu>
-	       				
-	       				<h:outputText for="lat" value="Latitude: " />
-	       				<b:inputText id="lat" value="#{cityMBean.city.lat}" placeholder="Ex: -23.6815314" />
-	       				
-	       				<h:outputText for="lng" value="Longitude: " />
-	       				<b:inputText id="lng" value="#{cityMBean.city.lng}" placeholder="Ex: -46.8754984" />
 	       			</h:panelGrid>
        			</b:row>
        			
-       			<p:commandButton value="Registrar" action="#{cityMBean.register}" />
+       			<p:commandButton styleClass="submit-form" value="Salvar" action="#{cityMBean.register}" />
 			</h:form>
         </b:container>
 	</ui:define>

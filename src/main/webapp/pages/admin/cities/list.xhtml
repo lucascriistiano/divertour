@@ -12,9 +12,7 @@
 		<b:container styleClass="background">
 			<h1>Lista de Cidades</h1>
 			
-			<b:row>
-				<h:outputLink value="/divertour/admin/cidades/cadastro">Nova Cidade</h:outputLink>
-			</b:row>
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 			
 			<h:form>
 				<p:dataTable id="city-datatable" var="city" value="#{cityMBean.cities}" sortMode="multiple" scrollable="true" scrollHeight="150">
@@ -26,14 +24,6 @@
 			            <h:outputText value="#{city.state}" />
 			        </p:column>
 			        
-			        <p:column headerText="Lat" sortBy="#{city.lat}">
-			            <h:outputText value="#{city.lat}" />
-			        </p:column>
-			        
-			        <p:column headerText="Lng" sortBy="#{city.lng}">
-			            <h:outputText value="#{city.lng}" />
-			        </p:column>
-			        
 			        <!-- <p:column style="width:60px;text-align: center">
 						<p:commandButton actionListener="#{cityMBean.edit(city.id)}" update="city-datatable" icon="ui-icon-pencil" />
 	            	</p:column> -->	
@@ -42,7 +32,11 @@
 	             		<p:commandButton actionListener="#{cityMBean.remove(city.id)}" update="city-datatable" icon="ui-icon-trash" />
 	            	</p:column>
 			    </p:dataTable>
-		    </h:form>
+
+			    <b:row>
+					<b:commandButton styleClass="submit-form" value="Nova Cidade" action="pretty:city_register" />
+				</b:row>
+		    </h:form>		    
         </b:container>
 	</ui:define>
 

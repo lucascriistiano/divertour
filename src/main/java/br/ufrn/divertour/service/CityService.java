@@ -33,14 +33,15 @@ public class CityService implements Serializable {
 	}
 
 	private void validate(City city) throws ValidationException {
-		// TODO Implement validation
-		
+		// TODO Finish validation	
+		if(cityRepository.findByNameAndState(city.getName(), city.getState()) != null) {
+			throw new ValidationException("A cidade já se encontra cadastrada");
+		}
 	}
 	
 	public void register(City city) throws ValidationException {
 		validate(city);
 		cityRepository.save(city);
-		System.out.println("Persisted city");
 	}
 	
 	public void remove(String id) {

@@ -8,17 +8,13 @@ public class City {
 	private String id;
 	private String name;
 	private String state;
-	private float lat;
-	private float lng;
 	
 	public City() {}
 	
-	public City(String name, String state, float lat, float lng) {
+	public City(String name, String state) {
 		super();
 		this.name = name;
 		this.state = state;
-		this.lat = lat;
-		this.lng = lng;
 	}
 
 	public String getId() {
@@ -43,22 +39,6 @@ public class City {
 
 	public void setState(String state) {
 		this.state = state;
-	}
-
-	public float getLat() {
-		return lat;
-	}
-
-	public void setLat(float lat) {
-		this.lat = lat;
-	}
-
-	public float getLng() {
-		return lng;
-	}
-
-	public void setLng(float lng) {
-		this.lng = lng;
 	}
 
 }

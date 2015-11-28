@@ -18,15 +18,15 @@ import br.ufrn.divertour.service.exception.ValidationException;
 public class TestMongo {
 	
 	public static void main(String[] args) throws ValidationException {
-		City city = new City("Natal", "RN", -5.8017776f, -35.2923621f);
+		City city = new City("Natal", "RN");
 		CityService.getInstance().register(city);
 		System.out.println("Generated city ID: " + city.getId());
 		
-		City city2 = new City("Mossoró", "RN", -5.195062f, -37.4116811f);
+		City city2 = new City("Mossoró", "RN");
 		CityService.getInstance().register(city2);
 		System.out.println("Generated city ID: " + city2.getId());
 		
-		City city3 = new City("São Paulo", "SP", -23.6815314f, -46.8754984f);
+		City city3 = new City("São Paulo", "SP");
 		CityService.getInstance().register(city3);
 		System.out.println("Generated city ID: " + city3.getId());
 		

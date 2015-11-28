@@ -6,4 +6,6 @@ import br.ufrn.divertour.model.City;
 
 public interface CityRepository extends MongoRepository<City, String> {
 
+	public City findByNameAndState(String name, String state);
+
 }
