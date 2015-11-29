@@ -19,49 +19,94 @@
 	<ui:define name="first-topic">#{placeDetailsMBean.selectedPlace.name}</ui:define>
 
 	<ui:define name="content-paper">
-		<b:row styleClass="divsRow equalizer section" style="padding-bottom:20px;">
+		<h:form>
+			<b:row styleClass="divsRow equalizer section" style="padding-bottom:20px;">
+				<b:column col-md="5" styleClass="watch" style="margin-top:30px;">
+					<h:panelGroup layout="block" style="background:#fff;height:100%;">
+						<p:rating value="#{placeDetailsMBean.selectedPlace.rating}" readonly="true" />
+						<br/>
+						
+						<h:outputText for="images" value="Imagens: #{placeDetailsMBean.selectedPlace.images}" />
+						<br />
+					</h:panelGroup>
+				</b:column>
+	
+				<b:column col-md="7" styleClass="watch" style="margin-top:30px;">
+					<b:panel look="primary" title="Informações do Lugar" collapsible="false">
+						<h:outputLabel value="Tipo: " />
+						<h:outputText value="#{placeDetailsMBean.selectedPlace.type}" style="margin-left:10px;" />
+						<br />
+						<h:outputLabel value="Website: " />
+						<h:outputText value="#{placeDetailsMBean.selectedPlace.website}" style="margin-left:10px;" />
+						<br />
+						<h:outputLabel value="Contato(s): " />
+						<h:outputText value="#{placeDetailsMBean.selectedPlace.contacts}" style="margin-left:10px;" />
+						<br />
+						<h:outputLabel value="Endereço: " />
+						<h:outputText value="#{placeDetailsMBean.selectedPlace.address}" style="margin-left:10px;" />
+						<br />
+						<h:outputLabel value="Localização: " />
+						<h:outputText value="#{placeDetailsMBean.selectedPlace.lat}, #{placeDetailsMBean.selectedPlace.lng}" style="margin-left:10px;" />
+						<br />
+					</b:panel>
+	
+					<b:panel look="primary" title="Descrição do Lugar" collapsible="false">
+						<p style="text-align: justify; font-weight: normal;">#{placeDetailsMBean.selectedPlace.description}</p>
+					</b:panel>
+				</b:column>
+			</b:row>
+			<b:row>
+				<b:column col-md="12">
+					<b:panel id="last-comments" look="primary" title="Últimos Comentários" collapsible="false">
+						<ui:repeat var="comment" value="#{placeDetailsMBean.selectedPlace.comments}">
+							<ui:param name="commentUser" value="#{placeDetailsMBean.getCommentUserById(comment.userId)}" />
 
-			<b:column col-md="5" styleClass="watch" style="margin-top:30px;">
-				<h:panelGroup layout="block" style="background:#fff;height:100%;">
-					<p:rating value="#{placeDetailsMBean.selectedPlace.rating}" readonly="true" />
-					<br/>
+							<b:row styleClass="list-item" style="box-shadow:none;">
+								<b:column col-md="2" col-sm="0" col-xs="0">
+									<h:panelGroup layout="block" style="height:100%;">
+										<h:graphicImage library="common" name="img/profiles/#{commentUser.profileImage}" styleClass="img-responsive img-circle" alt="#{commentUser.name}" style="height:80px; float: right;"/>
+									</h:panelGroup>
+								</b:column>
+								
+								<b:column col-md="10" col-sm="12" col-xs="12">
+									<h:panelGroup layout="block" styleClass="panel panel-default">
+										<h:panelGroup layout="block" styleClass="panel-heading">
+											<h:outputText value="#{commentUser.name}" style="float: left;"/>
+											<p:rating value="#{comment.rating}" readonly="true" style="margin-left:10px; float: left;"/>
+											<h:outputText value="#{comment.date}" style="float:right;">
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</h:outputText><br/>
+										</h:panelGroup>
+										<h:panelGroup layout="block" styleClass="panel-body">
+											<h:outputText value="#{comment.text}" />
+										</h:panelGroup>
+									</h:panelGroup>
+								</b:column>
+							</b:row>
+						</ui:repeat>
+
+						<h:commandLink value="Ver mais comentários" action="#" />
+					</b:panel>
 					
-					<h:outputText for="images" value="Imagens: #{placeDetailsMBean.selectedPlace.images}" />
-					<br />
-				</h:panelGroup>
-			</b:column>
-
-			<b:column col-md="7" styleClass="watch" style="margin-top:30px;">
-				<b:panel look="primary" title="Informações do Lugar" collapsible="false">
-					<h:outputLabel value="Tipo: " />
-					<h:outputText value="#{placeDetailsMBean.selectedPlace.type}" style="margin-left:10px;" />
-					<br />
-					<h:outputLabel value="Website: " />
-					<h:outputText value="#{placeDetailsMBean.selectedPlace.website}" style="margin-left:10px;" />
-					<br />
-					<h:outputLabel value="Contato(s): " />
-					<h:outputText value="#{placeDetailsMBean.selectedPlace.contacts}" style="margin-left:10px;" />
-					<br />
-					<h:outputLabel value="Endereço: " />
-					<h:outputText value="#{placeDetailsMBean.selectedPlace.address}" style="margin-left:10px;" />
-					<br />
-					<h:outputLabel value="Localização: " />
-					<h:outputText value="#{placeDetailsMBean.selectedPlace.lat}, #{placeDetailsMBean.selectedPlace.lng}" style="margin-left:10px;" />
-					<br />
-				</b:panel>
-
-				<b:panel look="primary" title="Descrição do Lugar" collapsible="false">
-					<p style="text-align: justify; font-weight: normal;">#{placeDetailsMBean.selectedPlace.description}</p>
-				</b:panel>
-			</b:column>
-		</b:row>
-		<b:row>
-			<b:column col-md="12">
-				<b:panel look="primary" title="Últimos Comentários" collapsible="false">
-
-				</b:panel>
-			</b:column>
-		</b:row>
+					<b:panel look="primary" title="O que você achou desse lugar?" collapsible="false">
+						<b:row styleClass="list-item" style="box-shadow:none;">
+						<b:column col-md="9">
+							<h:outputLabel for="new-comment-text" value="Comentário:" /><br/>
+							<p:inputTextarea id="new-comment-text" rows="5" counter="display" maxlength="500" counterTemplate="{0} caracteres restantes." autoResize="true" style="width: 100%;" /><br/>
+	   						<h:outputText id="display" /><br/><br/>
+   						</b:column>
+						
+						<b:column col-md="3">
+							<h:outputLabel for="new-comment-rating" value="Avaliação do lugar:" />
+							<p:rating id="new-comment-rating" value="" /><br/>
+							
+							<b:commandButton styleClass="submit-form" value="Enviar Comentário" />
+						</b:column>
+						</b:row>
+					</b:panel>
+				</b:column>
+			</b:row>
+		</h:form>
 
 		<script>
 			$(function() {

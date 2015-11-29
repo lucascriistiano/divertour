@@ -2,31 +2,25 @@ package br.ufrn.divertour.model;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+
 public class Comment {
 	
-	private String title;
+	@Id
+	private String id;
 	private String text;
-	private Date date;
 	private int rating;
+	private Date date;
 	private String userId;
 
 	public Comment() {}
 	
-	public Comment(String title, String text, Date date, int rating, String userId) {
+	public Comment(String text, Date date, int rating, String userId) {
 		super();
-		this.title = title;
 		this.text = text;
 		this.date = date;
 		this.rating = rating;
 		this.userId = userId;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getText() {

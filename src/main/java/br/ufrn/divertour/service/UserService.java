@@ -34,10 +34,28 @@ public class UserService {
 	public void register(User user) throws ValidationException {
 		validate(user);
 		userRepository.save(user);
+		
+//		String profileImage = user.getProfileImage();
+//		if(profileImage != null) {
+//			String profilePhotoFormat = profileImage.split(".")[1];
+//			
+//			File file = new File("profileImage.");
+//			
+//			
+//		}
+	}
+	
+	public void update(User user) throws ValidationException {
+		validate(user);
+		userRepository.save(user);
 	}
 	
 	public void remove(String id) {
 		userRepository.delete(id);
+	}
+	
+	public User findById(String id) {
+		return userRepository.findById(id);
 	}
 	
 	public List<User> listAll() {

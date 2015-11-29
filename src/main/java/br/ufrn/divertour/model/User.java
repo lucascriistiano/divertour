@@ -13,6 +13,7 @@ public class User {
 	private String email;
 	private String username;
 	private String password;
+	private String profileImage;
 	private City city;
 	private List<String> interests;
 	private List<String> notifications;
@@ -71,6 +72,14 @@ public class User {
 
 	public void setCity(City city) {
 		this.city = city;
+	}
+	
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
 	}
 
 	public List<String> getInterests() {
