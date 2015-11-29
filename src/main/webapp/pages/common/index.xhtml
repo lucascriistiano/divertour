@@ -12,14 +12,12 @@
 
 			<h:panelGroup layout="block" styleClass="section active" style="padding-bottom:0px;">
 				<h:panelGroup layout="block" style="display:block; position:relative;height:50%;background:#B23939;padding:30px; text-align:center;color:#FFF;font-size:2em;font-family:roboto-thin; overflow-y:hidden;">
-					<h1 style="color:white;">EXPLORE. VIAJE. DIVIRTA-SE.</h1><br />
-					<p>
-						Encontre lugares, roteiros e cidades com a caixa de pesquisa abaixo.
-					</p>
+					<h1 style="color:white; font-weight: bold;">EXPLORE. VIAJE. DIVIRTA-SE.</h1><br />
+					<p>Encontre lugares, roteiros e cidades com a caixa de pesquisa abaixo.</p>
 
 					<h:form>
 						<p:autoComplete id="search-box" value="#{searchMBean.selectedItem}" completeMethod="#{searchMBean.findResults}"
-							var="foundItem" itemLabel="#{foundItem.exhibitionName}" itemValue="#{foundItem}" converter="searchableConverter" forceSelection="true" maxResults="5" minQueryLength="3" />
+						var="foundItem" itemLabel="#{foundItem.exhibitionName}" itemValue="#{foundItem}" converter="searchableConverter" forceSelection="true" maxResults="5" minQueryLength="3" />
 						<p:commandButton id="search-box-button" icon="ui-icon-search" action="#{searchMBean.showDetails}" />
 					</h:form>
 				</h:panelGroup>
@@ -62,27 +60,99 @@
 				</h:panelGroup>
 			</h:panelGroup>
 
+			<!-- LUGARES -->
 			<h:panelGroup layout="block" styleClass="section paper">
 				<b:container>
 					<b:row>
-						<b:column style="text-align:center;">
-						
-							<h:graphicImage library="common" name="img/example-1.png" />
-							<!-- <b:iconAwesome name="map" size="3x" /> Gerencie Lugares -->
+						<b:column col-sm="8" offset-sm="2" style="text-align:center;">
+							<h:panelGroup class="tip-div" layout="block" style="float:center;">
+								<h:panelGroup class="icon-div" layout="block">
+									<b:iconAwesome name="map-marker" size="4x" />
+								</h:panelGroup>
+								<h:panelGroup class="title-div" layout="block">
+									Cadastre Lugares
+								</h:panelGroup>
+								<h:panelGroup class="content-div" layout="block">
+									Você pode facilmente buscar e cadastrar novos lugares como pontos turísticos, lojas, restaurantes da sua cidade ou de cidades que conheça e permitir que mais pessoas possam conhecê-lo!
+								</h:panelGroup>
+								<h:panelGroup class="down-icon-div" layout="block">
+									<b:iconAwesome name="angle-down" size="5x" />
+								</h:panelGroup>
+							</h:panelGroup>
 						</b:column>
 					</b:row>
 				</b:container>
 			</h:panelGroup>
 
-
+			<!-- ROTEIROS -->
 			<h:panelGroup layout="block" styleClass="section paper">
 				<b:container>
 					<b:row>
-						<b:column style="text-align:center;">
-							<h:graphicImage library="common" name="img/example-1.png" />
-							<!-- <b:iconAwesome name="map" size="3x" /> Gerencie Lugares -->
-							<!--  <b:iconAwesome name="search" />  -->
-							<!--  <b:iconAwesome name="comments" />  -->
+						<b:column col-sm="8" offset-sm="2" style="text-align:center;">
+							<h:panelGroup class="tip-div" layout="block" style="float:center;">
+								<h:panelGroup class="icon-div" layout="block">
+									<b:iconAwesome name="map-signs" size="3x" />
+								</h:panelGroup>
+								<h:panelGroup class="title-div" layout="block">
+									Crie Roteiros
+								</h:panelGroup>
+								<h:panelGroup class="content-div" layout="block">
+									Você também pode criar roteiros personalizados com pontos já cadastrados, criando passeios interessantes e adequados às suas preferências! Você também pode usar roteiros existentes como base para a criação do seu roteiro.
+								</h:panelGroup>
+								<h:panelGroup class="down-icon-div" layout="block">
+									<b:iconAwesome name="angle-down" size="5x" />
+								</h:panelGroup>
+							</h:panelGroup>
+						</b:column>
+					</b:row>
+				</b:container>
+			</h:panelGroup>
+			
+			<!-- AVALIAÇÃO -->
+			<h:panelGroup layout="block" styleClass="section paper">
+				<b:container>
+					<b:row>
+						<b:column col-sm="8" offset-sm="2" style="text-align:center;">
+							<h:panelGroup class="tip-div" layout="block" style="float:center;">
+								<h:panelGroup class="icon-div" layout="block">
+									<b:iconAwesome name="commenting" size="3x" />
+								</h:panelGroup>
+								<h:panelGroup class="title-div" layout="block">
+									 Avalie e Interaja
+								</h:panelGroup>
+								<h:panelGroup class="content-div" layout="block">
+									Avalie lugares e roteiros e compartilhe as suas experiências para os demais usuários. Eles vão adorar saber a sua opinião. Você também pode querer saber a deles.  
+								</h:panelGroup>
+								<h:panelGroup class="down-icon-div" layout="block">
+									<b:iconAwesome name="angle-down" size="5x" />
+								</h:panelGroup>
+							</h:panelGroup>
+						</b:column>
+					</b:row>
+				</b:container>
+			</h:panelGroup>
+			
+			<!-- CADASTRO -->
+			<h:panelGroup layout="block" styleClass="section paper" style="margin-bottom:100px;">
+				<b:container>
+					<b:row>
+						<b:column col-sm="8" offset-sm="2" style="text-align:center;">
+							<h:panelGroup class="tip-div" layout="block" style="float:center;">
+								<h:panelGroup class="icon-div" layout="block">
+									<b:iconAwesome name="users" size="3x" />
+								</h:panelGroup>
+								<h:panelGroup class="title-div" layout="block">
+									Junte-se ao grupo
+								</h:panelGroup>
+								<h:panelGroup class="content-div" layout="block" style="text-align:center;">
+									Cadastre-se agora e comece a aproveitar todas as opções que o DiverTour tem para lhe oferecer!
+								</h:panelGroup>
+								<h:panelGroup class="down-icon-div" layout="block">
+									<h:form>
+										<b:commandButton styleClass="submit-form" value="Cadastre-se agora" action="pretty:user_register" />
+									</h:form>
+								</h:panelGroup>
+							</h:panelGroup>
 						</b:column>
 					</b:row>
 				</b:container>

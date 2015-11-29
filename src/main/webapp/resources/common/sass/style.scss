@@ -283,6 +283,34 @@ button.list-button{
   /*background:#E5E5E5;color:#000;border:1px solid #D2D1D1;*/
 }
 
+
+/* First page tips*/
+.icon-div {
+	height:50%;
+	margin-top:30%;
+	color:$primary-color;
+}
+
+.title-div {
+	font-size:5em;
+	font-family:roboto-thin;
+	color:$primary-color;	
+}
+
+.content-div {
+	font-size:1.8em;
+	font-family:roboto-thin;
+	text-align:justify;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.down-icon-div {
+	padding-top:10%;
+	color:$primary-color;
+}
+
+
 /*==========  Mobile First Method  ==========*/
 
 /* Custom, iPhone Retina */
