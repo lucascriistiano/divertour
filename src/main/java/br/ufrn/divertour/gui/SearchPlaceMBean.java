@@ -2,6 +2,7 @@ package br.ufrn.divertour.gui;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +70,7 @@ public class SearchPlaceMBean implements Serializable {
 		this.searchFilters.put("type", map);
 
 		// Load cities
-		map = new HashMap<String, String>();
+		map = new LinkedHashMap<String, String>();
 		List<City> cities = cityService.listAll();
 		for (City city : cities) {
 			String cityFullName = city.getName() + "/" + city.getState();
