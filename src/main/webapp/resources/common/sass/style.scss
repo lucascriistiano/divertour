@@ -48,11 +48,12 @@ div#topo {
     .fa {
       font-family: FontAwesome;
     }
-
-
+ 
+    a {
+      color: #FFF!important;
+    }
 
     div.link{
-
       font-size: 1.6em;
       font-weight: 500;
       color: #fff;
@@ -61,9 +62,29 @@ div#topo {
       margin: 23px 0px 23px 0px;
       //padding: 30px 20px 27px;
     }
-
-    a{
-      color: #FFF!important;
+    
+    div.login-link {
+      font-size: 1.6em;
+      font-weight: 500;
+      color: #fff;
+      display: inline-block;
+      padding: 0 1.2em 0 1.2em;
+      margin: 23px 0px 23px 0px;
+      
+      float:right;
+      border-style: solid;
+      border-color:white;
+      border-width:2px;
+      border-radius: 10px;
+	}
+    
+    div.login-link:hover, div.login-link:focus {
+      background-color: #fff;
+      color:$primary-color!important;
+      
+      a {
+        color:$primary-color!important;
+      }
     }
   }
 }

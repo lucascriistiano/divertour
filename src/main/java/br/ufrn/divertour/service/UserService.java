@@ -54,12 +54,22 @@ public class UserService {
 		userRepository.delete(id);
 	}
 	
+	public void changePermission(String id, boolean admin) {
+		User user = userRepository.findById(id);
+		user.setAdmin(admin);
+		userRepository.save(user);
+	}
+
 	public User findById(String id) {
 		return userRepository.findById(id);
 	}
 	
 	public List<User> listAll() {
 		return userRepository.findAll();
+	}
+
+	public User checkLogin(String username, String password) {
+		return userRepository.findByUsernameAndPassword(username, password);
 	}
 
 }

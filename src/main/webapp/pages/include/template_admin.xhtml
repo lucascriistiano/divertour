@@ -25,7 +25,9 @@
 				<h:panelGroup layout="block" id="nav-primary" styleClass="visible-md visible-lg">
 					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/admin" >Administração</h:outputLink> </h:panelGroup>
 					<h:panelGroup layout="block" styleClass="link" style="float:right;"> 
-						<h:outputLink value="/divertour/login" ><b:iconAwesome name="user" /></h:outputLink>
+						<h:form>
+							<h:commandLink action="#{authenticationBean.logout}" value="Sair" />
+						</h:form>
 					</h:panelGroup>
 				</h:panelGroup>	
 					

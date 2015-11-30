@@ -63,6 +63,11 @@ public class UserMBean implements Serializable {
 		return "";
 	}
 	
+	public String changePermission(String id, boolean admin) {
+		this.userService.changePermission(id, admin);
+		return "";
+	}
+	
 	public User getUser() {
 		return user;
 	}

@@ -21,16 +21,16 @@
 					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 					
 					<h:outputLabel value="Usuário:"/>
-					<b:inputText placeholder="Nome de usuário" />
+					<b:inputText placeholder="Nome de usuário" value="#{authenticationBean.username}" />
 	       			
 	       			<h:outputLabel value="Senha"/>
-	   				<b:inputSecret placeholder="Senha" />
+	   				<b:inputSecret placeholder="Senha" value="#{authenticationBean.password}"/>
 				</b:column>
 			</b:row>
 			
 			<b:row style="padding-bottom:80px;">
 				<b:column col-md="6" offset="3" style="text-align:center;">
-					<b:commandButton value="Login" styleClass="submit-form" />		
+					<b:commandButton value="Login" styleClass="submit-form" action="#{authenticationBean.login}" />		
 				</b:column>
 			</b:row>
 			

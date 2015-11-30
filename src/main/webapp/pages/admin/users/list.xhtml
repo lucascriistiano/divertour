@@ -37,6 +37,11 @@
 	            	<p:column style="width:60px;text-align: center">
 	             		<p:commandButton actionListener="#{userMBean.remove(user.id)}" update="user-datatable" icon="ui-icon-trash" />
 	            	</p:column>
+	            	
+	            	<p:column style="width:60px;text-align: center">
+	             		<p:commandButton actionListener="#{userMBean.changePermission(user.id, true)}" update="user-datatable" icon="ui-icon-plus" rendered="#{!user.admin}" />
+	             		<p:commandButton actionListener="#{userMBean.changePermission(user.id, false)}" update="user-datatable" icon="ui-icon-minus" rendered="#{user.admin}" />
+	            	</p:column>
 			    </p:dataTable>
 		    </h:form>
         </b:container>

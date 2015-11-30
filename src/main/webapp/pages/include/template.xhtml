@@ -19,6 +19,7 @@
         <h:outputScript library="common" name="js/jquery.fullPage.js"/>
         <h:outputScript library="common" name="js/functions.js"/>
         <h:outputScript library="common" name="js/owl.carousel.min.js"/>
+        
         <ui:insert name="extra_script"></ui:insert>
 
         <title><ui:insert name="title">Title</ui:insert> - Divertour </title>
@@ -37,12 +38,18 @@
 					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/" >Início</h:outputLink> </h:panelGroup>
 					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/lugares" >Lugares</h:outputLink> </h:panelGroup>
 					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/roteiros" >Roteiros</h:outputLink> </h:panelGroup>
-					<h:panelGroup layout="block" styleClass="link hidden-md"> <h:outputLink value="/divertour/cadastro" >Cadastro</h:outputLink> </h:panelGroup>
+					<h:panelGroup layout="block" styleClass="link hidden-md" rendered="#{!authenticationBean.loggedIn}"> <h:outputLink value="/divertour/cadastro" >Cadastro</h:outputLink> </h:panelGroup>
 
-					<h:panelGroup layout="block" styleClass="link" style="float:right;"> 
-						<h:outputLink value="/divertour/login" ><b:iconAwesome name="user" size="2x"/></h:outputLink>
+					<h:panelGroup layout="block" styleClass="login-link" rendered="#{!authenticationBean.loggedIn}"> 
+						<h:outputLink value="/divertour/login" >Login</h:outputLink>
 					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="link" style="float:right;">
+					<h:panelGroup layout="block" styleClass="link" style="float:right;" rendered="#{authenticationBean.loggedIn}"> 
+						<h:form>
+							<h:commandLink action="#{authenticationBean.logout}" value="Sair" />
+						</h:form>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" styleClass="link" style="float:right;" rendered="false">
 						<h:outputLink value="/">Natal-RN</h:outputLink>
 					</h:panelGroup>
 				</h:panelGroup>	
