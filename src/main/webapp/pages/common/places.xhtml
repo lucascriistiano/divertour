@@ -64,7 +64,16 @@
 									<b:column col-md="7">
 										<h3 style="margin-top:6px;">#{place.name}</h3>
 		        						<p:rating value="#{place.rating}" readonly="true" /><br/>
-										<h:outputText value="#{place.description}" escape="false"/><br/> 
+										<h:outputText value="#{place.city.name}/#{place.city.state}" escape="false"/><br/> 
+										<h:panelGroup style="margin-right: 8px;">
+											<b:label text="#{place.type}" severity="warning"/>
+										</h:panelGroup>
+										
+										<ui:repeat var="category" value="#{place.categories}">
+											<h:panelGroup style="margin-right: 8px;">
+												<b:label text="#{category}" severity="default"/>
+											</h:panelGroup>
+										</ui:repeat>
 									</b:column>
 									<b:column col-md="2">
 										<b:commandButton value="Ver mais" action="#{searchPlaceMBean.showDetails(place.id)}" styleClass="list-button" />

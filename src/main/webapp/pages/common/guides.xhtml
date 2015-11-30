@@ -71,11 +71,17 @@
 										<h3 style="margin-top: 6px;">#{guide.name}</h3>
 										<p:rating value="#{guide.rating}" readonly="true" />
 										<br />
-										<h:outputText value="Categoria: #{guide.category}" />
-										<br />
-										<h:outputText value="#{guide.places.size()} lugares" />
-										<br />
-										<h:outputText value="#{guide.period} dias" />
+										<h:panelGroup style="margin-right: 8px;">
+											<b:label text="#{guide.category}" severity="default"/>
+										</h:panelGroup>
+										
+										<h:panelGroup style="margin-right: 8px;">
+											<b:label text="#{guide.places.size()} lugares" severity="warning" />
+										</h:panelGroup>
+										
+										<h:panelGroup style="margin-right: 8px;">    
+											<b:label text="#{guide.period} dia(s)" severity="primary" />
+										</h:panelGroup>
 										<br />
 									</b:column>
 									<b:column col-md="2">

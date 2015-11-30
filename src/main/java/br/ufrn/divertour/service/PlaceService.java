@@ -27,11 +27,10 @@ public class PlaceService {
 	}
 	
 	private void validate(Place place) throws ValidationException {
-		// TODO Finish validation
 		Place foundPlace = placeRepository.findByName(place.getName());
 		if(foundPlace != null) {
-			if(place.getName().equals(foundPlace.getName()) && place.getCity() == foundPlace.getCity()) {
-				throw new ValidationException("Um lugar com esse nome já se foi cadastrado nessa cidade");
+			if(place.equals(foundPlace)) {
+				throw new ValidationException("Um lugar com o nome inserido já foi cadastrado nessa cidade");
 			}
 		}
 	}
@@ -93,7 +92,7 @@ public class PlaceService {
 	}
 	
 	public static List<String> getCategoriesOfPlace() {
-		return Arrays.asList("Aventura", "Ecológico", "Histórico", "Religioso", "Esportivo");
+		return Arrays.asList("Aventura", "Ecológico", "Histórico", "Religioso", "Esportivo", "Outra");
 	}
 
 }

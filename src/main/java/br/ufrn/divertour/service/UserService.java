@@ -20,7 +20,6 @@ public class UserService {
 	}
 	
 	private void validate(User user) throws ValidationException {
-		// TODO Finish validation	
 		if(userRepository.findByEmail(user.getEmail()) != null) {
 			throw new ValidationException("O e-mail já se encontra cadastrado");
 		}
@@ -28,7 +27,6 @@ public class UserService {
 		if(userRepository.findByUsername(user.getUsername()) != null) {
 			throw new ValidationException("O nome de usuário já se encontra em uso");
 		}
-		
 	}
 	
 	public void register(User user) throws ValidationException {

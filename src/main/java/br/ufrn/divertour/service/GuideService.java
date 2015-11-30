@@ -122,7 +122,7 @@ public class GuideService {
 	}
 
 	public static List<String> getCategoriesOfGuide() {
-		return Arrays.asList("Para relaxar", "Curta", "Adrenalina", "Cultural", "Histórico", "Gastronômico", "Natural");
+		return Arrays.asList("Para relaxar", "Curta", "Adrenalina", "Cultural", "Histórico", "Gastronômico", "Natural", "Outro");
 	}
 	
 }

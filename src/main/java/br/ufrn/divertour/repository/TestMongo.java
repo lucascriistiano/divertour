@@ -27,17 +27,23 @@ public class TestMongo {
 		PlaceService placeService = (PlaceService) context.getBean(PlaceService.class);
 		GuideService guideService = (GuideService) context.getBean(GuideService.class);
 		
-		City city = new City("Natal", "RN");
-		cityService.register(city);
-		System.out.println("Generated city ID: " + city.getId());
+		City city = cityService.findByNameAndState("Natal", "RN");
+		City city2 = cityService.findByNameAndState("Mossoró", "RN");
+		City city3 = cityService.findByNameAndState("São Paulo", "SP");
 		
-		City city2 = new City("Mossoró", "RN");
-		cityService.register(city2);
-		System.out.println("Generated city ID: " + city2.getId());
-		
-		City city3 = new City("São Paulo", "SP");
-		cityService.register(city3);
-		System.out.println("Generated city ID: " + city3.getId());
+		User userAdmin = new User();
+		userAdmin.setAdmin(false);
+		userAdmin.setName("Administrador");
+		userAdmin.setEmail("admin@divertour.com.br");
+		userAdmin.setUsername("admin");
+		userAdmin.setPassword("admin");
+		userAdmin.setCity(city);
+		userAdmin.setInterests(Arrays.asList());
+		userAdmin.setNotifications(Arrays.asList());
+		userAdmin.setProfileImage("01.jpg");
+		userAdmin.setAdmin(true);
+		userService.register(userAdmin);
+		System.out.println("Generated user ID: " + userAdmin.getId());
 		
 		User user = new User();
 		user.setAdmin(false);
@@ -72,6 +78,7 @@ public class TestMongo {
 		place.setLat(-5.811285f);
 		place.setLng(-35.193876f);
 		place.setRating(4);
+		place.setType("Ponto Turístico");
 		place.setCategories(Arrays.asList("Natural", "Ecológico"));
 		place.setImages(Arrays.asList("pddunas1.jpg", "pddunas2.jpg"));
 		place.setContacts(Arrays.asList("(84) 1267-2138", "(84) 6347-3865"));
@@ -87,6 +94,7 @@ public class TestMongo {
 		place2.setLat(-5.756522f);
 		place2.setLng(-35.194983f);
 		place2.setRating(4);
+		place2.setType("Ponto Turístico");
 		place2.setCategories(Arrays.asList("Histórico"));
 		place2.setImages(Arrays.asList("forte1.jpg", "forte2.jpg"));
 		place2.setContacts(Arrays.asList("(84) 3427-2458", "(84) 3247-3765"));
@@ -102,6 +110,7 @@ public class TestMongo {
 		place3.setLat(-5.811773f);
 		place3.setLng(-35.206319f);
 		place3.setRating(5);
+		place3.setType("Comércio");
 		place3.setCategories(Arrays.asList("Comercial"));
 		place3.setImages(Arrays.asList("midway1.jpg"));
 		place3.setContacts(Arrays.asList("(84) 1232-2312", "(84) 34534-5675"));

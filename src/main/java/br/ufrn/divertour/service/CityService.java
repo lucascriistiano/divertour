@@ -29,7 +29,6 @@ public class CityService implements Serializable {
 	}
 
 	private void validate(City city) throws ValidationException {
-		// TODO Finish validation	
 		if(cityRepository.findByNameAndState(city.getName(), city.getState()) != null) {
 			throw new ValidationException("A cidade já se encontra cadastrada");
 		}
@@ -42,6 +41,10 @@ public class CityService implements Serializable {
 	
 	public void remove(String id) {
 		cityRepository.delete(id);
+	}
+	
+	public City findByNameAndState(String name, String state) {
+		return cityRepository.findByNameAndState(name, state);
 	}
 	
 	//TODO move to DAOs

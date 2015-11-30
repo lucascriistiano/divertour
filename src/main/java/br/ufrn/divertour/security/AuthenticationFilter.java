@@ -28,11 +28,19 @@ public class AuthenticationFilter implements Filter {
 
 		User loggedUser = (User) session.getAttribute(AuthenticationBean.AUTH_KEY);
 		if(loggedUser == null) {
-			httpServletResponse.sendRedirect("/divertour/login");
-		} else if(reqURL.contains("/pages/admin") && !loggedUser.isAdmin()) {
-			httpServletResponse.sendRedirect("/divertour/minhapagina"); 
+			if(reqURL.contains("/pages/admin") || reqURL.contains("/pages/restricted")) {
+				httpServletResponse.sendRedirect("/divertour/login");
+			} else {
+				chain.doFilter(req, resp);
+			}
 		} else {
-			chain.doFilter(req, resp);
+			if(!loggedUser.isAdmin() && reqURL.contains("/pages/admin")) {
+				httpServletResponse.sendRedirect("/divertour/minhapagina"); 
+			} if(loggedUser.isAdmin() && !reqURL.contains("/pages/admin")) {
+				httpServletResponse.sendRedirect("/divertour/admin");
+			} else {
+				chain.doFilter(req, resp);
+			}
 		}
 	}
 

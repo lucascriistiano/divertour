@@ -35,7 +35,9 @@
 			</h:link>
 				
 				<h:panelGroup layout="block" id="nav-primary" styleClass="visible-md visible-lg">
-					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/" >Início</h:outputLink> </h:panelGroup>
+					<h:panelGroup layout="block" styleClass="link" rendered="#{!authenticationBean.loggedIn}"> <h:outputLink value="/divertour/" >Início</h:outputLink> </h:panelGroup>
+					<h:panelGroup layout="block" styleClass="link" rendered="#{authenticationBean.loggedIn}"> <h:outputLink value="/divertour/minhapagina" >Minha Página</h:outputLink> </h:panelGroup>
+					
 					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/lugares" >Lugares</h:outputLink> </h:panelGroup>
 					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/roteiros" >Roteiros</h:outputLink> </h:panelGroup>
 					<h:panelGroup layout="block" styleClass="link hidden-md" rendered="#{!authenticationBean.loggedIn}"> <h:outputLink value="/divertour/cadastro" >Cadastro</h:outputLink> </h:panelGroup>
