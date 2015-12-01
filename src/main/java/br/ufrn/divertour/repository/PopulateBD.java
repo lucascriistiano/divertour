@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import br.ufrn.divertour.model.City;
-import br.ufrn.divertour.model.Comment;
 import br.ufrn.divertour.model.Guide;
 import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.model.User;
@@ -17,7 +16,7 @@ import br.ufrn.divertour.service.PlaceService;
 import br.ufrn.divertour.service.UserService;
 import br.ufrn.divertour.service.exception.ValidationException;
 
-public class TestMongo {
+public class PopulateBD {
 	
 	public static void main(String[] args) throws ValidationException {
 		@SuppressWarnings("resource")
@@ -28,8 +27,6 @@ public class TestMongo {
 		GuideService guideService = (GuideService) context.getBean(GuideService.class);
 		
 		City city = cityService.findByNameAndState("Natal", "RN");
-		City city2 = cityService.findByNameAndState("Mossoró", "RN");
-		City city3 = cityService.findByNameAndState("São Paulo", "SP");
 		
 		User userAdmin = new User();
 		userAdmin.setAdmin(false);
@@ -77,13 +74,12 @@ public class TestMongo {
 		place.setCity(city);
 		place.setLat(-5.811285f);
 		place.setLng(-35.193876f);
-		place.setRating(4);
 		place.setType("Ponto Turístico");
 		place.setCategories(Arrays.asList("Natural", "Ecológico"));
 		place.setImages(Arrays.asList("pddunas1.jpg", "pddunas2.jpg"));
 		place.setContacts(Arrays.asList("(84) 1267-2138", "(84) 6347-3865"));
 		place.setWebsite("http://www.parquedasdunas.com.br");
-		place.setComments(Arrays.asList(new Comment("Fui no parque com minha família e achamos muito legal!", new Date(), 4, user.getId())));
+		place.setComments(Arrays.asList());
 		placeService.register(place);
 		System.out.println("Generated place ID: " + place.getId());
 		
@@ -93,7 +89,6 @@ public class TestMongo {
 		place2.setCity(city);
 		place2.setLat(-5.756522f);
 		place2.setLng(-35.194983f);
-		place2.setRating(4);
 		place2.setType("Ponto Turístico");
 		place2.setCategories(Arrays.asList("Histórico"));
 		place2.setImages(Arrays.asList("forte1.jpg", "forte2.jpg"));
@@ -109,7 +104,6 @@ public class TestMongo {
 		place3.setCity(city);
 		place3.setLat(-5.811773f);
 		place3.setLng(-35.206319f);
-		place3.setRating(5);
 		place3.setType("Comércio");
 		place3.setCategories(Arrays.asList("Comercial"));
 		place3.setImages(Arrays.asList("midway1.jpg"));
@@ -125,7 +119,7 @@ public class TestMongo {
 		guide.setCreationDate(new Date());
 		guide.setPeriod(1);
 		guide.setRating(4);
-		guide.setComments(Arrays.asList(new Comment("Muito verde por todo lado", new Date(), 5, user2.getId())));
+		guide.setComments(Arrays.asList());
 
 		//remove comments of object to not insert them on guide
 		place.setComments(null);

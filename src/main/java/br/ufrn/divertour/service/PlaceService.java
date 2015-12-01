@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import br.ufrn.divertour.model.Comment;
 import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.repository.PlaceRepository;
 import br.ufrn.divertour.service.exception.ValidationException;
@@ -29,7 +30,7 @@ public class PlaceService {
 	private void validate(Place place) throws ValidationException {
 		Place foundPlace = placeRepository.findByName(place.getName());
 		if(foundPlace != null) {
-			if(place.equals(foundPlace)) {
+			if(place.equals(foundPlace)) { //Check if name and city of place are equal
 				throw new ValidationException("Um lugar com o nome inserido já foi cadastrado nessa cidade");
 			}
 		}
@@ -93,6 +94,27 @@ public class PlaceService {
 	
 	public static List<String> getCategoriesOfPlace() {
 		return Arrays.asList("Aventura", "Ecológico", "Histórico", "Religioso", "Esportivo", "Outra");
+	}
+
+	private int calculateRating(List<Comment> comments) {
+		int totalSum = 0;
+		for (Comment comment : comments) {
+			totalSum += comment.getRating();
+		}
+		
+		return comments.isEmpty() ? 0 : Math.round(totalSum / comments.size());
+	}
+	
+	public void createComment(String id, Comment comment) {
+		Place foundPlace = placeRepository.findById(id);
+		List<Comment> comments = foundPlace.getComments();
+		comments.add(0, comment);
+		foundPlace.setComments(comments);
+		
+		int rating = calculateRating(comments);
+		foundPlace.setRating(rating);
+		
+		placeRepository.save(foundPlace);
 	}
 
 }

@@ -23,7 +23,7 @@
 			<b:row styleClass="divsRow equalizer section" style="padding-bottom:20px;">
 				<b:column col-md="5" styleClass="watch" style="margin-top:30px;">
 					<h:panelGroup layout="block" style="background:#fff;height:100%;">
-						<p:rating value="#{placeDetailsMBean.selectedPlace.rating}" readonly="true" />
+						<p:rating id="place-rating" value="#{placeDetailsMBean.selectedPlace.rating}" readonly="true" />
 						<br/>
 						
 						<h:outputText for="images" value="Imagens: #{placeDetailsMBean.selectedPlace.images}" />
@@ -88,19 +88,19 @@
 						<h:commandLink value="Ver mais comentários" action="#" />
 					</b:panel>
 					
-					<b:panel look="primary" title="O que você achou desse lugar?" collapsible="false">
+					<b:panel look="primary" title="O que você achou desse lugar?" collapsible="false" rendered="#{authenticationBean.loggedIn}">
 						<b:row styleClass="list-item" style="box-shadow:none;">
 						<b:column col-md="9">
 							<h:outputLabel for="new-comment-text" value="Comentário:" /><br/>
-							<p:inputTextarea id="new-comment-text" rows="5" counter="display" maxlength="500" counterTemplate="{0} caracteres restantes." autoResize="true" style="width: 100%;" /><br/>
+							<p:inputTextarea id="new-comment-text" value="#{placeDetailsMBean.comment.text}" rows="5" counter="display" maxlength="500" counterTemplate="{0} caracteres restantes." autoResize="true" style="width: 100%;" /><br/>
 	   						<h:outputText id="display" /><br/><br/>
    						</b:column>
 						
 						<b:column col-md="3">
 							<h:outputLabel for="new-comment-rating" value="Avaliação do lugar:" />
-							<p:rating id="new-comment-rating" value="" /><br/>
+							<p:rating id="new-comment-rating" value="#{placeDetailsMBean.comment.rating}" /><br/>
 							
-							<b:commandButton styleClass="submit-form" value="Enviar Comentário" />
+							<b:commandButton styleClass="submit-form" value="Enviar Comentário" actionListener="#{placeDetailsMBean.createComment}" update="last-comments place-rating" />
 						</b:column>
 						</b:row>
 					</b:panel>
