@@ -50,7 +50,7 @@ div#topo {
     }
  
     a {
-      color: #FFF!important;
+      color: #FFF!important;    
     }
 
     div.link{
@@ -84,6 +84,7 @@ div#topo {
       
       a {
         color:$primary-color!important;
+		text-decoration: none;
       }
     }
   }
