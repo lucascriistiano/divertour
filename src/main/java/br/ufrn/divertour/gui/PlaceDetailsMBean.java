@@ -3,6 +3,7 @@ package br.ufrn.divertour.gui;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
@@ -45,15 +46,20 @@ public class PlaceDetailsMBean implements Serializable {
 	}
 
 	public void loadData() {
+		//Load selected place info
 		this.selectedPlace = placeService.findById(placeId);
 		
+		//Load comments and info about users that has commented
 		this.users = new HashMap<>();
-		for(Comment comment : selectedPlace.getComments()) {
-			String userId = comment.getUserId();
-			if(userId != null) {
-				User foundUser = this.userService.findById(userId);
-				if(foundUser != null) {
-					this.users.put(userId, foundUser);
+		List<Comment> comments = selectedPlace.getComments();
+		if(comments != null) {
+			for(Comment comment : comments) {
+				String userId = comment.getUserId();
+				if(userId != null) {
+					User foundUser = this.userService.findById(userId);
+					if(foundUser != null) {
+						this.users.put(userId, foundUser);
+					}
 				}
 			}
 		}

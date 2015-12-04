@@ -41,14 +41,28 @@
 					
 					<h3>Lugares</h3>
 					
+					<!-- Add place on search selection -->
 					<p:autoComplete id="place-search" value="#{guideMBean.selectedItem}" completeMethod="#{guideMBean.findResults}" var="foundItem" itemLabel="#{foundItem.exhibitionName}" itemValue="#{foundItem}" converter="searchableConverter" forceSelection="true" maxResults="5" minQueryLength="3">
-						<p:ajax event="itemSelect" listener="#{guideMBean.addPlace}" update="selected-place-json" oncomplete="addMarker()" />
+						<p:ajax event="itemSelect" listener="#{guideMBean.addSearchedPlace}" update="searched-place-json place-search" oncomplete="addSearchedPlace()" />
 					</p:autoComplete>
-       				
-       				<h:inputHidden id="selected-place-json" value="#{guideMBean.selectedPlaceJSON}" />
+					<h:inputHidden id="searched-place-json" value="#{guideMBean.searchedPlaceJSON}" />
        				<br/>
+
+					<!-- Add place on marker click -->
+					<h:commandButton id="add-clicked-place-btn" actionListener="#{guideMBean.addClickedPlace}" style="display: none;" />
+					<h:inputHidden id="clicked-place-json" value="#{guideMBean.clickedPlaceJSON}" />
        				
        				<p:commandButton styleClass="submit-form" value="Registrar" action="#{guideMBean.register}" />
+				</h:form>
+				
+				<!-- Load itens on map change -->
+				<h:form prependId="false">
+					<h:inputHidden id="upper-bound-json" value="#{guideMBean.upperBoundJSON}" />
+					<h:inputHidden id="lower-bound-json" value="#{guideMBean.lowerBoundJSON}" />
+					
+					<h:commandButton id="find-places-on-area-btn" style="display: none;" >
+				        <p:ajax listener="#{guideMBean.loadPlacesOnArea}" oncomplete="updateAreaPlaces(xhr, status, args);" />
+				    </h:commandButton>
 				</h:form>
 			</h:panelGroup>
 		</h:panelGroup>

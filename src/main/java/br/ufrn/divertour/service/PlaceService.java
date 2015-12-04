@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import br.ufrn.divertour.model.Comment;
+import br.ufrn.divertour.model.LatLng;
 import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.repository.PlaceRepository;
 import br.ufrn.divertour.service.exception.ValidationException;
@@ -115,6 +116,14 @@ public class PlaceService {
 		foundPlace.setRating(rating);
 		
 		placeRepository.save(foundPlace);
+	}
+
+	//TODO remover para Daos
+	public List<Place> findOnArea(LatLng upperBound, LatLng lowerBound) {
+		//TODO finish query
+		Query query = new Query();
+//		query.addCriteria(Criteria.where("lat").gte(o))
+		return mongoTemplate.find(query, Place.class);
 	}
 
 }

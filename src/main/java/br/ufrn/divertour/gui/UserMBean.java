@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.model.UploadedFile;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,6 +17,7 @@ import br.ufrn.divertour.model.User;
 import br.ufrn.divertour.service.CityService;
 import br.ufrn.divertour.service.PlaceService;
 import br.ufrn.divertour.service.UserService;
+import br.ufrn.divertour.service.exception.PhotoSavingException;
 import br.ufrn.divertour.service.exception.ValidationException;
 
 @ManagedBean(name = "userMBean")
@@ -26,6 +28,8 @@ public class UserMBean implements Serializable {
 	
 	private final UserService userService;
 	private final CityService cityService;
+	
+	private UploadedFile selectedPhoto;
 	
 	private User user;
 	
@@ -41,11 +45,23 @@ public class UserMBean implements Serializable {
 	public String register() {
 		try {
 			this.userService.register(this.user);
+			if(selectedPhoto != null) {
+				this.userService.savePhoto(this.user, selectedPhoto);
+			}
+			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
+			System.out.println("Aqui");
 			return "/pages/common/login";
 		} catch (ValidationException e) {
+			System.out.println("Aqui2");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+		} catch (PhotoSavingException e) {
+			System.out.println("Aqui3");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", e.getMessage()));
+			return "/pages/common/login";
 		} catch (Exception e) {
+			System.out.println("Aqui4");
 			// TODO: handle exception
 			e.printStackTrace();
 		}
@@ -84,6 +100,18 @@ public class UserMBean implements Serializable {
 		return userService.listAll();
 	}
 	
+	public UploadedFile getSelectedPhoto() {
+		return selectedPhoto;
+	}
+
+	public void setSelectedPhoto(UploadedFile selectedPhoto) {
+		this.selectedPhoto = selectedPhoto;
+	}
+	
+	public void cleanPhoto() {
+		this.selectedPhoto = null;
+	}
+
 	public List<String> getTypesOfPlace() {
 		return PlaceService.getTypesOfPlace();
 	}

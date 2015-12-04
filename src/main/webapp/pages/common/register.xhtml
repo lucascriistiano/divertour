@@ -13,7 +13,7 @@
 	<ui:define name="first-topic">Informações</ui:define>
 	
 	<ui:define name="content-paper">	
-		<h:form>
+		<h:form enctype="multipart/form-data">
 			<b:row>
 				<b:column offset="3" col-md="6">
 					<h:outputLabel value="Nome: "/>
@@ -33,6 +33,10 @@
 				       				
 					<h:outputLabel value="Senha: "/>
 					<b:inputSecret value="#{userMBean.user.password}" placeholder="Insira a sua senha"></b:inputSecret>
+					
+					<h:outputLabel value="Foto do perfil: "/><br/>
+					<p:fileUpload id="photo-selector" value="#{userMBean.selectedPhoto}" mode="simple" skinSimple="true" cancelLabel="Cancelar" label="Selecionar" /><br/>
+					<p:commandButton value="Remover" actionListener="#{userMBean.cleanPhoto}" update="photo-selector" />
 				</b:column>
 			</b:row>
 			

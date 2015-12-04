@@ -50,6 +50,11 @@ var directionsService;
 
 function initAutocomplete(mapOptions) {
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	
+	map.addListener('idle', function() {
+		$("#find-places-on-area-btn").click();
+	});
+	
 	directionsService = new google.maps.DirectionsService();
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	directionsDisplay.setMap(map);
@@ -57,30 +62,71 @@ function initAutocomplete(mapOptions) {
 }
 
 var markers = {};
+var onAreaPlaces = {};
+var routePlaces = {};
 
-function addMarker() {
-	var strPlace = $('#selected-place-json').val();
+function addSearchedPlace() {
+	var strPlace = $('#searched-place-json').val();
 	var place = jQuery.parseJSON(strPlace);
 	
-	var placeLatLng = {lat: place['lat'], lng: place['lng']};
+	addPlaceToRoute(place);
+}
+
+function addPlaceMarkerToMap(place, icon) {
 	var placeMarker = new google.maps.Marker({
-	    position: placeLatLng,
-	    map: map,
-	    title: place['name']
+		position: {lat: place['lat'], lng: place['lng']},
+		map: map,
+		title: place['name'],
+		icon: icon
+	});
+	
+	placeMarker.addListener('click', function() {
+//		if(!(placeId in routePlaces)) {
+			addPlaceToRoute(place);
+//		} else {
+//			removePlaceFromRoute(place);
+//		}
 	});
 	
 	var placeId = place['id'];
 	markers[placeId] = placeMarker;
-	
-	// Has more than one point to make a route
-	var dictSize = Object.keys(markers).length;
+}
+
+function addPlaceToRoute(place) {
+	//Remove temporary created route place marker
+	var placeId = place['id'];
+	if(placeId in markers) {
+		var placeMarker = markers[placeId];
+		placeMarker.setMap(null);
+		delete markers[placeId];
+	}
+
+	routePlaces[placeId] = place;
+	updateRoute();
+}
+
+//function removePlaceFromRoute(place) {
+//	//Remove temporary created route place marker
+//	delete routePlaces[placeId];
+//	
+//	var placeId = place['id'];
+//	if(placeId in onAreaPlaces) {
+//		addPlaceMarkerToMap(place, 'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png');
+//	}
+//
+//	updateRoute();
+//}
+
+function updateRoute() {
+	var dictSize = Object.keys(routePlaces).length;
 	if(dictSize >= 2) {
+		// Has more than one point to make a route
 		var startPlaceLatLng, endPlaceLatLng;
 		var waypointsLatLng = []; 
 		var index = 0;
-		for (var key in markers){
-			var position = markers[key]['position'];
-			var latLng = new google.maps.LatLng(position.lat(), position.lng());
+		for (var key in routePlaces){
+			var place = routePlaces[key];
+			var latLng = new google.maps.LatLng(place['lat'], place['lng']);
 			
 			if(index == 0) {
 		    	startPlaceLatLng = latLng;
@@ -94,9 +140,15 @@ function addMarker() {
 		}
 		
 		createRoute(startPlaceLatLng, waypointsLatLng, endPlaceLatLng);
+	} else if(dictSize == 1) {
+		// Has only the first point of route
+		for (var key in routePlaces){
+			var place = routePlaces[key];
+			addPlaceMarkerToMap(place, 'https://maps.google.com/mapfiles/kml/shapes/schools_maps.png');
+			break;
+		}
 	}
 }
-
 
 function createRoute(startPlaceLatLng, waypointsLatLng, endPlaceLatLng) {
 	var waypts = [];
@@ -123,24 +175,50 @@ function createRoute(startPlaceLatLng, waypointsLatLng, endPlaceLatLng) {
 }
 
 // Sets the map on all markers in the array.
-function setMapOnAll(map) {
-	for (var key in markers){
-		var position = markers[key].setMap(map);
+function setMapOnAll(object, map) {
+	for (var key in object){
+		object[key].setMap(map);
 	}
 }
 
 // Removes the markers from the map, but keeps them in the array.
-function clearMarkers() {
-  setMapOnAll(null);
+function clearMarkers(object) {
+  setMapOnAll(object, null);
 }
 
 // Shows any markers currently in the array.
-function showMarkers() {
-  setMapOnAll(map);
+function showMarkers(object) {
+  setMapOnAll(object, map);
 }
 
-// Deletes all markers in the array by removing references to them.
-function deleteMarkers() {
-  clearMarkers();
-  markers = [];
+function togglePlaceOnRoute(id) {
+	
+}
+
+function updateAreaPlaces(xhr, status, args) {
+	//Clear previous markers
+//	clearMarkers(onAreaPlaces);
+//	onAreaPlaces = {};
+	
+	clearMarkers(markers);
+	markers = {};
+	
+	var places = JSON.parse(args.places);
+	for (var i=0; i < places.length; i++) {
+		var place = places[i];
+		var placeId = place['id'];
+		onAreaPlaces[placeId] = place;
+		if(!(placeId in routePlaces)) {
+			console.log(place);
+			addPlaceMarkerToMap(place, 'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png');
+		}
+	}
+	
+	if(Object.keys(routePlaces).length == 1) {
+		for (var key in routePlaces){
+			var place = routePlaces[key];
+			addPlaceMarkerToMap(place, 'https://maps.google.com/mapfiles/kml/shapes/schools_maps.png');
+			break;
+		}
+	}
 }

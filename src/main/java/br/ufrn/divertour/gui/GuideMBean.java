@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -17,6 +18,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.google.gson.Gson;
 
 import br.ufrn.divertour.model.Guide;
+import br.ufrn.divertour.model.LatLng;
 import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.model.Searchable;
 import br.ufrn.divertour.service.GuideService;
@@ -39,7 +41,14 @@ public class GuideMBean implements Serializable {
 	private Searchable selectedItem;
 	
 	// For markers add and remove
-	private String selectedPlaceJSON;
+	private String searchedPlaceJSON;
+	private String clickedPlaceJSON;
+	
+	// For places loading
+	private String upperBoundJSON;
+	private String lowerBoundJSON;
+//	private String placesOnAreaJSON;
+	
 	
 	public GuideMBean() {
 		@SuppressWarnings("resource")
@@ -52,14 +61,25 @@ public class GuideMBean implements Serializable {
 		this.selectedPlaces = new ArrayList<>();
 	}
 	
-    public void addPlace(SelectEvent event) {
-    	Place selectedPlace = (Place) event.getObject();
+    public void addSearchedPlace(SelectEvent event) {
+    	Place searchedPlace = (Place) event.getObject();
     	
-    	if(selectedPlace != null) {
-    		this.selectedPlaces.add(selectedPlace);
-    		System.out.println("Added place: " + selectedPlace.getName());
-    		
-    		this.selectedPlaceJSON = new Gson().toJson(selectedPlace).toString();
+    	if(searchedPlace != null) {
+    		this.selectedPlaces.add(searchedPlace);
+    		this.searchedPlaceJSON = new Gson().toJson(searchedPlace).toString();
+    		this.selectedItem = null;
+    	} else {
+    		//TODO add message
+    	}
+    }
+    
+    public void addClickedPlace() {
+    	Place clickedPlace = new Gson().fromJson(this.clickedPlaceJSON, Place.class);
+    	
+    	if(clickedPlace != null) {
+    		this.selectedPlaces.add(clickedPlace);
+    	} else {
+    		//TODO add message
     	}
     }
 
@@ -129,12 +149,55 @@ public class GuideMBean implements Serializable {
 		return foundResults;
 	}
 	
-	public String getSelectedPlaceJSON() {
-		return selectedPlaceJSON;
+	public String getSearchedPlaceJSON() {
+		return searchedPlaceJSON;
 	}
 
-	public void setSelectedPlaceJSON(String selectedPlaceJSON) {
-		this.selectedPlaceJSON = selectedPlaceJSON;
+	public void setSearchedPlaceJSON(String searchedPlaceJSON) {
+		this.searchedPlaceJSON = searchedPlaceJSON;
+	}
+
+	public String getClickedPlaceJSON() {
+		return clickedPlaceJSON;
+	}
+
+	public void setClickedPlaceJSON(String clickedPlaceJSON) {
+		this.clickedPlaceJSON = clickedPlaceJSON;
+	}
+	
+	public String getUpperBoundJSON() {
+		return upperBoundJSON;
+	}
+
+	public void setUpperBoundJSON(String upperBoundJSON) {
+		this.upperBoundJSON = upperBoundJSON;
+	}
+
+	public String getLowerBoundJSON() {
+		return lowerBoundJSON;
+	}
+
+	public void setLowerBoundJSON(String lowerBoundJSON) {
+		this.lowerBoundJSON = lowerBoundJSON;
+	}
+
+//	public String getPlacesOnAreaJSON() {
+//		return placesOnAreaJSON;
+//	}
+//
+//	public void setPlacesOnAreaJSON(String placesOnAreaJSON) {
+//		this.placesOnAreaJSON = placesOnAreaJSON;
+//	}
+
+	public void loadPlacesOnArea() {
+		Gson gson = new Gson();
+		LatLng upperBound = gson.fromJson(this.upperBoundJSON, LatLng.class);
+		LatLng lowerBound = gson.fromJson(this.lowerBoundJSON, LatLng.class);
+		
+		List<Place> foundPlaces = this.placeService.findOnArea(upperBound, lowerBound);
+		
+		RequestContext requestContext = RequestContext.getCurrentInstance();
+		requestContext.addCallbackParam("places", gson.toJson(foundPlaces));
 	}
 	
 }
