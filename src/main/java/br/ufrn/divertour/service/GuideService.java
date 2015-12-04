@@ -102,6 +102,15 @@ public class GuideService {
 	}
 	
 	//TODO move to dao
+	public List<Guide> findByCityAndState(String cityName, String cityState) {
+		//TODO Check
+		Query query = new Query();
+		query.addCriteria(Criteria.where("places.city.name").in(cityName).and("places.city.state").in(cityState));
+		query.with(new Sort(Sort.Direction.DESC, "rating"));
+		return mongoTemplate.find(query, Guide.class);
+	}
+	
+	//TODO move to dao
 	public List<Integer> getPeriodsOfGuide() {
 		@SuppressWarnings("unchecked")
 		List<Integer> periods = mongoTemplate.getCollection("guide").distinct("period");

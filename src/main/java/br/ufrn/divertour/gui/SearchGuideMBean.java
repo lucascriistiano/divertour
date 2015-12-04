@@ -3,6 +3,7 @@ package br.ufrn.divertour.gui;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,9 @@ import javax.faces.bean.ViewScoped;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import br.ufrn.divertour.model.City;
 import br.ufrn.divertour.model.Guide;
+import br.ufrn.divertour.service.CityService;
 import br.ufrn.divertour.service.GuideService;
 
 @ViewScoped
@@ -23,6 +26,7 @@ public class SearchGuideMBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private final GuideService guideService;
+	private final CityService cityService;
 	
 	private List<Guide> foundResults;
 
@@ -38,6 +42,7 @@ public class SearchGuideMBean implements Serializable {
 		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		this.guideService = (GuideService) context.getBean(GuideService.class);
+		this.cityService = (CityService) context.getBean(CityService.class);
 		
 		this.foundResults = guideService.listAll();
 	}
@@ -48,6 +53,7 @@ public class SearchGuideMBean implements Serializable {
 		this.searchFiltersNames.put("Período", "period");
 		this.searchFiltersNames.put("Número de Lugares", "numberOfPlaces");
 		this.searchFiltersNames.put("Categoria", "category");
+		this.searchFiltersNames.put("Cidade", "city");
 		
 		// Load periods
 		Map<String,String> map = new HashMap<String, String>();
@@ -75,6 +81,15 @@ public class SearchGuideMBean implements Serializable {
 			map.put(category, category);
 		}
 		this.searchFilters.put("category", map);
+		
+		// Load cities
+		map = new LinkedHashMap<String, String>();
+		List<City> cities = cityService.listAll();
+		for (City city : cities) {
+			String cityFullName = city.getName() + "/" + city.getState();
+			map.put(cityFullName, cityFullName);
+		}
+		this.searchFilters.put("city", map);
 	}
 	
 	public List<Guide> getFoundResults() {
@@ -124,6 +139,11 @@ public class SearchGuideMBean implements Serializable {
 				foundResults = guideService.findByNumberOfPlaces(numberOfPlaces);
 			} else if(selectedFilterName.equals("category")) {
 				foundResults = guideService.findByCategory(selectedFilterValue);
+			} else if(selectedFilterName.equals("city")) {
+				String[] cityFields = selectedFilterValue.split("/");
+				String cityName = cityFields[0];
+				String cityState = cityFields[1];
+				foundResults = guideService.findByCityAndState(cityName, cityState);
 			} else {
 				foundResults = guideService.listAll();
 			}
