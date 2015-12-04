@@ -1,23 +1,15 @@
 package br.ufrn.divertour.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import br.ufrn.divertour.model.Guide;
 import br.ufrn.divertour.model.Place;
-import br.ufrn.divertour.repository.GuideRepository;
+import br.ufrn.divertour.repository.IGuideRepository;
 import br.ufrn.divertour.service.exception.ValidationException;
 
 @Service
@@ -25,15 +17,9 @@ public class GuideService {
 
 	private static final int MIN_GUIDE_PLACES = 2;
 	
-	private GuideRepository guideRepository;
-	private MongoTemplate mongoTemplate;
-	
 	@Autowired
-	public GuideService(GuideRepository guideRepository, MongoTemplate mongoTemplate) {
-		this.guideRepository = guideRepository;
-		this.mongoTemplate = mongoTemplate;
-	}
-
+	private IGuideRepository guideRepository;
+	
 	private void validate(Guide guide) throws ValidationException {
 		if(guide.getPlaces().isEmpty()) {
 			throw new ValidationException("A lista de lugares do roteiro não pode ser vazia");
@@ -62,72 +48,36 @@ public class GuideService {
 		return guideRepository.findById(id);
 	}
 
-	//TODO move to dao
 	public List<Guide> listAll() {
-		Query query = new Query();
-		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoTemplate.find(query, Guide.class);
+		return guideRepository.listAll();
 	}
 
-	//TODO move to dao
 	public List<Guide> findByNameSimilarity(String name) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("name").regex(name, "i"));
-		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoTemplate.find(query, Guide.class);
+		return guideRepository.findByNameSimilarity(name);
 	}
 
-	//TODO move to dao
 	public List<Guide> findByNumberOfPlaces(int numberOfPlaces) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("places").size(numberOfPlaces));
-		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoTemplate.find(query, Guide.class);
+		return guideRepository.findByNumberOfPlaces(numberOfPlaces);
 	}
 
-	//TODO move to dao
 	public List<Guide> findByPeriod(int period) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("period").is(period));
-		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoTemplate.find(query, Guide.class);
+		return guideRepository.findByPeriod(period);
 	}
 
-	//TODO move to dao
 	public List<Guide> findByCategory(String category) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("category").is(category));
-		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoTemplate.find(query, Guide.class);
+		return guideRepository.findByCategory(category);
 	}
 	
-	//TODO move to dao
 	public List<Guide> findByCityAndState(String cityName, String cityState) {
-		//TODO Check
-		Query query = new Query();
-		query.addCriteria(Criteria.where("places.city.name").in(cityName).and("places.city.state").in(cityState));
-		query.with(new Sort(Sort.Direction.DESC, "rating"));
-		return mongoTemplate.find(query, Guide.class);
+		return guideRepository.findByCityAndState(cityName, cityState);
 	}
 	
-	//TODO move to dao
 	public List<Integer> getPeriodsOfGuide() {
-		@SuppressWarnings("unchecked")
-		List<Integer> periods = mongoTemplate.getCollection("guide").distinct("period");
-		return periods;
+		return guideRepository.getPeriodsOfGuide();
 	}
 
-	//TODO move to dao
 	public List<Integer> getNumberOfPlaces() { 
-		List<Guide> guides = guideRepository.findAll();
-		Set<Integer> numPlacesSet = new HashSet<>();
-		for (Guide guide : guides) {
-			numPlacesSet.add(guide.getPlaces().size());
-		}
-		
-		ArrayList<Integer> numPlaces = new ArrayList<>(numPlacesSet);
-		Collections.sort(numPlaces);
-		return numPlaces;
+		return guideRepository.getNumberOfPlaces();
 	}
 
 	public static List<String> getCategoriesOfGuide() {

@@ -10,21 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufrn.divertour.model.User;
-import br.ufrn.divertour.repository.UserRepository;
+import br.ufrn.divertour.repository.IUserRepository;
 import br.ufrn.divertour.service.exception.PhotoSavingException;
 import br.ufrn.divertour.service.exception.ValidationException;
 
 @Service
 public class UserService {
 
-	private final UserRepository userRepository;
-
 	private static final String PROFILE_PHOTO_FOLDER = "src/main/resources/common/img/profiles/";
 
 	@Autowired
-	public UserService(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
+	private IUserRepository userRepository;
 
 	private void validate(User user) throws ValidationException {
 		if (userRepository.findByEmail(user.getEmail()) != null) {

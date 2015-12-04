@@ -1,33 +1,21 @@
 package br.ufrn.divertour.service;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import br.ufrn.divertour.model.City;
-import br.ufrn.divertour.repository.CityRepository;
+import br.ufrn.divertour.repository.ICityRepository;
 import br.ufrn.divertour.service.exception.ValidationException;
 
 @Service
-public class CityService implements Serializable {
+public class CityService {
 
-	private static final long serialVersionUID = 1L;
-	
-	private CityRepository cityRepository;
-	private MongoTemplate mongoTemplate;
-	
 	@Autowired
-	public CityService(CityRepository cityRepository, MongoTemplate mongoTemplate) {
-		this.cityRepository = cityRepository;
-		this.mongoTemplate = mongoTemplate;
-	}
-
+	private ICityRepository cityRepository;
+	
 	private void validate(City city) throws ValidationException {
 		if(cityRepository.findByNameAndState(city.getName(), city.getState()) != null) {
 			throw new ValidationException("A cidade já se encontra cadastrada");
@@ -47,11 +35,8 @@ public class CityService implements Serializable {
 		return cityRepository.findByNameAndState(name, state);
 	}
 	
-	//TODO move to DAOs
 	public List<City> listAll() {
-		Query query = new Query();
-		query.with(new Sort(Sort.Direction.ASC, "name"));
-		return mongoTemplate.find(query, City.class);
+		return cityRepository.listAll();
 	}
 
 	public static List<String> getStates() {
