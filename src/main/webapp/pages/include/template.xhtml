@@ -42,9 +42,11 @@
 					<h:panelGroup layout="block" styleClass="link"> <h:outputLink value="/divertour/roteiros" >Roteiros</h:outputLink> </h:panelGroup>
 					<h:panelGroup layout="block" styleClass="link hidden-md" rendered="#{!authenticationBean.loggedIn}"> <h:outputLink value="/divertour/cadastro" >Cadastro</h:outputLink> </h:panelGroup>
 
-					<h:panelGroup layout="block" styleClass="login-link" rendered="#{!authenticationBean.loggedIn}"> 
-						<h:outputLink value="/divertour/login" >Login</h:outputLink>
-					</h:panelGroup>
+					<h:outputLink value="/divertour/login" >
+						<h:panelGroup layout="block" styleClass="login-link" rendered="#{!authenticationBean.loggedIn}"> 
+							Login
+						</h:panelGroup>
+					</h:outputLink>
 					<h:panelGroup layout="block" styleClass="link" style="float:right;" rendered="#{authenticationBean.loggedIn}"> 
 						<h:form>
 							<h:commandLink action="#{authenticationBean.logout}" value="Sair" />
