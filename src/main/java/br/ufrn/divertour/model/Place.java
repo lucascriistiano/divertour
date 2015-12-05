@@ -163,6 +163,11 @@ public class Place implements Searchable {
 	}
 
 	@Override
+	public String getSearchableType() {
+		return Searchable.PLACE_RESULT;
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

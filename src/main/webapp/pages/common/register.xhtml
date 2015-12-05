@@ -33,12 +33,31 @@
 				       				
 					<h:outputLabel value="Senha: "/>
 					<b:inputSecret value="#{userMBean.user.password}" placeholder="Insira a sua senha"></b:inputSecret>
-					
+ 
 					<h:outputLabel value="Foto do perfil: "/><br/>
-					<p:fileUpload id="photo-selector" value="#{userMBean.selectedPhoto}" mode="simple" skinSimple="true" cancelLabel="Cancelar" label="Selecionar" /><br/>
-					<p:commandButton value="Remover" actionListener="#{userMBean.cleanPhoto}" update="photo-selector" />
+					<p:fileUpload id="photo-selector" binding="#{upload}" value="#{userMBean.selectedPhoto}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+					
+				    <p:graphicImage value="#" height="150" binding="#{image}" />
 				</b:column>
 			</b:row>
+			
+			<h:outputScript>
+				function readPicture(input, output) {
+				    if (input.files) {
+				        if(input.files[0]) {
+				            var reader = new FileReader();
+				            reader.onload = function(e) {
+				                output.attr('src', e.target.result);
+				            };
+				            reader.readAsDataURL(input.files[0]);
+				        }
+				    }
+				}
+				
+				$("[id='#{upload.clientId}']").change(function() {
+				    readPicture(this, $("[id='#{image.clientId}']"));
+				});
+			</h:outputScript>
 			
 			<b:row>
 				<b:column col-md="12" styleClass="title">

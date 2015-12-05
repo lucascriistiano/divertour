@@ -1,5 +1,6 @@
 package br.ufrn.divertour.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class PlaceService {
 	
 	public void register(Place place) throws ValidationException {
 		validate(place);
+		
+		place.setComments(new ArrayList<>());  //Initialize comments with a empty list
 		placeRepository.save(place);
 	}
 

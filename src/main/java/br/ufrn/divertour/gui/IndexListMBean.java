@@ -15,49 +15,44 @@ import br.ufrn.divertour.service.GuideService;
 import br.ufrn.divertour.service.PlaceService;
 
 @ViewScoped
-@ManagedBean(name = "searchMBean")
-public class SearchMBean implements Serializable {
+@ManagedBean(name = "indexListMBean")
+public class IndexListMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private final GuideService guideService;
 	private final PlaceService placeService;
 	
-	private Searchable selectedItem;
-	
 	private List<Searchable> foundResults;
 	
-	public SearchMBean() {
+	public IndexListMBean() {
 		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		this.guideService = (GuideService) context.getBean(GuideService.class);
 		this.placeService = (PlaceService) context.getBean(PlaceService.class);
+
+		loadItems();
 	}
 	
-	public List<Searchable> findResults(String search) {
+	public void loadItems() {
 		foundResults = new ArrayList<>();
-		foundResults.addAll(guideService.findByNameSimilarity(search));
-		foundResults.addAll(placeService.findByNameSimilarity(search));
-		
+		foundResults.addAll(guideService.findByCityAndState("Natal", "RN"));
+		foundResults.addAll(placeService.findByCityAndState("Natal", "RN"));
+	}
+	
+	public List<Searchable> getFoundResults() {
 		return foundResults;
 	}
-	
-	public Searchable getSelectedItem() {
-		return selectedItem;
-	}
 
-	public void setSelectedItem(Searchable selectedItem) {
-		this.selectedItem = selectedItem;
-	}
-	
 	public String showDetails() {
-		if(this.selectedItem == null) {
-			//TODO show error message
-			System.out.println("Error. Selected null value");
-			return "";
-		}
-		
-		return this.selectedItem.getDetailsPage();
+//		if(this.selectedItem == null) {
+//			//TODO show error message
+//			System.out.println("Error. Selected null value");
+//			return "";
+//		}
+//		
+//		return this.selectedItem.getDetailsPage();
+		return "";
 	}
 	
 }

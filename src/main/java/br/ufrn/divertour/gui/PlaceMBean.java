@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -35,11 +36,8 @@ public class PlaceMBean implements Serializable {
 
     private String insertedContact;
     
-    private UploadedFile selectedImageFile;
     private List<UploadedFile> selectedImagesFiles;
-
     private List<String> insertedContacts;
-//    private List<String> uploadedImagesPath;
     
 	private final List<String> typesOfPlace;
 	private final List<String> categoriesOfPlace;
@@ -53,7 +51,6 @@ public class PlaceMBean implements Serializable {
 		this.place = new Place();
 		
 		this.insertedContacts = new ArrayList<>();
-//		this.uploadedImagesPath = new ArrayList<>();
 		this.selectedImagesFiles = new ArrayList<>();
 		
 		this.typesOfPlace = PlaceService.getTypesOfPlace();
@@ -65,23 +62,27 @@ public class PlaceMBean implements Serializable {
     		this.insertedContacts.add(insertedContact);
     	} else {
     		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Você deve inserir um contato para adicioná-lo"));
-//    		return "";
     	}
     }
     
-    public void addImage() {
-    	if(this.selectedImageFile != null) {
-        	System.out.println("Adicionando o arquivo " + selectedImageFile.getFileName());
-    		this.selectedImagesFiles.add(selectedImageFile);
-    		this.selectedImageFile = null;
-    		System.out.println("Arquivo adicionado");
-    	} else {
-    		System.out.println("Arquivo não adicionado");
-    	}
-    }
+//    public void addImage() {
+//    	if(this.selectedImageFile != null) {
+//        	System.out.println("Adicionando o arquivo " + selectedImageFile.getFileName());
+//    		this.selectedImagesFiles.add(selectedImageFile);
+//    		this.selectedImageFile = null;
+//    		System.out.println("Arquivo adicionado");
+//    	} else {
+//    		System.out.println("Arquivo não adicionado");
+//    	}
+//    }
+//    
+//    public void discardImage() {
+//    	this.selectedImageFile = null;
+//    }
     
-    public void cancelImage() {
-    	this.selectedImageFile = null;
+    public void upload(FileUploadEvent event) {
+    	UploadedFile uploadedFile = event.getFile();
+    	this.selectedImagesFiles.add(uploadedFile);
     }
     
     public String register() {
@@ -120,14 +121,13 @@ public class PlaceMBean implements Serializable {
 		this.place = place;
 	}
 	
-	public UploadedFile getSelectedImageFile() {
-		return selectedImageFile;
-	}
-
-	public void setSelectedImageFile(UploadedFile selectedImageFile) {
-		System.out.println("Setou");
-		this.selectedImageFile = selectedImageFile;
-	}
+//	public UploadedFile getSelectedImageFile() {
+//		return selectedImageFile;
+//	}
+//
+//	public void setSelectedImageFile(UploadedFile selectedImageFile) {
+//		this.selectedImageFile = selectedImageFile;
+//	}
 	
 	public List<UploadedFile> getSelectedImagesFiles() {
 		return selectedImagesFiles;

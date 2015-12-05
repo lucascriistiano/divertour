@@ -45,18 +45,17 @@ public class UserMBean implements Serializable {
 	public String register() {
 		try {
 			this.userService.register(this.user);
-			if(selectedPhoto != null) {
+			if(this.selectedPhoto != null) {
 				this.userService.savePhoto(this.user, selectedPhoto);
 			}
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
-			System.out.println("Aqui");
 			return "/pages/common/login";
 		} catch (ValidationException e) {
-			System.out.println("Aqui2");
+			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 		} catch (PhotoSavingException e) {
-			System.out.println("Aqui3");
+			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", e.getMessage()));
 			return "/pages/common/login";
@@ -77,6 +76,15 @@ public class UserMBean implements Serializable {
 	public String remove(String id) {
 		this.userService.remove(id);
 		return "";
+	}
+	
+	public void addImage() {
+		String fileName = selectedPhoto.getFileName();
+		System.out.println(fileName);
+	}
+	
+	public void cleanPhoto() {
+		this.selectedPhoto = null;
 	}
 	
 	public String changePermission(String id, boolean admin) {
@@ -106,10 +114,6 @@ public class UserMBean implements Serializable {
 
 	public void setSelectedPhoto(UploadedFile selectedPhoto) {
 		this.selectedPhoto = selectedPhoto;
-	}
-	
-	public void cleanPhoto() {
-		this.selectedPhoto = null;
 	}
 
 	public List<String> getTypesOfPlace() {

@@ -112,5 +112,10 @@ public class Guide implements Searchable {
 	public String getConvertedId() {
 		return Searchable.GUIDE_FIRST_CHAR + this.getId();
 	}
+
+	@Override
+	public String getSearchableType() {
+		return Searchable.GUIDE_RESULT;
+	}
 	
 }

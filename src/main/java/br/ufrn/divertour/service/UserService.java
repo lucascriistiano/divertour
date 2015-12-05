@@ -1,10 +1,14 @@
 package br.ufrn.divertour.service;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +21,11 @@ import br.ufrn.divertour.service.exception.ValidationException;
 @Service
 public class UserService {
 
-	private static final String PROFILE_PHOTO_FOLDER = "src/main/resources/common/img/profiles/";
-
+	private static final String PROFILE_PHOTO_FOLDER = "/Users/lucascriistiano/Projetos/divertour/src/main/webapp/resources/common/img/profiles/";
+	
 	@Autowired
 	private IUserRepository userRepository;
-
+	
 	private void validate(User user) throws ValidationException {
 		if (userRepository.findByEmail(user.getEmail()) != null) {
 			throw new ValidationException("O e-mail já se encontra cadastrado");
@@ -66,30 +70,22 @@ public class UserService {
 
 	public void savePhoto(User user, UploadedFile selectedPhoto) throws PhotoSavingException {
 		try {
-			String originalFileName = selectedPhoto.getFileName();
-			String[] splittedFileName = originalFileName.split(".");
-			String fileExtension = splittedFileName[splittedFileName.length - 1];
+			String uploadedPhotoFilename = selectedPhoto.getFileName();
 
-			String outputFileName = user.getId() + "." + fileExtension;
+			Path folder = Paths.get(PROFILE_PHOTO_FOLDER);
+			String filename = FilenameUtils.getBaseName(uploadedPhotoFilename);
+			String extension = FilenameUtils.getExtension(uploadedPhotoFilename);
+			Path file = Files.createTempFile(folder, filename + "-", "." + extension);
 
-			InputStream inputStream = selectedPhoto.getInputstream();
-			FileOutputStream outputStream = new FileOutputStream(PROFILE_PHOTO_FOLDER + outputFileName);
-
-			byte[] buffer = new byte[4096];
-			int bytesRead = 0;
-			while (true) {
-				bytesRead = inputStream.read(buffer);
-				if (bytesRead > 0) {
-					outputStream.write(buffer, 0, bytesRead);
-				} else {
-					break;
-				}
-			}
-			outputStream.close();
-			inputStream.close();
-
-			user.setProfileImage(outputFileName);
-			userRepository.save(user);
+			InputStream input = selectedPhoto.getInputstream();
+			
+			Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
+			
+			String createdPhoto = file.getFileName().toString();
+			System.out.println(createdPhoto);
+			
+			user.setProfileImage(createdPhoto);
+			this.userRepository.save(user);
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new PhotoSavingException("Ocorreu um erro ao tentar salvar a foto. Tente atualizá-la mais tarde.");

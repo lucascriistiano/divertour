@@ -52,7 +52,6 @@
 		<filter-name>AuthenticationFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 		<dispatcher>FORWARD</dispatcher>
-		<!--  <dispatcher>REQUEST</dispatcher> -->
 	</filter-mapping>
 	
 	<!-- ===================== Default MIME Type Mappings =================== -->
@@ -75,7 +74,7 @@
    	<mime-mapping>
         <extension>.svg</extension>
         <mime-type>image/svg+xml</mime-type>
-    </mime-mapping>   	
+    </mime-mapping>
 
   	<mime-mapping>
         <extension>woff</extension>

@@ -1,5 +1,6 @@
 package br.ufrn.divertour.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -34,8 +35,10 @@ public class GuideService {
 		validate(guide);
 		
 		for (Place place : guide.getPlaces()) {		
-			place.setComments(null); // Erase comments before save guide
+			place.setComments(new ArrayList<>()); // Erase comments before save guide
 		}
+		
+		guide.setComments(new ArrayList<>());  //Initialize comments with a empty list
 		guide.setCreationDate(new Date());
 		guideRepository.save(guide);
 	}

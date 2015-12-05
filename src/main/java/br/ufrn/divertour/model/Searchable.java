@@ -12,7 +12,10 @@ public interface Searchable {
 	public static final char GUIDE_FIRST_CHAR = 'G';
 	
 	public String getId();
+	public String getName();
+	public String getSearchableType();
 	public String getExhibitionName();
+	public int getRating();
 	public String getDetailsPage();
 	public String getConvertedId();
 	

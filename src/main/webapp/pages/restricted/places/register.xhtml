@@ -36,8 +36,7 @@
 						</b:column>
 					</b:row>
 					
-					<h:form prependId="false" enctype="multipart/form-data">	
-						
+					<h:form enctype="multipart/form-data" prependId="false">	
 						<b:row styleClass="equalizer">
 							<b:column col-md="6" styleClass="watch">
 								<h:outputLabel for="name" value="Nome" />
@@ -54,8 +53,6 @@
 								<h:outputLabel for="contacts" value="Contato(s): " />
 			       				<b:inputText id="contacts" value="#{placeMBean.insertedContact}" placeholder="Contatos do local" />
 			       				<p:commandButton value="Adicionar" action="#{placeMBean.addContact}" rendered="false" />
-			       				
-			       				<!-- Adicionar horário de funcionamento -->						
 							</b:column>
 							<b:column col-md="6" styleClass="watch">	
 							    <h:outputLabel for="description" value="Descrição" />     
@@ -64,7 +61,6 @@
 						</b:row>
 						
 						<b:row>
-						
 							<b:column col-md="12" styleClass="title">
 								<hr />	Localização  <hr />
 							</b:column>
@@ -97,28 +93,20 @@
 						</b:row>
 						
 						<b:row>
-						
 							<b:column col-md="12" styleClass="title">
 								<hr />	Imagens  <hr />
 							</b:column>
 							
 							<b:column col-md="12">
-								<h:outputText for="images" value="Imagens: " />
-								<p:fileUpload value="#{placeMBean.selectedImageFile}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="10000000" />
-								<p:commandButton value="Adicionar" update="image-list" actionListener="#{placeMBean.addImage}" /> <!-- disabled="true" -->
-								<p:commandButton value="Cancelar" update="image-list" actionListener="#{placeMBean.cancelImage}" /> <!-- disabled="true" -->
+								<p:fileUpload fileUploadListener="#{placeMBean.upload}" auto="true" update="image-list" />
 								
+								<h:outputText for="image-list" value="Imagens adicionadas: " />
 								<h:panelGroup id="image-list" layout="block">
-									<ui:repeat var="imageFile" value="#{placeMBean.selectedImagesFiles}">
-										<h:outputText value="#{imageFile.fileName}" /><br/>
-									</ui:repeat>
+								    <ui:repeat var="imageFile" value="#{placeMBean.selectedImagesFiles}">
+								        <h:outputText value="#{imageFile.fileName}" /><br/>
+								    </ui:repeat>
 								</h:panelGroup>
-
-				       			<p:galleria value="#{placeMBean.selectedImagesFiles}" var="image" panelHeight="300" showCaption="true" rendered="false">
-									<p:graphicImage name="demo/images/nature/#{image}" alt="Image Description for #{image}" title="#{image}"/>
-								</p:galleria>
 							</b:column>
-						
 						</b:row>
 						
 						<b:row>
@@ -129,14 +117,12 @@
 					</h:form>
 				</b:container>
 			</h:panelGroup>	
-	
   
-        <script>
-		   	$(function(){
-		   		$('#description').css('height', '100%').css('height', '-=35px');   		
-		   	});
-        </script>
-        
+  			<h:outputScript>
+				$(function(){
+					$('#description').css('height', '100%').css('height', '-=35px');  
+				});
+  			</h:outputScript>
         
 	</ui:define>
 
