@@ -18,6 +18,7 @@ import br.ufrn.divertour.model.City;
 import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.service.CityService;
 import br.ufrn.divertour.service.PlaceService;
+import br.ufrn.divertour.service.exception.PhotoSavingException;
 import br.ufrn.divertour.service.exception.ValidationException;
 
 @ViewScoped
@@ -36,7 +37,7 @@ public class PlaceMBean implements Serializable {
 
     private String insertedContact;
     
-    private List<UploadedFile> selectedImagesFiles;
+    private List<UploadedFile> uploadedImages;
     private List<String> insertedContacts;
     
 	private final List<String> typesOfPlace;
@@ -51,7 +52,7 @@ public class PlaceMBean implements Serializable {
 		this.place = new Place();
 		
 		this.insertedContacts = new ArrayList<>();
-		this.selectedImagesFiles = new ArrayList<>();
+		this.uploadedImages = new ArrayList<>();
 		
 		this.typesOfPlace = PlaceService.getTypesOfPlace();
 		this.categoriesOfPlace = PlaceService.getCategoriesOfPlace();
@@ -65,36 +66,33 @@ public class PlaceMBean implements Serializable {
     	}
     }
     
-//    public void addImage() {
-//    	if(this.selectedImageFile != null) {
-//        	System.out.println("Adicionando o arquivo " + selectedImageFile.getFileName());
-//    		this.selectedImagesFiles.add(selectedImageFile);
-//    		this.selectedImageFile = null;
-//    		System.out.println("Arquivo adicionado");
-//    	} else {
-//    		System.out.println("Arquivo não adicionado");
-//    	}
-//    }
-//    
 //    public void discardImage() {
 //    	this.selectedImageFile = null;
 //    }
     
     public void upload(FileUploadEvent event) {
-    	UploadedFile uploadedFile = event.getFile();
-    	this.selectedImagesFiles.add(uploadedFile);
+    	UploadedFile uploadedImage = event.getFile();
+    	this.uploadedImages.add(uploadedImage);
+    	System.out.println("Imagem adicionada: " + uploadedImage.getFileName());
     }
     
     public String register() {
 		try {
 			this.place.setContacts(insertedContacts);
-//			this.place.setImages(uploadedImagesPath);
-			
 			this.placeService.register(this.place);
+			
+			if(this.uploadedImages != null) {
+				this.placeService.savePlacePhotos(place, uploadedImages);
+			}
+			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
 			return "/pages/restricted/homepage";
 		} catch (ValidationException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e.getMessage()));
+		} catch (PhotoSavingException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", e.getMessage()));
+			return "/pages/restricted/homepage";
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -121,16 +119,8 @@ public class PlaceMBean implements Serializable {
 		this.place = place;
 	}
 	
-//	public UploadedFile getSelectedImageFile() {
-//		return selectedImageFile;
-//	}
-//
-//	public void setSelectedImageFile(UploadedFile selectedImageFile) {
-//		this.selectedImageFile = selectedImageFile;
-//	}
-	
-	public List<UploadedFile> getSelectedImagesFiles() {
-		return selectedImagesFiles;
+	public List<UploadedFile> getUploadedImages() {
+		return uploadedImages;
 	}
 
 	public float getCurrentLat() {

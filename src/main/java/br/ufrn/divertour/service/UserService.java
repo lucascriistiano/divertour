@@ -21,7 +21,7 @@ import br.ufrn.divertour.service.exception.ValidationException;
 @Service
 public class UserService {
 
-	private static final String PROFILE_PHOTO_FOLDER = "/Users/lucascriistiano/Projetos/divertour/src/main/webapp/resources/common/img/profiles/";
+	private static final String USER_PHOTO_FOLDER = "/Users/lucascriistiano/webapp/images/users";
 	
 	@Autowired
 	private IUserRepository userRepository;
@@ -68,22 +68,20 @@ public class UserService {
 		return userRepository.findByUsernameAndPassword(username, password);
 	}
 
-	public void savePhoto(User user, UploadedFile selectedPhoto) throws PhotoSavingException {
+	public void saveUserPhoto(User user, UploadedFile uploadedPhoto) throws PhotoSavingException {
 		try {
-			String uploadedPhotoFilename = selectedPhoto.getFileName();
+			String uploadedPhotoFilename = uploadedPhoto.getFileName();
 
-			Path folder = Paths.get(PROFILE_PHOTO_FOLDER);
+			Path folder = Paths.get(USER_PHOTO_FOLDER);
 			String filename = FilenameUtils.getBaseName(uploadedPhotoFilename);
 			String extension = FilenameUtils.getExtension(uploadedPhotoFilename);
 			Path file = Files.createTempFile(folder, filename + "-", "." + extension);
 
-			InputStream input = selectedPhoto.getInputstream();
+			InputStream input = uploadedPhoto.getInputstream();
 			
 			Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
 			
 			String createdPhoto = file.getFileName().toString();
-			System.out.println(createdPhoto);
-			
 			user.setProfileImage(createdPhoto);
 			this.userRepository.save(user);
 		} catch (IOException e) {

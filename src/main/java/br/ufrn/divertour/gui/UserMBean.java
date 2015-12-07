@@ -46,7 +46,7 @@ public class UserMBean implements Serializable {
 		try {
 			this.userService.register(this.user);
 			if(this.selectedPhoto != null) {
-				this.userService.savePhoto(this.user, selectedPhoto);
+				this.userService.saveUserPhoto(this.user, selectedPhoto);
 			}
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
@@ -60,7 +60,6 @@ public class UserMBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", e.getMessage()));
 			return "/pages/common/login";
 		} catch (Exception e) {
-			System.out.println("Aqui4");
 			// TODO: handle exception
 			e.printStackTrace();
 		}

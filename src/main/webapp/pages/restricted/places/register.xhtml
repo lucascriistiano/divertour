@@ -102,7 +102,7 @@
 								
 								<h:outputText for="image-list" value="Imagens adicionadas: " />
 								<h:panelGroup id="image-list" layout="block">
-								    <ui:repeat var="imageFile" value="#{placeMBean.selectedImagesFiles}">
+								    <ui:repeat var="imageFile" value="#{placeMBean.uploadedImages}">
 								        <h:outputText value="#{imageFile.fileName}" /><br/>
 								    </ui:repeat>
 								</h:panelGroup>

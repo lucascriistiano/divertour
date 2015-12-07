@@ -1,9 +1,17 @@
 package br.ufrn.divertour.service;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +19,13 @@ import br.ufrn.divertour.model.Comment;
 import br.ufrn.divertour.model.LatLng;
 import br.ufrn.divertour.model.Place;
 import br.ufrn.divertour.repository.IPlaceRepository;
+import br.ufrn.divertour.service.exception.PhotoSavingException;
 import br.ufrn.divertour.service.exception.ValidationException;
 
 @Service
 public class PlaceService {
+	
+	private static final String PLACE_PHOTO_FOLDER = "/Users/lucascriistiano/webapp/images/places";
 	
 	@Autowired
 	private IPlaceRepository placeRepository;
@@ -94,6 +105,42 @@ public class PlaceService {
 		foundPlace.setRating(rating);
 		
 		placeRepository.save(foundPlace);
+	}
+	
+	public void savePlacePhotos(Place place, List<UploadedFile> uploadedImages) throws PhotoSavingException {
+		List<String> savedImages = new ArrayList<>();
+		boolean someError = false;
+		
+		for(UploadedFile imageFile : uploadedImages) {
+			try {
+				String uploadedPhotoFilename = imageFile.getFileName();
+				
+				Path folder = Paths.get(PLACE_PHOTO_FOLDER);
+				String filename = FilenameUtils.getBaseName(uploadedPhotoFilename);
+				String extension = FilenameUtils.getExtension(uploadedPhotoFilename);
+				Path file = Files.createTempFile(folder, filename + "-", "." + extension);
+				
+				InputStream input = imageFile.getInputstream();
+				
+				Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
+				
+				String createdImage = file.getFileName().toString();
+				savedImages.add(createdImage);
+			} catch (IOException e) {
+				someError = true;
+				e.printStackTrace();
+			} catch (Exception e) {
+				someError = true;
+				e.printStackTrace();
+			}
+		}
+		
+		place.setImages(savedImages);
+		this.placeRepository.save(place);
+		
+		if(someError) {
+			throw new PhotoSavingException("Ocorreu um erro ao tentar salvar alguma(s) da(s) imagens. Tente atualizá-la(s) mais tarde.");
+		}
 	}
 
 }
