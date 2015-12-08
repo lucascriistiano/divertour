@@ -10,33 +10,33 @@
 	
 	<ui:define name="content">
 		<b:container styleClass="background">
-			<h1>Lista de Lugares</h1>
-			
-			<h:form>
-				<p:dataTable id="place-datatable" var="place" value="#{placeMBean.places}" sortMode="multiple" scrollable="true" scrollHeight="150">
-			        <p:column headerText="Nome" sortBy="#{place.name}">
-			            <h:outputText value="#{place.name}" />
-			        </p:column>
-			        
-			        <p:column headerText="Cidade" sortBy="#{place.city}">
-			            <h:outputText value="#{place.city.name}/#{place.city.state}" />
-			        </p:column>
-			        
-			        <p:column headerText="Endereço" sortBy="#{place.address}">
-			            <h:outputText value="#{place.address}" />
-			        </p:column>
-			        
-			        <!-- <p:column style="width:60px;text-align: center">
-						<p:commandButton actionListener="#{placeMBean.edit(place.id)}" update="place-datatable" icon="ui-icon-pencil" />
-	            	</p:column> -->	
-	            	
-	            	<p:column style="width:60px;text-align: center">
-	             		<p:commandButton actionListener="#{placeMBean.remove(place.id)}" update="place-datatable" icon="ui-icon-trash" />
-	            	</p:column>
-			    </p:dataTable>
-		    </h:form>
-		    
-		    
+			<h:panelGroup layout="block">
+				<h1>Lista de Lugares</h1>
+				
+				<h:form>
+					<p:dataTable id="place-datatable" var="place" value="#{placeMBean.places}" sortMode="multiple" scrollable="true" scrollHeight="150">
+				        <p:column headerText="Nome" sortBy="#{place.name}">
+				            <h:outputText value="#{place.name}" />
+				        </p:column>
+				        
+				        <p:column headerText="Cidade" sortBy="#{place.city}">
+				            <h:outputText value="#{place.city.name}/#{place.city.state}" />
+				        </p:column>
+				        
+				        <p:column headerText="Endereço" sortBy="#{place.address}">
+				            <h:outputText value="#{place.address}" />
+				        </p:column>
+				        
+				        <!-- <p:column style="width:60px;text-align: center">
+							<p:commandButton actionListener="#{placeMBean.edit(place.id)}" update="place-datatable" icon="ui-icon-pencil" />
+		            	</p:column> -->	
+		            	
+		            	<p:column style="width:60px;text-align: center">
+		             		<p:commandButton actionListener="#{placeMBean.remove(place.id)}" update="place-datatable" icon="ui-icon-trash" />
+		            	</p:column>
+				    </p:dataTable>
+			    </h:form>
+			</h:panelGroup>
         </b:container>
 	</ui:define>
 

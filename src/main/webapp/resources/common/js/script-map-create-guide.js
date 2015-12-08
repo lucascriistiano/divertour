@@ -52,6 +52,7 @@ function initAutocomplete(mapOptions) {
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 	
 	map.addListener('idle', function() {
+		console.log("Idle");
 		$("#find-places-on-area-btn").click();
 	});
 	
@@ -195,6 +196,32 @@ function togglePlaceOnRoute(id) {
 	
 }
 
+function updateGuideOrder(xhr, status, args) {
+	//Remove place markers of places that are on route
+	for(var id in routePlaces) {
+		if(id in markers) {
+			var marker = markers[id]; 
+			marker.setMap(null);
+			delete markers[id];
+		}
+	}
+	
+	// clear previous routes places
+	routePlaces = {};
+	
+	//Updates route places
+	var places = JSON.parse(args.places);
+	console.log(places);
+	
+	for (var i=0; i < places.length; i++) {
+		var place = places[i];
+		var placeId = place['id'];
+		routePlaces[placeId] = place;
+	}
+	
+	updateRoute();
+}
+
 function updateAreaPlaces(xhr, status, args) {
 	//Clear previous markers
 //	clearMarkers(onAreaPlaces);
@@ -204,6 +231,8 @@ function updateAreaPlaces(xhr, status, args) {
 	markers = {};
 	
 	var places = JSON.parse(args.places);
+	console.log(places);
+	
 	for (var i=0; i < places.length; i++) {
 		var place = places[i];
 		var placeId = place['id'];

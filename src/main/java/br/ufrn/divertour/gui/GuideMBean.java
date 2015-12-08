@@ -38,7 +38,7 @@ public class GuideMBean implements Serializable {
 	private List<Place> selectedPlaces;
 	
 	// For search
-	private Searchable selectedItem;
+	private Place selectedItem;
 	
 	// For markers add and remove
 	private String searchedPlaceJSON;
@@ -65,18 +65,24 @@ public class GuideMBean implements Serializable {
     	Place searchedPlace = (Place) event.getObject();
     	
     	if(searchedPlace != null) {
+    		System.out.println("Adicionado pela busca");
     		this.selectedPlaces.add(searchedPlace);
     		this.searchedPlaceJSON = new Gson().toJson(searchedPlace).toString();
     		this.selectedItem = null;
     	} else {
     		//TODO add message
     	}
+    	
+    	for (Place place : selectedPlaces) {
+			System.out.println(place.getId() + " = " + place.getName());
+		}
     }
     
     public void addClickedPlace() {
     	Place clickedPlace = new Gson().fromJson(this.clickedPlaceJSON, Place.class);
     	
     	if(clickedPlace != null) {
+    		System.out.println("Adicionado pelo clique");
     		this.selectedPlaces.add(clickedPlace);
     	} else {
     		//TODO add message
@@ -117,6 +123,10 @@ public class GuideMBean implements Serializable {
 		return selectedPlaces;
 	}
 
+	public void setSelectedPlaces(List<Place> selectedPlaces) {
+		this.selectedPlaces = selectedPlaces;
+	}
+
 	public Guide getGuide() {
 		return guide;
 	}
@@ -138,15 +148,12 @@ public class GuideMBean implements Serializable {
 		return selectedItem;
 	}
 
-	public void setSelectedItem(Searchable selectedItem) {
+	public void setSelectedItem(Place selectedItem) {
 		this.selectedItem = selectedItem;
 	}
 	
-	public List<Searchable> findResults(String search) {
-		List<Searchable> foundResults = new ArrayList<>();
-		foundResults.addAll(placeService.findByNameSimilarity(search));
-		
-		return foundResults;
+	public List<Place> findResults(String search) {
+		return placeService.findByNameSimilarity(search);
 	}
 	
 	public String getSearchedPlaceJSON() {
@@ -189,6 +196,11 @@ public class GuideMBean implements Serializable {
 //		this.placesOnAreaJSON = placesOnAreaJSON;
 //	}
 
+//	private String listPlacesToJSON(List<Place> places) {
+//		List<Place> list = new ArrayList<>(places);
+//		return new Gson().toJson(list);
+//	}
+	
 	public void loadPlacesOnArea() {
 		Gson gson = new Gson();
 		LatLng upperBound = gson.fromJson(this.upperBoundJSON, LatLng.class);
@@ -198,6 +210,23 @@ public class GuideMBean implements Serializable {
 		
 		RequestContext requestContext = RequestContext.getCurrentInstance();
 		requestContext.addCallbackParam("places", gson.toJson(foundPlaces));
+	}
+	
+//	public void onSelect(SelectEvent event) {
+//		System.out.println("Selecionado");
+//    }
+//     
+//    public void onUnselect(UnselectEvent event) {
+//    	System.out.println("Deselecionado");
+//    }
+	
+	public void updateGuideOrder() {
+		for (Place place : selectedPlaces) {
+			System.out.println(place.getId() + " = " + place.getName());
+		}
+		
+		RequestContext requestContext = RequestContext.getCurrentInstance();
+		requestContext.addCallbackParam("places", new Gson().toJson(new ArrayList<>(this.selectedPlaces)));
 	}
 	
 }

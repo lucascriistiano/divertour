@@ -34,7 +34,8 @@ public class CityRepository implements ICityRepository {
 	public List<City> listAll() {
 		Query query = new Query();
 		query.with(new Sort(Sort.Direction.ASC, "name"));
-		return mongoTemplate.find(query, City.class);
+		List<City> results = mongoTemplate.find(query, City.class);
+		return results;
 	}
 
 	@Override

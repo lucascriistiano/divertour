@@ -18,17 +18,13 @@
 		<h:form>
 			<b:row>
 				<b:column offset="3" col-md="6">
-					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
 					
-					<h:outputLabel value="Usuário:"/> <h:message for="usuario" style="color:red" />
-					<b:inputText id="usuario" placeholder="Nome de usuário" value="#{authenticationBean.username}" validatorMessage="    O nome do usúario deve estar entre 5 e 10 caracteres!" required="true"  requiredMessage="  Insira seu usuário!">
-						<f:validateLength minimum="5" maximum="10"  />
-					</b:inputText>
+					<h:outputLabel value="Usuário:"/> <h:message for="username" styleClass="form-label-message" />
+					<b:inputText id="username" placeholder="Nome de usuário" value="#{authenticationBean.username}" required="true" requiredMessage="Insira o nome de usuário." />
 	       			
-	       			<h:outputLabel value="Senha:"/> <h:message for="senha" style="color:red" />
-	   				<b:inputSecret id="senha" placeholder="Senha" value="#{authenticationBean.password}" validatorMessage="A senha deve estar entre 5 e 10 caracteres!" required="true" requiredMessage="  Insira sua senha!"	>
-	   					<f:validateLength minimum="5" maximum="10"  />
-					</b:inputSecret>
+	       			<h:outputLabel value="Senha:"/> <h:message for="password" styleClass="form-label-message" />
+	   				<b:inputSecret id="password" placeholder="Senha" value="#{authenticationBean.password}" required="true" requiredMessage="Insira a sua senha." />
 				</b:column>
 			</b:row>
 			

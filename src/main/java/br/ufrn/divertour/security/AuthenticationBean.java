@@ -82,7 +82,7 @@ public class AuthenticationBean implements Serializable {
 			this.loggedUser = null;
 			context.getExternalContext().getSessionMap().remove(AUTH_KEY);
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Login inválido. Verifique o nome de usuário e senha inseridos."));
-			return "pretty:login";
+			return "";
 		}
 	}
 	
