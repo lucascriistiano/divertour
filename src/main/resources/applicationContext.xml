@@ -20,7 +20,7 @@
 	<mongo:mongo id="mongo" />
 
 	<!-- MONGO TEMPLATE -->
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate" scope="singleton">
 		<constructor-arg ref="mongo" />
 		<constructor-arg value="divertour" />
 	</bean>

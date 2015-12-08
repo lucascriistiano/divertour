@@ -25,11 +25,32 @@
 					<h:panelGroup layout="block" style="background:#fff;height:100%;">
 						<p:rating id="place-rating" value="#{placeDetailsMBean.selectedPlace.rating}" readonly="true" />
 						<br/>
-						
-						<h:outputText for="images" value="Imagens: #{placeDetailsMBean.selectedPlace.images}" />
+
+						<h:panelGroup layout="block" id="place-images" styleClass="owl-carousel">
+							<ui:repeat var="image" value="#{placeDetailsMBean.selectedPlace.images}">
+								<h:panelGroup layout="block" styleClass="item" style="margin: 3px;">
+									<img src="/images/places/#{image}" title="#{image}" style="display: block; width: 100%; height: auto;" />
+								</h:panelGroup>
+							</ui:repeat>
+						</h:panelGroup>
+
+						<p:galleria value="#{placeDetailsMBean.selectedPlace.images}" var="image" panelWidth="400" panelHeight="320" showCaption="false" style="float:center;" rendered="false">
+						    <img src="/images/places/#{image}" alt="Image Description for #{image}" title="#{image}" width="100%" height="100%" />
+						</p:galleria>
 						<br />
 					</h:panelGroup>
 				</b:column>
+				
+				<h:outputScript>
+					$(document).ready(function() {
+						$("#place-images").owlCarousel({
+							autoPlay: 3000, //Set AutoPlay to 3 seconds
+							items : 4,
+							itemsDesktop : [1199,3],
+							itemsDesktopSmall : [979,3]
+						});
+					});
+				</h:outputScript>
 	
 				<b:column col-md="7" styleClass="watch" style="margin-top:30px;">
 					<b:panel look="primary" title="Informações do Lugar" collapsible="false">

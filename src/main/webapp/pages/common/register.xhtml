@@ -16,37 +16,41 @@
 		<h:form enctype="multipart/form-data">
 			<b:row>
 				<b:column offset="3" col-md="6">
-					<h:outputLabel value="Nome: "/> <h:message for="nome" style="color:red" />
-					<b:inputText id="nome" value="#{userMBean.user.name}" placeholder="Insira o seu nome" validatorMessage="    Quantidade de caracteres inválido!" required="true" requiredMessage="  Insira seu nome!">
-						<f:validateLength minimum="5" maximum="40"  />
-					</b:inputText>
-					
-									
-					<h:outputLabel value="Email: "/>  <h:message for="email" style="color:red" />
-					<b:inputText id="email" value="#{userMBean.user.email}" placeholder="Insira o seu email" validatorMessage="    Insira um e-mail inválido!" required="true" requiredMessage="  Insira seu e-mail!">
-						<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-					</b:inputText>
-					
-					<h:outputLabel value="Cidade: "/>  <h:message for="cidade" style="color:red" />
-					<b:selectOneMenu value="#{userMBean.user.city}">
-						<f:selectItem itemValue="" itemLabel="Selecione a sua cidade de residência" required="true" requiredMessage="  Marque sua cidade!" />
-						<f:selectItems id="cidade" value="#{userMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city.name}/#{city.state}" />
-					</b:selectOneMenu>	
-				
-					<h:outputLabel value="Usuário:"/> <h:message for="usuario" style="color:red" />
-					<b:inputText id="usuario" value="#{userMBean.user.username}" placeholder="Insira o nome de usuário desejado" validatorMessage="    O nome do usúario deve estar entre 5 e 10 caracteres!" required="true" requiredMessage="  Insira um nome de usuário!">
-						<f:validateLength minimum="5" maximum="10"  />
-					</b:inputText>
-				       				
-					<h:outputLabel value="Senha: "/>  <h:message for="senha" style="color:red" />
-					<b:inputSecret id="senha" value="#{userMBean.user.password}" placeholder="Insira a sua senha" validatorMessage="A senha deve estar entre 5 e 10 caracteres!" required="true" requiredMessage="  Insira uma senha!">
-						<f:validateLength minimum="5" maximum="10"  />
-					</b:inputSecret>
- 
-					<h:outputLabel value="Foto do perfil: "/><br/>
-					<p:fileUpload id="photo-selector" binding="#{upload}" value="#{userMBean.selectedPhoto}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-					
-				    <p:graphicImage value="#" height="150" binding="#{image}" />
+					<b:row>
+						<b:column col-sm="8">
+							<h:outputLabel value="Nome: "/> <h:message for="name" styleClass="form-label-message" />
+							<b:inputText id="name" value="#{userMBean.user.name}" placeholder="Insira o seu nome" validatorMessage="Quantidade de caracteres inválido." required="true" requiredMessage="Insira seu nome.">
+								<f:validateLength minimum="5" maximum="40"  />
+							</b:inputText>
+							
+							<h:outputLabel value="Email: "/>  <h:message for="email" styleClass="form-label-message" />
+							<b:inputText id="email" value="#{userMBean.user.email}" placeholder="Insira o seu email" validatorMessage="Insira um e-mail válido." required="true" requiredMessage="Insira seu e-mail.">
+								<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							</b:inputText>
+							
+							<h:outputLabel value="Cidade: "/>  <h:message for="city" styleClass="form-label-message" />
+							<b:selectOneMenu id="city" value="#{userMBean.user.city}" required="true" requiredMessage="Selecione sua cidade." > 
+								<f:selectItem itemValue="#{null}" itemLabel="Selecione a sua cidade de residência" noSelectionOption="true" />
+								<f:selectItems value="#{userMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city.name}/#{city.state}" />
+							</b:selectOneMenu>	
+						
+							<h:outputLabel value="Usuário:"/> <h:message for="username" styleClass="form-label-message" />
+							<b:inputText id="username" value="#{userMBean.user.username}" placeholder="Insira o nome de usuário desejado" validatorMessage="O nome dw usúario deve ter de 5 a 10 caracteres." required="true" requiredMessage="Insira um nome de usuário.">
+								<f:validateLength minimum="5" maximum="10"  />
+							</b:inputText>
+						       				
+							<h:outputLabel value="Senha: "/>  <h:message for="password" styleClass="form-label-message" />
+							<b:inputSecret id="password" value="#{userMBean.user.password}" placeholder="Insira a sua senha" validatorMessage="A senha deve estar entre 5 e 10 caracteres." required="true" requiredMessage="Insira uma senha.">
+								<f:validateLength minimum="5" maximum="10"  />
+							</b:inputSecret>
+						</b:column>
+						<b:column col-sm="4">
+							<h:outputLabel value="Foto do perfil: "/><br/>
+						    <p:graphicImage value="#" height="150" binding="#{image}" style="border: 1px solid gray; width:100%; visible:invisible;" />
+
+							<p:fileUpload id="photo-selector" binding="#{upload}" value="#{userMBean.selectedPhoto}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  />
+						</b:column>
+					</b:row>
 				</b:column>
 			</b:row>
 			
@@ -59,7 +63,10 @@
 				                output.attr('src', e.target.result);
 				            };
 				            reader.readAsDataURL(input.files[0]);
+					        output.css("visibility", "visible");
 				        }
+				    } else {
+				    	output.css("visibility", "invisible");
 				    }
 				}
 				

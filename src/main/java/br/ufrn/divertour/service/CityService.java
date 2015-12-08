@@ -1,5 +1,6 @@
 package br.ufrn.divertour.service;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,7 +12,9 @@ import br.ufrn.divertour.repository.ICityRepository;
 import br.ufrn.divertour.service.exception.ValidationException;
 
 @Service
-public class CityService {
+public class CityService implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private ICityRepository cityRepository;

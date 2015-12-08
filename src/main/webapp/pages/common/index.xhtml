@@ -12,14 +12,16 @@
 
 			<h:panelGroup layout="block" styleClass="section active" style="padding-bottom:0px;">
 				<h:panelGroup layout="block" style="display:block; position:relative;height:50%;background:#B23939;padding:30px; text-align:center;color:#FFF;font-size:2em;font-family:roboto-thin; overflow-y:hidden;">
-					<h1 style="color:white; font-weight: bold;">EXPLORE. VIAJE. DIVIRTA-SE.</h1><br />
-					<p>Encontre lugares, roteiros e cidades com a caixa de pesquisa abaixo.</p>
+					<h:panelGroup layout="block" id="elem-container" style="display:inline-block;">
+						<h1 style="color:white; font-weight: bold;">EXPLORE. VIAJE. DIVIRTA-SE.</h1><br />
+						<p>Encontre lugares, roteiros e cidades com a caixa de pesquisa abaixo.</p>
 
-					<h:form>
-						<p:autoComplete id="search-box" value="#{searchMBean.selectedItem}" completeMethod="#{searchMBean.findResults}"
-						var="foundItem" itemLabel="#{foundItem.exhibitionName}" itemValue="#{foundItem}" converter="searchableConverter" forceSelection="true" maxResults="5" minQueryLength="3" />
-						<p:commandButton id="search-box-button" icon="ui-icon-search" action="#{searchMBean.showDetails}" />
-					</h:form>
+						<h:form prependId="false">
+							<p:autoComplete id="search-box" value="#{searchMBean.selectedItem}" completeMethod="#{searchMBean.findResults}"
+							var="foundItem" itemLabel="#{foundItem.exhibitionName}" itemValue="#{foundItem}" converter="searchableConverter" forceSelection="true" maxResults="5" minQueryLength="3"/>
+							<p:commandButton id="search-box-button" icon="ui-icon-search" action="#{searchMBean.showDetails}" />
+						</h:form>
+					</h:panelGroup>
 				</h:panelGroup>
 
 				<h:panelGroup layout="block" style="height:50%;text-align:center;" styleClass="primary-color">
