@@ -1,5 +1,4 @@
-
-<ui:composition template="/pages/include/template.xhtml"
+<ui:composition template="/pages/include/template_paper.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -39,24 +38,29 @@
 					<h:form enctype="multipart/form-data" prependId="false">	
 						<b:row styleClass="equalizer">
 							<b:column col-md="6" styleClass="watch">
-								<h:outputLabel for="name" value="Nome" />
-								<b:inputText id="name" value="#{placeMBean.place.name}" placeholder="Nome do lugar" />
+								<h:outputLabel for="name" value="Nome:" /> 
+								<h:message for="name" style="color:red" />
+								<b:inputText id="name" value="#{placeMBean.place.name}" placeholder="Nome do lugar" validatorMessage="Quantidade de caracteres inválido" required="true" requiredMessage="  Insira o nome do lugar!" >
+									<f:validateLength minimum="5" maximum="40"  />
+								</b:inputText>
 								
-								<h:outputLabel for="type" value="Tipo "/>
-								<b:selectOneMenu id="type" value="#{placeMBean.place.type}">
-									<f:selectItems value="#{placeMBean.typesOfPlace}" var="type" itemValue="#{type}" itemLabel="#{type}" />
+								<h:outputLabel for="type" value="Tipo: "/> <h:message for="tipo" style="color:red" />
+								<b:selectOneMenu id="type" value="#{placeMBean.place.type}" >
+									<f:selectItems id="tipo" value="#{placeMBean.typesOfPlace}" var="type" itemValue="#{type}" itemLabel="#{type}" required="true" />
 								</b:selectOneMenu>
 								
-								<h:outputLabel for="website" value="Website " />
-			       				<b:inputText id="website" value="#{placeMBean.place.website}" placeholder="Website do local" />	
+								<h:outputLabel for="website" value="Website:" />  <h:message for="website" style="color:red" />
+			       				<b:inputText id="website" value="#{placeMBean.place.website}" placeholder="Website do local" >	
+			       					<f:validateRegex pattern="(http://|https://)(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?" />
+			       				</b:inputText>
 			       				
 								<h:outputLabel for="contacts" value="Contato(s): " />
 			       				<b:inputText id="contacts" value="#{placeMBean.insertedContact}" placeholder="Contatos do local" />
 			       				<p:commandButton value="Adicionar" action="#{placeMBean.addContact}" rendered="false" />
 							</b:column>
 							<b:column col-md="6" styleClass="watch">	
-							    <h:outputLabel for="description" value="Descrição" />     
-							    <p:editor id="description"  widgetVar="editorWidget" value="#{placeMBean.place.description}" required="tue" requiredMessage="Descrição Obrigatória" style="width:100%;height:100%;"/>	
+							    <h:outputLabel for="description" value="Descrição:" />     
+							    <p:editor id="description"  widgetVar="editorWidget" value="#{placeMBean.place.description}" required="true" requiredMessage="Descrição Obrigatória" style="width:100%;height:100%;"/>	
 							</b:column>
 						</b:row>
 						
@@ -67,14 +71,14 @@
 						
 							<b:column col-md="6">
 								<h:outputLabel value="Cidade: "/>
-								<b:selectOneMenu id="city" value="#{placeMBean.place.city}">
+								<b:selectOneMenu id="city" value="#{placeMBean.place.city}" required="true" >
 									<f:selectItems value="#{placeMBean.cities}" var="city" itemValue="#{city}" itemLabel="#{city.name}/#{city.state}" />
 								</b:selectOneMenu>								
 							</b:column>
 							
 							<b:column col-md="6">
 								<h:outputLabel for="address" value="Endereço: "/>
-								<b:inputText id="address" value="#{placeMBean.place.address}" placeholder="Endereço do local" >
+								<b:inputText id="address" value="#{placeMBean.place.address}" placeholder="Endereço do local" required="true" >
 									<f:facet name="append">
 										<b:commandButton value="Buscar" iconAwesome="search" onclick="geocode();return false;"/>
 									</f:facet>
@@ -111,7 +115,7 @@
 						
 						<b:row>
 							<b:column col-md="12" style="margin-top:20px;height:500px;">
-								<p:commandButton value="Registrar" action="#{placeMBean.register}" />		
+								<p:commandButton value="Registrar" action="#{placeMBean.register}" styleClass="submit-form" />		
 							</b:column>	
 						</b:row>
 					</h:form>

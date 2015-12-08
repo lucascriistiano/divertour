@@ -20,11 +20,15 @@
 				<b:column offset="3" col-md="6">
 					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 					
-					<h:outputLabel value="Usuário:"/>
-					<b:inputText placeholder="Nome de usuário" value="#{authenticationBean.username}" />
+					<h:outputLabel value="Usuário:"/> <h:message for="usuario" style="color:red" />
+					<b:inputText id="usuario" placeholder="Nome de usuário" value="#{authenticationBean.username}" validatorMessage="    O nome do usúario deve estar entre 5 e 10 caracteres!" required="true"  requiredMessage="  Insira seu usuário!">
+						<f:validateLength minimum="5" maximum="10"  />
+					</b:inputText>
 	       			
-	       			<h:outputLabel value="Senha"/>
-	   				<b:inputSecret placeholder="Senha" value="#{authenticationBean.password}"/>
+	       			<h:outputLabel value="Senha:"/> <h:message for="senha" style="color:red" />
+	   				<b:inputSecret id="senha" placeholder="Senha" value="#{authenticationBean.password}" validatorMessage="A senha deve estar entre 5 e 10 caracteres!" required="true" requiredMessage="  Insira sua senha!"	>
+	   					<f:validateLength minimum="5" maximum="10"  />
+					</b:inputSecret>
 				</b:column>
 			</b:row>
 			

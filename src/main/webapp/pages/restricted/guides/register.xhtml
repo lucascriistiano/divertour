@@ -25,8 +25,10 @@
 				<h:form prependId="false">
 					<!-- <h3>Informações</h3>  -->
 					
-					<h:outputLabel for="name" value="Nome: " />
-					<b:inputText id="name" value="#{guideMBean.guide.name}" placeholder="Nome do roteiro" />
+					<h:outputLabel for="name" value="Nome: " /> <h:message for="name" style="color:red" />
+					<b:inputText id="name" value="#{guideMBean.guide.name}" placeholder="Nome do roteiro" validatorMessage="Quantidade de caracteres inválida" required="true" requiredMessage="  Insira o nome para o roteiro!" >
+        				<f:validateLength minimum="5" maximum="20" />
+        			</b:inputText>
         			
         			<br/>
         			<h:outputLabel for="category" value="Categoria: " />
@@ -36,8 +38,10 @@
 					</b:selectOneMenu>
         			
         			<br/>
-        			<h:outputLabel for="period" value="Número de dias sugeridos: " />
-					<b:inputText id="period" value="#{guideMBean.guide.period}" placeholder="Número de dias" />
+        			<h:outputLabel for="period" value="Número de dias sugeridos: " /> <h:message for="period" style="color:red" />
+					<b:inputText id="period" value="#{guideMBean.guide.period}" placeholder="Número de dias" validatorMessage="Quantidade de dias deve ser de 1 a 30" required="true" requiredMessage="  Insira o período do roteiro!">
+						<f:validateLongRange minimum="1" maximum="30" />
+        			</b:inputText>
 					
 					<h3>Lugares</h3>
 					
