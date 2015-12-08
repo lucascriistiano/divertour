@@ -1,19 +1,155 @@
 <ui:composition template="/pages/include/template.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:b="http://bootsfaces.net/ui"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<ui:define name="title">Página do Usuário</ui:define>
-	
+
 	<ui:define name="content">
-		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-	
-		<b:container styleClass="background">
-			<h1>Página do Usuário</h1>
-        </b:container>
+		<h:form>
+			<h:panelGroup layout="block" styleClass="section active"
+				style="margin-top:80px;">
+				<h:panelGroup layout="block" styleClass="section paper">
+					<b:container styleClass="divsRow">
+
+						<b:row>
+							<b:column col-md="12" styleClass="title">
+								<hr />	Cadastrar  <hr />
+							</b:column>
+						</b:row>
+
+						<b:row>
+							<b:column>
+
+								<center>
+									<b:commandButton value="Novo Lugar" style="width: 50%;"
+										styleClass="list-button" action="#{searchPlaceMBean.newPlace}" />
+									<br></br>
+									<b:commandButton value="Novo Roteiro" style="width: 50%;"
+										styleClass="list-button" action="#{searchGuideMBean.newGuide}" />
+								</center>
+
+							</b:column>
+						</b:row>
+
+
+						<b:row>
+							<b:column col-md="12" styleClass="title">
+								<hr />	Meus Roteiros  <hr />
+							</b:column>
+						</b:row>
+
+
+
+						<b:row>
+							<h:panelGroup id="result-list" layout="block">
+								<h:panelGroup layout="block"
+									rendered="#{empty searchGuideMBean.foundResults}"
+									style="text-align:center; font-size: 1.5em; padding-bottom: 20px;">
+									<h:outputText value="Nenhum roteiro encontrado" style="" />
+								</h:panelGroup>
+
+								<ui:repeat value="#{searchGuideMBean.foundResults}" var="guide">
+									<b:panel
+										style="box-shadow:0 3px 2px -2px rgba(200,200,200,0.2);border-radius:0;">
+										<b:row styleClass="list-item" style="box-shadow:none;">
+											<b:column col-md="3">
+												<h:panelGroup layout="block" style="height:100%;">
+													<h:outputText for="images" value="Imagens:" />
+													<br />
+												</h:panelGroup>
+											</b:column>
+											<b:column col-md="7">
+												<h3 style="margin-top: 6px;">#{guide.name}</h3>
+												<p:rating value="#{guide.rating}" readonly="true" />
+												<br />
+												<h:panelGroup style="margin-right: 8px;">
+													<b:label text="#{guide.places.size()} lugares"
+														severity="warning" />
+												</h:panelGroup>
+
+												<h:panelGroup style="margin-right: 8px;">
+													<b:label text="#{guide.period} dia(s)" severity="primary" />
+												</h:panelGroup>
+
+												<h:panelGroup style="margin-right: 8px;">
+													<b:label text="#{guide.category}" severity="default" />
+												</h:panelGroup>
+												<br />
+											</b:column>
+											<b:column col-md="2">
+												<b:commandButton value="Ver mais"
+													action="#{searchGuideMBean.showDetails(guide.id)}"
+													styleClass="list-button" />
+												<b:commandButton value="Adicionar à Rota"
+													action="#{searchGuideMBean.customize(guide.id)}"
+													styleClass="list-button" />
+											</b:column>
+										</b:row>
+									</b:panel>
+								</ui:repeat>
+							</h:panelGroup>
+						</b:row>
+
+
+
+
+						<b:row>
+							<b:column col-md="12" styleClass="title">
+								<hr />	Minhas Avaliações/Comentários  <hr />
+							</b:column>
+						</b:row>
+
+						<b:row>
+							<b:panel id="last-comments" look="primary"
+								title="Últimos Comentários" collapsible="false">
+								<ui:repeat var="comment"
+									value="#{placeDetailsMBean.selectedPlace.comments}">
+									<ui:param name="commentUser"
+										value="#{placeDetailsMBean.getCommentUserById(comment.userId)}" />
+
+									<b:row styleClass="list-item" style="box-shadow:none;">
+										<b:column col-md="2" col-sm="0" col-xs="0">
+											<h:panelGroup layout="block" style="height:100%;">
+												<img src="/images/users/#{commentUser.profileImage}"
+													class="img-responsive img-circle" alt="#{commentUser.name}"
+													style="height: 80px; float: right;" />
+											</h:panelGroup>
+										</b:column>
+
+										<b:column col-md="10" col-sm="12" col-xs="12">
+											<h:panelGroup layout="block" styleClass="panel panel-default">
+												<h:panelGroup layout="block" styleClass="panel-heading">
+													<h:outputText value="#{commentUser.name}"
+														style="float: left;" />
+													<p:rating value="#{comment.rating}" readonly="true"
+														style="margin-left:10px; float: left;" />
+													<h:outputText value="#{comment.date}" style="float:right;">
+														<f:convertDateTime pattern="dd/MM/yyyy" />
+													</h:outputText>
+													<br />
+												</h:panelGroup>
+												<h:panelGroup layout="block" styleClass="panel-body">
+													<h:outputText value="#{comment.text}" />
+												</h:panelGroup>
+											</h:panelGroup>
+										</b:column>
+									</b:row>
+								</ui:repeat>
+
+								<h:commandLink value="Ver mais comentários" action="#" />
+							</b:panel>
+						</b:row>
+
+
+					</b:container>
+				</h:panelGroup>
+
+			</h:panelGroup>
+		</h:form>
 	</ui:define>
+
 
 </ui:composition>
