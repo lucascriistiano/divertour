@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.9" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="br.ufrn.divertour.converter" project="divertour" 
+    file="/divertour/src/main/java/br/ufrn/divertour/converter" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="91" width="255" x="63" y="207"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="br.ufrn.divertour.gui" project="divertour" 
+    file="/divertour/src/main/java/br/ufrn/divertour/gui" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="95" width="287" x="399" y="37"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="br.ufrn.divertour.repository" project="divertour" 
+    file="/divertour/src/main/java/br/ufrn/divertour/repository" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="108" width="275" x="681" y="207"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="br.ufrn.divertour.repository.util" project="divertour" 
+    file="/divertour/src/main/java/br/ufrn/divertour/repository/util" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="257" x="996" y="207"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="br.ufrn.divertour.security" project="divertour" 
+    file="/divertour/src/main/java/br/ufrn/divertour/security" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="88" width="283" x="358" y="207"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="br.ufrn.divertour.service" project="divertour" 
+    file="/divertour/src/main/java/br/ufrn/divertour/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="122" width="255" x="405" y="355"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="br.ufrn.divertour.service.exception" project="divertour" 
+    file="/divertour/src/main/java/br/ufrn/divertour/service/exception" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="294" x="980" y="517"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="br.ufrn.divertour.template" project="divertour" 
+    file="/divertour/src/main/java/br/ufrn/divertour/template" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="130" width="317" x="42" y="37"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="9" language="java" name="br.ufrn.divertour.model" project="divertour" 
+    file="/divertour/src/main/java/br/ufrn/divertour/model" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="90" width="200" x="358" y="517"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <dependency id="10">    
+    <bendpoint x="711" y="355"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="11">    
+    <bendpoint x="840" y="355"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="13">    
+    <bendpoint x="220" y="355"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="14">    
+    <bendpoint x="1283" y="207"/>    
+    <bendpoint x="1283" y="355"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="15">    
+    <bendpoint x="997" y="355"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="17">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="18">    
+    <bendpoint x="367" y="355"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="20">    
+    <bendpoint x="690" y="355"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="21">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="22">    
+    <bendpoint x="32" y="207"/>    
+    <bendpoint x="32" y="355"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="23">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="24">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
