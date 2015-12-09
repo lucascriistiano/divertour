@@ -86,13 +86,13 @@ public class PlaceMBean implements Serializable {
 			}
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
-			return "/pages/restricted/homepage";
+			return "pretty:homepage_user";
 		} catch (ValidationException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e.getMessage()));
 		} catch (PhotoSavingException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", e.getMessage()));
-			return "/pages/restricted/homepage";
+			return "pretty:homepage_user";
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

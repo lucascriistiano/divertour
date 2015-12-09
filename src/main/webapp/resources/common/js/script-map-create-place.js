@@ -14,7 +14,7 @@ function success(position) {
 
 	var mapOptions = {
 		center : latlng,
-		zoom : 13,
+		zoom : 13,	
 		mapTypeId : google.maps.MapTypeId.ROADMAP,
 		mapTypeControl: false
 	};
@@ -51,7 +51,7 @@ var markers = [];
 
 // Searchbar
 function initAutocomplete(mapOptions) {
-	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	map = new google.maps.Map(document.getElementById('place-form:map-canvas'), mapOptions);
 	geocoder = new google.maps.Geocoder();
 	
 	google.maps.event.addListener(map, 'click', function(event) {
@@ -123,12 +123,12 @@ function geocodeAddress(location) {
 }
 
 function setPlaceLocation(location) {
-	$('#selected-lat').val(location.lat());
-	$('#selected-lng').val(location.lng());
+	$(document.getElementById('place-form:selected-lat')).val(location.lat());
+	$(document.getElementById('place-form:selected-lng')).val(location.lng());
 }
 
 function setPlaceAddress(address) {
-	$('#address').val(address);
+	$(document.getElementById('place-form:address')).val(address);
 }
 
 // Deletes all markers in the array by removing references to them.
@@ -138,8 +138,13 @@ function deleteMarkers() {
 }
 
 function geocode() {
-	var address = $('#address').val();
-	var city = $('#city option:selected').text();
+	var address = $(document.getElementById('place-form:address')).val();
+	
+	var city = '';
+	var cityCombo = document.getElementById('place-form:city');
+    if (cityCombo.selectedIndex != -1) {
+    	city = cityCombo.options[cityCombo.selectedIndex].text;
+    }
 	
 	var completeAddress = address + ', ' + city + ', Brasil';
 	console.log(completeAddress);

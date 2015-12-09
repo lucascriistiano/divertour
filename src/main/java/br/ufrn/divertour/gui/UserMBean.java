@@ -50,7 +50,7 @@ public class UserMBean implements Serializable {
 			}
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
-			return "/pages/common/login";
+			return "pretty:login";
 		} catch (ValidationException e) {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
@@ -58,7 +58,7 @@ public class UserMBean implements Serializable {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", e.getMessage()));
-			return "/pages/common/login";
+			return "pretty:login";
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -94,7 +94,7 @@ public class GuideMBean implements Serializable {
 			guide.setPlaces(selectedPlaces);
 			this.guideService.register(guide);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadastro realizado com sucesso"));
-			return "/pages/restricted/homepage";
+			return "pretty:homepage_user";
 		} catch (ValidationException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
 		} catch (Exception e) {
