@@ -8,7 +8,10 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+
+import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.FilenameUtils;
 import org.primefaces.model.UploadedFile;
@@ -18,7 +21,9 @@ import org.springframework.stereotype.Service;
 import br.ufrn.divertour.model.Comment;
 import br.ufrn.divertour.model.LatLng;
 import br.ufrn.divertour.model.Place;
+import br.ufrn.divertour.model.User;
 import br.ufrn.divertour.repository.IPlaceRepository;
+import br.ufrn.divertour.security.AuthenticationBean;
 import br.ufrn.divertour.service.exception.PhotoSavingException;
 import br.ufrn.divertour.service.exception.ValidationException;
 
@@ -42,7 +47,11 @@ public class PlaceService {
 	public void register(Place place) throws ValidationException {
 		validate(place);
 		
+		User loggedUser = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(AuthenticationBean.AUTH_KEY);
+		place.setUser(loggedUser);
+		
 		place.setComments(new ArrayList<>());  //Initialize comments with a empty list
+		place.setCreationDate(new Date());
 		placeRepository.save(place);
 	}
 
@@ -73,6 +82,10 @@ public class PlaceService {
 	public List<Place> findByCategory(String category) {
 		return placeRepository.findByCategory(category);
 	}		
+	
+	public List<Place> findByUser(User loggedUser) {
+		return placeRepository.findByUser(loggedUser);
+	}
 	
 	public List<Place> findOnArea(LatLng upperBound, LatLng lowerBound) {
 		return placeRepository.findOnArea(upperBound, lowerBound);

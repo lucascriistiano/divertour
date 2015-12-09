@@ -3,6 +3,7 @@ package br.ufrn.divertour.repository;
 import java.util.List;
 
 import br.ufrn.divertour.model.Guide;
+import br.ufrn.divertour.model.User;
 
 public interface IGuideRepository {
 
@@ -15,6 +16,7 @@ public interface IGuideRepository {
 	public List<Guide> findByPeriod(int period);
 	public List<Guide> findByCategory(String category);
 	public List<Guide> findByCityAndState(String cityName, String cityState);
+	public List<Guide> findByUser(User loggedUser);
 	public List<Integer> getPeriodsOfGuide();
 	public List<Integer> getNumberOfPlaces();
 

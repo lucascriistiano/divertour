@@ -1,5 +1,6 @@
 package br.ufrn.divertour.model;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -21,6 +22,8 @@ public class Place implements Searchable {
 	private String website;
 	private int rating;
 	private List<Comment> comments;
+	private Date creationDate;
+	private User user;
 	
 	public String getId() {
 		return id;
@@ -136,6 +139,22 @@ public class Place implements Searchable {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
