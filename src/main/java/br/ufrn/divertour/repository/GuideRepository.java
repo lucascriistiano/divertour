@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import br.ufrn.divertour.model.Guide;
+import br.ufrn.divertour.model.User;
 
 @Component
 public class GuideRepository implements IGuideRepository {
@@ -83,6 +84,15 @@ public class GuideRepository implements IGuideRepository {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("places.city.name").in(cityName).and("places.city.state").in(cityState));
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
+		return mongoTemplate.find(query, Guide.class);
+	}
+	
+	@Override
+	public List<Guide> findByUser(User loggedUser) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("user.username").is(loggedUser.getUsername()));
+		//TODO order by date
+		query.with(new Sort(Sort.Direction.DESC, "creationDate"));
 		return mongoTemplate.find(query, Guide.class);
 	}
 

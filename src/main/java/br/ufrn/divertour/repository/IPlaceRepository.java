@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.ufrn.divertour.model.LatLng;
 import br.ufrn.divertour.model.Place;
+import br.ufrn.divertour.model.User;
 
 public interface IPlaceRepository {
 
@@ -16,6 +17,7 @@ public interface IPlaceRepository {
 	public List<Place> findByCityAndState(String city, String state);
 	public List<Place> findByType(String type);
 	public List<Place> findByCategory(String category);
+	public List<Place> findByUser(User loggedUser);
 	public List<Place> findOnArea(LatLng upperBound, LatLng lowerBound);
 
 }

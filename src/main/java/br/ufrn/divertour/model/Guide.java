@@ -11,24 +11,12 @@ public class Guide implements Searchable {
 	private String id;
 	private String name;
 	private String category;
-	private Date creationDate;
 	private int period;
 	private int rating;
 	private List<Comment> comments;
 	private List<Place> places;
-
-	public Guide() {}
-	
-	public Guide(String name, String category, Date creationDate, int period, int rating, List<Comment> comments, List<Place> places) {
-		super();
-		this.name = name;
-		this.category = category;
-		this.creationDate = creationDate;
-		this.period = period;
-		this.rating = rating;
-		this.comments = comments;
-		this.places = places;
-	}
+	private Date creationDate;
+	private User user;
 
 	public String getId() {
 		return id;
@@ -52,14 +40,6 @@ public class Guide implements Searchable {
 
 	public void setCategory(String category) {
 		this.category = category;
-	}
-
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
 	}
 
 	public Integer getPeriod() {
@@ -96,6 +76,22 @@ public class Guide implements Searchable {
 
 	public void setPlaces(List<Place> places) {
 		this.places = places;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

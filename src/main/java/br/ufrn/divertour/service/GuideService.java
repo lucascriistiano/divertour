@@ -5,12 +5,16 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufrn.divertour.model.Guide;
 import br.ufrn.divertour.model.Place;
+import br.ufrn.divertour.model.User;
 import br.ufrn.divertour.repository.IGuideRepository;
+import br.ufrn.divertour.security.AuthenticationBean;
 import br.ufrn.divertour.service.exception.ValidationException;
 
 @Service
@@ -37,6 +41,9 @@ public class GuideService {
 		for (Place place : guide.getPlaces()) {		
 			place.setComments(new ArrayList<>()); // Erase comments before save guide
 		}
+		
+		User loggedUser = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(AuthenticationBean.AUTH_KEY);
+		guide.setUser(loggedUser);
 		
 		guide.setComments(new ArrayList<>());  //Initialize comments with a empty list
 		guide.setCreationDate(new Date());
@@ -73,6 +80,10 @@ public class GuideService {
 	
 	public List<Guide> findByCityAndState(String cityName, String cityState) {
 		return guideRepository.findByCityAndState(cityName, cityState);
+	}
+	
+	public List<Guide> findByUser(User loggedUser) {
+		return guideRepository.findByUser(loggedUser);
 	}
 	
 	public List<Integer> getPeriodsOfGuide() {

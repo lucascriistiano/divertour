@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import br.ufrn.divertour.model.LatLng;
 import br.ufrn.divertour.model.Place;
+import br.ufrn.divertour.model.User;
 
 @Component
 public class PlaceRepository implements IPlaceRepository {
@@ -77,6 +78,15 @@ public class PlaceRepository implements IPlaceRepository {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("categories").in(category));
 		query.with(new Sort(Sort.Direction.DESC, "rating"));
+		return mongoTemplate.find(query, Place.class);
+	}
+	
+	@Override
+	public List<Place> findByUser(User loggedUser) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("user.username").is(loggedUser.getUsername()));
+		//TODO order by date
+		query.with(new Sort(Sort.Direction.DESC, "creationDate"));
 		return mongoTemplate.find(query, Place.class);
 	}
 
