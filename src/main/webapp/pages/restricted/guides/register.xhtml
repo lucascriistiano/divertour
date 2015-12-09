@@ -20,54 +20,64 @@
 			<h:panelGroup id="push" layout="block"></h:panelGroup>
 
 			<h:panelGroup id="left-map-menu" layout="block" style="padding-left:20px; padding-right:20px;">
-				<h2 style="text-align:center; padding-top: 10px; padding-bottom: 20px;">Novo Roteiro  <b:iconAwesome name="map-signs" /></h2>
+				<h3 style="text-align:center; padding-top: 10px; padding-bottom: 10px; margin-top:0px;">Novo Roteiro  <b:iconAwesome name="map-signs" /></h3>
 				
 				<b:row>
 					<b:column col-xs="12">
 						<h:form prependId="false">
-							<!-- <h3>Informações</h3>  -->
-							
-							<h:outputLabel for="name" value="Nome: " /> <h:message for="name" styleClass="form-label-message" />
-							<b:inputText id="name" value="#{guideMBean.guide.name}" placeholder="Nome do roteiro" validatorMessage="Quantidade de caracteres inválida." required="true" requiredMessage="Insira o nome para o roteiro." >
-		        				<f:validateLength minimum="5" maximum="20" />
-		        			</b:inputText>
+							<b:row>
+								<b:column>
+									<h:outputLabel for="name" value="Nome: " /> <h:message for="name" styleClass="form-label-message" />
+									<b:inputText id="name" value="#{guideMBean.guide.name}" placeholder="Nome do roteiro" validatorMessage="Quantidade de caracteres inválida." required="true" requiredMessage="Insira o nome para o roteiro." >
+				        				<f:validateLength minimum="5" maximum="20" />
+				        			</b:inputText>
+				        		</b:column>
+			        		</b:row>
 		        			
-		        			<br/>
-		        			<h:outputLabel for="category" value="Categoria: " /> <h:message for="category" styleClass="form-label-message" />
-							<b:selectOneMenu id="category" value="#{guideMBean.guide.category}" required="true" requiredMessage="Selecione uma categoria." >
-								<f:selectItem itemLabel="Selecione a categoria do roteiro" itemValue="" itemDisabled="true" />
-								<f:selectItems value="#{guideMBean.categoriesOfGuide}" var="category" itemValue="#{category}" itemLabel="#{category}" />
-							</b:selectOneMenu>
-		        			
-		        			<br/>
-		        			<h:outputLabel for="period" value="Número de dias sugeridos: " /> <h:message for="period" styleClass="form-label-message" />
-							<b:inputText id="period" value="#{guideMBean.guide.period}" placeholder="Número de dias" validatorMessage="Quantidade de dias deve ser de 1 a 30." required="true" requiredMessage="Insira o período do roteiro.">
-								<f:validateLongRange minimum="1" maximum="30" />
-		        			</b:inputText>
-							
-							<h3>Lugares</h3>
+		        			<b:row>
+		        				<b:column col-sm="8">
+				        			<h:outputLabel for="category" value="Categoria: " /> <h:message for="category" styleClass="form-label-message" />
+									<b:selectOneMenu id="category" value="#{guideMBean.guide.category}" required="true" requiredMessage="Selecione uma categoria." >
+										<f:selectItem itemLabel="Categoria do roteiro" itemValue="" itemDisabled="true" />
+										<f:selectItems value="#{guideMBean.categoriesOfGuide}" var="category" itemValue="#{category}" itemLabel="#{category}" />
+									</b:selectOneMenu>
+		        				</b:column>
+			        			<b:column col-sm="4">
+				        			<h:outputLabel for="period" value="Num. de dias: " /> <h:message for="period" styleClass="form-label-message" />
+									<b:inputText id="period" value="#{guideMBean.guide.period}" placeholder="Número de dias" validatorMessage="Quantidade de dias deve ser de 1 a 30." required="true" requiredMessage="Insira o período do roteiro.">
+										<f:validateLongRange minimum="1" maximum="30" />
+				        			</b:inputText>
+				        		</b:column>
+							</b:row>
 							
 							<!-- Add place on search selection -->
-							<h:outputLabel for="place-search" value="Busque o lugar a ser adicionado: " /> <h:message for="place-search" styleClass="form-label-message" />
+							<h:outputLabel for="place-search" value="Busque os lugares a serem adicionados: " /> <h:message for="place-search" styleClass="form-label-message" />
 							<p:autoComplete id="place-search" value="#{guideMBean.selectedItem}" completeMethod="#{guideMBean.findResults}" var="place" itemLabel="#{place.name}" itemValue="#{place}"
 							converter="placeConverter" forceSelection="true" maxResults="5" minQueryLength="3" style="margin-bottom: 20px; width: 100%;">
 								<p:ajax event="itemSelect" listener="#{guideMBean.addSearchedPlace}" update="searched-place-json place-search selected-places-list" oncomplete="addSearchedPlace()" />
 							</p:autoComplete>
 							<h:inputHidden id="searched-place-json" value="#{guideMBean.searchedPlaceJSON}" />
-							
 		       				
-		       				<p:orderList id="selected-places-list" value="#{guideMBean.selectedPlaces}" var="place" itemLabel="#{place}" itemValue="#{place}" converter="placeConverter" controlsLocation="right" responsive="true">
-		       					<f:facet name="caption">Ordem Selecionada</f:facet>
-		       					
-		       					<!-- Update places order on map -->
-		       					<p:ajax event="reorder" listener="#{guideMBean.updateGuideOrder}" oncomplete="updateGuideOrder(xhr, status, args);" />
-		       				</p:orderList>
-		
-							<!-- Add place on marker click -->
-							<h:commandButton id="add-clicked-place-btn" actionListener="#{guideMBean.addClickedPlace}" style="display: none;" />
-							<h:inputHidden id="clicked-place-json" value="#{guideMBean.clickedPlaceJSON}" />
-		       				
-		       				<p:commandButton styleClass="submit-form" value="Registrar" action="#{guideMBean.register}" />
+							<b:row>
+			       				<b:column>
+				       				<p:orderList id="selected-places-list" value="#{guideMBean.selectedPlaces}" var="place" itemLabel="#{place}" itemValue="#{place}" converter="placeConverter" controlsLocation="right" responsive="true" >
+				       					<f:facet name="caption">Ordem Selecionada</f:facet>
+				       					
+				       					<!-- Update places order on map -->
+				       					<p:ajax event="reorder" listener="#{guideMBean.updateGuideOrder}" oncomplete="updateGuideOrder(xhr, status, args);" />
+				       				</p:orderList>
+			       				</b:column>
+			       			</b:row>
+	
+							<b:row>
+								<b:column>
+									<!-- Add place on marker click -->
+									<h:commandButton id="add-clicked-place-btn" actionListener="#{guideMBean.addClickedPlace}" style="display: none;" />
+									<h:inputHidden id="clicked-place-json" value="#{guideMBean.clickedPlaceJSON}" />
+				       				
+			       					<p:commandButton styleClass="submit-form" value="Registrar" action="#{guideMBean.register}" />
+		       					</b:column>
+		       				</b:row>
 						</h:form>
 						
 						<!-- Load itens on map change -->
